@@ -15,8 +15,6 @@ dependencies:
   get_it: ^7.2.0
   injectable: ^2.1.0
   objectbox: ^2.0.0
-  path: any
-  path_provider: any
   reflectable: ^4.0.5
 
 dev_dependencies:

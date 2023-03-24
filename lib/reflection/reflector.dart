@@ -3,16 +3,14 @@ import 'package:reflectable/reflectable.dart';
 class TrueSightReflector extends Reflectable {
   const TrueSightReflector()
       : super(
-          instanceInvokeCapability,
+          declarationsCapability,
           invokingCapability,
           libraryCapability,
-          libraryDependenciesCapability,
           metadataCapability,
-          newInstanceCapability,
           reflectedTypeCapability,
-          staticInvokeCapability,
-          typeCapability,
-          typeRelationsCapability,
+          topLevelInvokeCapability,
+          typeAnnotationQuantifyCapability,
+          typingCapability,
         );
 
   static T newInstance<T>(Type type, {List<dynamic> arguments = const []}) {

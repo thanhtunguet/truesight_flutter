@@ -82,9 +82,6 @@ void main() {
     thangld.birthday = DateTime(1991, 05, 10);
     thangld.members.add(tungpt);
     tungpt.manager = thangld;
-
-    var withManagerJson = tungpt.toString();
-    print(withManagerJson);
   });
 
   test('data filter', () {

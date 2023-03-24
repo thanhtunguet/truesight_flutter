@@ -1,4 +1,3 @@
-import 'package:truesight_flutter/data_structure/data_serialization.dart';
 import 'package:truesight_flutter/reflection/reflector.dart';
 
 import 'abstract_filter.dart';

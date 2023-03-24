@@ -31,3 +31,4 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+test/*.reflectable.dart
