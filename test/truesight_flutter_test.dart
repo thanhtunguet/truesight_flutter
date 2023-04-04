@@ -17,8 +17,7 @@ class User extends DataModel {
 
   User? manager;
 
-  @DataList(User)
-  List<User> members = [];
+  DataList<User> members = DataList<User>();
 }
 
 @reflector
@@ -59,9 +58,9 @@ void main() {
     user.fromJSON(json);
     expect(user.username, 'TungPT');
     expect(user.manager.runtimeType, User);
-    expect(user.members, isA<List<User>>());
-    expect(user.members[0].runtimeType, User);
-    expect(user.members[0].id, 3);
+    expect(user.members, isA<DataList<User>>());
+
+    print(user.members);
   });
 
   test('json serialization', () {

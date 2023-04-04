@@ -8,8 +8,10 @@ class TrueSightReflector extends Reflectable {
           libraryCapability,
           metadataCapability,
           reflectedTypeCapability,
-          topLevelInvokeCapability,
           typeAnnotationQuantifyCapability,
+          topLevelInvokeCapability,
+          typeCapability,
+          typeRelationsCapability,
           typingCapability,
         );
 

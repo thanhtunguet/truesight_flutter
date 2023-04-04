@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:reflectable/mirrors.dart';
 import 'package:truesight_flutter/data_structure/data_serialization.dart';
@@ -40,25 +41,21 @@ class DataModel with DataSerialization {
           return;
         }
 
-        /// If this field is a list
-        var hasDataListMarker = memberMirror.metadata.any((element) {
-          return element is DataList;
-        });
-        if (hasDataListMarker) {
-          var dataListMarker = memberMirror.metadata.firstWhere((element) {
-            return element is DataList;
-          }) as DataList;
-          var rawValue = json[memberName];
-          if (rawValue == null) {
+        var initValue = instanceMirror.invokeGetter(memberName);
+
+        if (initValue != null && initValue is DataList) {
+          var memberValue = instanceMirror.invokeGetter(memberName) as DataList;
+          Type genericType = memberValue.genericType;
+
+          var rawList = json[memberName];
+          if (rawList == null) {
             return;
           }
-          var memberList =
-              instanceMirror.invokeGetter(memberName) as List<DataModel>;
-          for (var element in (rawValue as List)) {
-            Type type = dataListMarker.type;
-            var typedValue = TrueSightReflector.newInstance<DataModel>(type);
+          for (var element in (rawList as List)) {
+            var typedValue =
+                TrueSightReflector.newInstance<DataModel>(genericType);
             typedValue.fromJSON(element);
-            memberList.add(typedValue);
+            initValue.add(typedValue);
           }
           return;
         }
@@ -118,17 +115,11 @@ class DataModel with DataSerialization {
         }
 
         /// If this field is a list
-        var hasDataListMarker = memberMirror.metadata.any((element) {
-          return element is DataList;
-        });
-        if (hasDataListMarker) {
-          var originalValue = instanceMirror.invokeGetter(memberName);
-          if (originalValue == null) {
-            result[memberName] = null;
-            return;
-          }
+        var originalValue = instanceMirror.invokeGetter(memberName);
+        if (originalValue is DataList) {
           result[memberName] = [];
-          for (var element in (originalValue as List)) {
+          var originalList = originalValue.toList();
+          for (var element in originalList) {
             var isSerialized =
                 _isSerialized(serialized: serialized!, element: element);
             if (isSerialized) {
