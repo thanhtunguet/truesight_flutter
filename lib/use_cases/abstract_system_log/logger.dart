@@ -7,7 +7,6 @@ mixin Logger {
 
   log(Function function) {
     var instanceMirror = reflector.reflect(this);
-    var methodMirror = reflector.reflect(function);
     var classMirror = instanceMirror.type;
     var className = classMirror.simpleName;
     var methodName = '';

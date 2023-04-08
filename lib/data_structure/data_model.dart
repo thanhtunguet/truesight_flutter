@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:reflectable/mirrors.dart';
+import 'package:truesight_flutter/data_structure/data_list.dart';
 import 'package:truesight_flutter/data_structure/data_serialization.dart';
-import 'package:truesight_flutter/reflection/data_list.dart';
 import 'package:truesight_flutter/reflection/reflector.dart';
 
 @reflector

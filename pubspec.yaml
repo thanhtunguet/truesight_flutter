@@ -1,6 +1,6 @@
 name: truesight_flutter
 description: Flutter core library for Truesight Team
-version: 0.0.2
+version: 0.0.3
 homepage: "https://thanhtunguet.info"
 
 environment:
@@ -19,6 +19,8 @@ dependencies:
   injectable: ^2.1.0
   objectbox: ^2.0.0
   reflectable: ^4.0.5
+  meta: ^1.8.0
+  equatable: ^2.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

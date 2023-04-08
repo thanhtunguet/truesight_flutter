@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:truesight_flutter/data_structure/data_list.dart';
 import 'package:truesight_flutter/truesight_flutter.dart';
 
 import 'truesight_flutter_test.reflectable.dart';
@@ -60,7 +62,9 @@ void main() {
     expect(user.manager.runtimeType, User);
     expect(user.members, isA<DataList<User>>());
 
-    print(user.members);
+    if (kDebugMode) {
+      print(user.members);
+    }
   });
 
   test('json serialization', () {
