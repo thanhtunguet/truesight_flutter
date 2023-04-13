@@ -13,6 +13,8 @@ abstract class HttpRepository extends Repository {
     }
   }
 
+  /// BaseURL of current repository
+  /// All API methods with uses it as prefix of API URL
   String get baseUrl {
     return dio.options.baseUrl;
   }
@@ -33,17 +35,104 @@ abstract class HttpRepository extends Repository {
     dio.options.contentType = contentType.mimeType;
   }
 
+  /// Wrap POST method from Dio
   Future<Response> post(
     String url, {
     dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) {
-    return dio.post(url, data: data);
+    return dio.post(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
+      options: options,
+    );
   }
 
+  /// Wrap GET method from Dio
   Future<Response> get(
     String url, {
-    dynamic queryParameters,
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
   }) {
-    return dio.get(url, queryParameters: queryParameters);
+    return dio.get(
+      url,
+      queryParameters: queryParameters,
+      options: options,
+      onReceiveProgress: onReceiveProgress,
+      cancelToken: cancelToken,
+      data: data,
+    );
+  }
+
+  /// Wrap PUT method from Dio
+  Future<Response> put(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) {
+    return dio.put(
+      path,
+      cancelToken: cancelToken,
+      data: data,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
+      options: options,
+      queryParameters: queryParameters,
+    );
+  }
+
+  /// Wrap PATCH method from Dio
+  Future<Response> patch(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) {
+    return dio.patch(
+      path,
+      cancelToken: cancelToken,
+      data: data,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
+      options: options,
+      queryParameters: queryParameters,
+    );
+  }
+
+  /// Wrap DELETE method from Dio
+  Future<Response> delete(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) {
+    return dio.delete(
+      path,
+      cancelToken: cancelToken,
+      data: data,
+      options: options,
+      queryParameters: queryParameters,
+    );
   }
 }

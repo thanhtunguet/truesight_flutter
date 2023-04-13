@@ -16,8 +16,13 @@ class User extends DataModel {
 
   DateTime birthday = DateTime.now();
 
+  int age = 0;
+
   User? manager;
 
+  // For a field of type "List", we will use the DataList class
+  // This custom class allow the library to detect data type of the field
+  // To intialize and assign value from JSON
   DataList<User> members = DataList<User>();
 }
 
@@ -30,6 +35,8 @@ class UserFilter extends DataFilter {
   StringFilter email = StringFilter();
 
   DateFilter birthday = DateFilter();
+
+  NumberFilter<int> age = NumberFilter<int>();
 }
 
 void main() {

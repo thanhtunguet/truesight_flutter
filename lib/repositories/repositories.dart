@@ -9,3 +9,4 @@ import 'package:truesight_flutter/reflection/reflection.dart';
 part 'http_repository.dart';
 part 'object_box_repository.dart';
 part 'repository.dart';
+part 'file_repository.dart';
