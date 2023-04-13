@@ -1,4 +1,4 @@
-import 'package:truesight_flutter/reflection/reflector.dart';
+part of 'filters.dart';
 
 @reflector
 abstract class AbstractFilter {

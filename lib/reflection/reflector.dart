@@ -1,4 +1,4 @@
-import 'package:reflectable/reflectable.dart';
+part of 'reflection.dart';
 
 class TrueSightReflector extends Reflectable {
   const TrueSightReflector()

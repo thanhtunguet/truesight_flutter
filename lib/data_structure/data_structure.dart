@@ -1,3 +1,14 @@
-export 'data_filter.dart';
-export 'data_model.dart';
-export 'data_serialization.dart';
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+import 'package:reflectable/mirrors.dart';
+import 'package:truesight_flutter/filters/filters.dart';
+import 'package:truesight_flutter/reflection/reflection.dart';
+
+part 'data_filter.dart';
+
+part 'data_list.dart';
+
+part 'data_model.dart';
+
+part 'data_serialization.dart';

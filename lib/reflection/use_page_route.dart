@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'reflection.dart';
 
 class UsePageRoute with EquatableMixin {
   final String route;

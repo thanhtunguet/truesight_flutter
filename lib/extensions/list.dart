@@ -1,5 +1,4 @@
-import 'package:truesight_flutter/data_structure/data_list.dart';
-import 'package:truesight_flutter/data_structure/data_model.dart';
+part of 'extensions.dart';
 
 extension CyclicIndexing<T> on List<T> {
   int nextIndexOf(int index) {

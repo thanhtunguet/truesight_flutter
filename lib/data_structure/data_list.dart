@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:equatable/equatable.dart';
-import 'package:truesight_flutter/truesight_flutter.dart';
+part of 'data_structure.dart';
 
 @reflector
 class DataList<T extends DataModel> with EquatableMixin {

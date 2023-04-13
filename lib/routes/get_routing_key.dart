@@ -1,5 +1,4 @@
-import 'package:reflectable/mirrors.dart';
-import 'package:truesight_flutter/reflection/reflection.dart';
+part of 'routes.dart';
 
 String getRoutingKey(Type page) {
   TypeMirror mirror = reflector.reflectType(page);

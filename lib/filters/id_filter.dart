@@ -1,6 +1,4 @@
-import 'package:truesight_flutter/reflection/reflector.dart';
-
-import 'abstract_filter.dart';
+part of 'filters.dart';
 
 @reflector
 class IdFilter extends AbstractFilter {

@@ -1,6 +1,4 @@
-import 'package:objectbox/objectbox.dart';
-import 'package:truesight_flutter/reflection/reflection.dart';
-import 'package:truesight_flutter/repositories/repository.dart';
+part of 'repositories.dart';
 
 @reflector
 class ObjectBoxRepository extends Repository {

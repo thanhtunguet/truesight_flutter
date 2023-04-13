@@ -1,6 +1,8 @@
-export 'abstract_filter.dart';
-export 'date_filter.dart';
-export 'guid_filter.dart';
-export 'id_filter.dart';
-export 'number_filter.dart';
-export 'string_filter.dart';
+import 'package:truesight_flutter/reflection/reflection.dart';
+
+part 'abstract_filter.dart';
+part 'date_filter.dart';
+part 'guid_filter.dart';
+part 'id_filter.dart';
+part 'number_filter.dart';
+part 'string_filter.dart';

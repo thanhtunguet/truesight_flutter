@@ -1,7 +1,4 @@
-import 'package:dio/dio.dart';
-
-import '../data_structure/data_model.dart';
-import '../reflection/reflector.dart';
+part of 'http.dart';
 
 extension ExtendedResponse on Response {
   T body<T extends DataModel>() {

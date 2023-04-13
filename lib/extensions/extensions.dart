@@ -1,1 +1,3 @@
-export 'list.dart';
+import 'package:truesight_flutter/data_structure/data_structure.dart';
+
+part 'list.dart';

@@ -1,5 +1,4 @@
-import 'package:truesight_flutter/reflection/reflector.dart';
-import '../filters/number_filter.dart';
+part of 'filters.dart';
 
 @reflector
 class DateFilter extends NumberFilter<DateTime> {

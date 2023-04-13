@@ -1,9 +1,5 @@
-import 'dart:convert';
 
-import 'package:reflectable/mirrors.dart';
-import 'package:truesight_flutter/data_structure/data_serialization.dart';
-import 'package:truesight_flutter/filters/abstract_filter.dart';
-import 'package:truesight_flutter/reflection/reflector.dart';
+part of 'data_structure.dart';
 
 enum OrderType {
   asc,

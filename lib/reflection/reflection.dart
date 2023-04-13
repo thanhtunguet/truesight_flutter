@@ -1,2 +1,5 @@
-export 'reflector.dart';
-export 'use_page_route.dart';
+import 'package:equatable/equatable.dart';
+import 'package:reflectable/reflectable.dart';
+
+part 'reflector.dart';
+part 'use_page_route.dart';

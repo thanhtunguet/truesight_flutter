@@ -1,11 +1,17 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-
-import './repository.dart';
+part of 'repositories.dart';
 
 abstract class HttpRepository extends Repository {
-  Dio dio = Dio();
+  late final Dio dio;
+
+  HttpRepository({
+    String? baseUrl,
+  }) : super() {
+    dio = Dio();
+    dio.interceptors.add(CookieManager(PersistCookieJar()));
+    if (baseUrl != null) {
+      this.baseUrl = baseUrl;
+    }
+  }
 
   String get baseUrl {
     return dio.options.baseUrl;
@@ -14,6 +20,17 @@ abstract class HttpRepository extends Repository {
   set baseUrl(String baseUrl) {
     dio.options.baseUrl = baseUrl;
     dio.options.contentType = ContentType.json.mimeType;
+  }
+
+  ContentType get contentType {
+    if (dio.options.contentType != null) {
+      return ContentType.parse(dio.options.contentType!);
+    }
+    return ContentType.json;
+  }
+
+  set contentType(ContentType contentType) {
+    dio.options.contentType = contentType.mimeType;
   }
 
   Future<Response> post(
