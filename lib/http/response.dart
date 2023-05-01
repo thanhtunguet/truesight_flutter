@@ -14,4 +14,8 @@ extension ExtendedResponse on Response {
       return model;
     });
   }
+
+  String text() {
+    return data.toString();
+  }
 }

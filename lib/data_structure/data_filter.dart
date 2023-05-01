@@ -1,25 +1,33 @@
 
 part of 'data_structure.dart';
 
+/// TrueSight's backend order types
 enum OrderType {
+  /// Ascending order
   asc,
+  /// Descending order
   desc,
 }
 
 @reflector
 class DataFilter with DataSerialization {
+  /// Skip value for pagination
   int skip = 0;
 
+  /// Take value for pagination
   int take = 10;
 
+  /// Order data by a certain field
   String? orderBy;
 
+  /// Order type of current filter (ascending or descending)
   OrderType? orderType;
 
   TypeMirror get _abstractFilterReflection {
     return reflector.reflectType(AbstractFilter);
   }
 
+  /// Deserialize json data to filter class
   @override
   void fromJSON(json) {
     var instanceMirror = reflector.reflect(this);
@@ -79,6 +87,7 @@ class DataFilter with DataSerialization {
     });
   }
 
+  /// Convert current filter to json object
   @override
   toJSON() {
     var instanceMirror = reflector.reflect(this);
@@ -114,6 +123,7 @@ class DataFilter with DataSerialization {
     return result;
   }
 
+  /// Convert current filter to JSON string
   @override
   String toString() {
     return jsonEncode(toJSON());

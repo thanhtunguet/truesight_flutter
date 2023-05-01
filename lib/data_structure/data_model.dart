@@ -1,5 +1,6 @@
 part of 'data_structure.dart';
 
+/// DataModel is base class for all data structures that appear in your application
 @reflector
 class DataModel with DataSerialization {
   @override

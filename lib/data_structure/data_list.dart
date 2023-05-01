@@ -1,5 +1,6 @@
 part of 'data_structure.dart';
 
+/// DataList is a class used to mark the generic type for a data field in the form of a list (for Mapping and Content tables).
 @reflector
 class DataList<T extends DataModel> with EquatableMixin {
   late final List<T> _list;
@@ -51,11 +52,13 @@ class DataList<T extends DataModel> with EquatableMixin {
     }
   }
 
+  /// Convert current list to JSON string
   @override
   String toString() {
     return jsonEncode(toJSON());
   }
 
+  /// Clone all field's values from otherList to current list
   operator <<(List<T> otherList) {
     _list.clear();
     for (var element in otherList) {
@@ -63,6 +66,7 @@ class DataList<T extends DataModel> with EquatableMixin {
     }
   }
 
+  /// Assign all fields from this list instance to other list
   operator >>(List<T> otherList) {
     otherList.clear();
     for (var element in _list) {
