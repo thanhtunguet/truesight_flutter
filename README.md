@@ -11,7 +11,11 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-Thư viện Core Flutter TrueSight team
+Core library for Flutter applications.
+
+Designed by: [thanhtunguet](https://github.com)
+
+Supervisor: Le Duc Thang
 
 # Introduction
 

@@ -1,8 +1,13 @@
 part of 'repositories.dart';
 
+/// Repository that has methods to call HTTP APIs
 abstract class HttpRepository extends Repository {
   late final Dio dio;
 
+  /// Construct a new HttpRepository instance with baseUrl string
+  ///
+  /// Each HttpRepository instance has its own dio instance, with unique baseUrl (prefix)
+  /// and uses same cookies from base host
   HttpRepository({
     String? baseUrl,
   }) : super() {
@@ -19,11 +24,13 @@ abstract class HttpRepository extends Repository {
     return dio.options.baseUrl;
   }
 
+  /// Set base URL of current repository
   set baseUrl(String baseUrl) {
     dio.options.baseUrl = baseUrl;
     dio.options.contentType = ContentType.json.mimeType;
   }
 
+  /// Get default content type configuration of this repository
   ContentType get contentType {
     if (dio.options.contentType != null) {
       return ContentType.parse(dio.options.contentType!);
@@ -31,6 +38,7 @@ abstract class HttpRepository extends Repository {
     return ContentType.json;
   }
 
+  /// Set default content type configuration of this repository
   set contentType(ContentType contentType) {
     dio.options.contentType = contentType.mimeType;
   }

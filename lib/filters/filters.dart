@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:truesight_flutter/reflection/reflection.dart';
 
 part 'abstract_filter.dart';

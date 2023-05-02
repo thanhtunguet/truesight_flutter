@@ -3,6 +3,8 @@ part of 'data_structure.dart';
 /// DataModel is base class for all data structures that appear in your application
 @reflector
 class DataModel with DataSerialization {
+  /// Deserialize data from JSON object to assign to this class instance
+  /// field by field
   @override
   void fromJSON(json) {
     if (json is String) {
@@ -84,6 +86,7 @@ class DataModel with DataSerialization {
     return false;
   }
 
+  /// Convert this data model to a JSON representation (Map)
   @override
   toJSON({List<DataModel>? serialized}) {
     serialized ??= [];
@@ -149,6 +152,7 @@ class DataModel with DataSerialization {
     return result;
   }
 
+  /// Clone data (all fields) from another data model
   DataModel operator <<(DataModel model) {
     InstanceMirror instanceMirror = reflector.reflect(this);
     InstanceMirror modelMirror = reflector.reflect(model);
@@ -161,6 +165,7 @@ class DataModel with DataSerialization {
     return this;
   }
 
+  /// Clone data (all fields) from this class instance
   DataModel operator >>(DataModel model) {
     InstanceMirror instanceMirror = reflector.reflect(this);
     InstanceMirror modelMirror = reflector.reflect(model);
@@ -173,6 +178,7 @@ class DataModel with DataSerialization {
     return this;
   }
 
+  /// Convert class instance to a JSON string
   @override
   String toString() {
     return jsonEncode(toJSON());

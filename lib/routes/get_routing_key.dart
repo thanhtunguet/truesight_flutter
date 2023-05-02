@@ -1,7 +1,6 @@
 part of 'routes.dart';
 
-/// Read the routing key of current widget (page)
-/// Pass the Widget class as parameter
+/// Get routing key of Widget class
 String getRoutingKey(Type page) {
   TypeMirror mirror = reflector.reflectType(page);
   var routingKey = "";
