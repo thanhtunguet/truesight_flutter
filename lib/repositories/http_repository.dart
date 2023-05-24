@@ -12,7 +12,6 @@ abstract class HttpRepository extends Repository {
     String? baseUrl,
   }) : super() {
     dio = Dio();
-    dio.interceptors.add(CookieManager(PersistCookieJar()));
     if (baseUrl != null) {
       this.baseUrl = baseUrl;
     }
