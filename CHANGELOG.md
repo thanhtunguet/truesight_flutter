@@ -1,3 +1,14 @@
+## 0.0.12 [2023-05-31]
+
+### Changed
+- Update dependency version
+
+## 0.0.11 [2023-05-31]
+
+### Added
+- Server config stream
+- Method channel to send variable to native side
+
 ## 0.0.8 [2023-05-02]
 
 ### Added
