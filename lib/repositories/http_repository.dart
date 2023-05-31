@@ -13,7 +13,6 @@ abstract class HttpRepository extends Repository {
     StreamController<String>? serverUrlStream,
   }) : super() {
     dio = Dio();
-    dio.interceptors.add(CookieManager(PersistCookieJar()));
     if (baseUrl != null) {
       this.baseUrl = baseUrl;
     }
