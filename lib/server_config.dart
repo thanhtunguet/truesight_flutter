@@ -1,7 +1,22 @@
 import 'dart:async';
 
-final StreamController<String> serverConfig = StreamController<String>();
+import 'package:injectable/injectable.dart';
 
-void initializeServerConfig(String baseUrl) {
-  serverConfig.add(baseUrl);
+@singleton
+class ServerConfig {
+  final _serverConfig = StreamController.broadcast();
+
+  ServerConfig.init();
+
+  void next(String baseUrl) {
+    _serverConfig.add(baseUrl);
+  }
+
+  void unsubscribe() {
+    _serverConfig.close();
+  }
+
+  void subscribe(void Function(dynamic) callback) {
+    _serverConfig.stream.listen(callback);
+  }
 }
