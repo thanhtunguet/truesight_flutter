@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:truesight_flutter/truesight_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _truesightFlutterPlugin = TruesightFlutter();
-
   @override
   void initState() {
     super.initState();
@@ -27,19 +22,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initPlatformState() async {
-    String platformVersion;
-    try {
-      platformVersion = await _truesightFlutterPlugin.getPlatformVersion() ??
-          'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    //
   }
 
   @override
