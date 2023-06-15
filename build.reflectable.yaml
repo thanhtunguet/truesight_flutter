@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      reflectable|reflectable_builder:
+        enabled: true
+        generate_for:
+          include:
+            - test/widget_test.dart
+          exclude:
+            - exampe/**/*.dart

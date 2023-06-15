@@ -6,14 +6,8 @@ class TrueSightReflector extends Reflectable {
       : super(
           declarationsCapability,
           invokingCapability,
-          libraryCapability,
-          metadataCapability,
           reflectedTypeCapability,
-          typeAnnotationQuantifyCapability,
-          topLevelInvokeCapability,
           typeCapability,
-          typeRelationsCapability,
-          typingCapability,
         );
 
   /// Create a new instance from a specific given Type
