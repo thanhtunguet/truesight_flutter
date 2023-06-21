@@ -1,10 +1,9 @@
-part of 'filters.dart';
+part of '../truesight_flutter.dart';
 
 /// This class defines filter operations for DateTime type
 ///
 /// Because DateTime can be treated as number (with same operations),
 /// we use NumberFilter as interface of this class
-@reflector
 class DateFilter extends NumberFilter<DateTime> {
   /// Initialize new DateFilter instance
   DateFilter() : super();

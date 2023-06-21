@@ -1,8 +1,7 @@
-
-part of 'data_structure.dart';
+part of '../truesight_flutter.dart';
 
 @reflector
-class DataFilter with DataSerialization {
+class DataFilter {
   /// Skip value for pagination
   int skip = 0;
 
@@ -19,69 +18,8 @@ class DataFilter with DataSerialization {
     return reflector.reflectType(AbstractFilter);
   }
 
-  /// Deserialize json data to filter class
-  @override
-  void fromJSON(json) {
-    var instanceMirror = reflector.reflect(this);
-    instanceMirror.type.declarations.forEach((memberName, memberMirror) {
-      if (memberMirror is VariableMirror) {
-        switch (memberName) {
-          case 'skip':
-            skip = json['skip'];
-            break;
-
-          case 'take':
-            take = json['take'];
-            break;
-
-          case 'orderBy':
-            orderBy = json['orderBy'];
-            break;
-
-          case 'orderType':
-            String? rawOrderType = json['orderType'];
-
-            switch (rawOrderType?.toLowerCase()) {
-              case 'asc':
-                orderType = OrderType.asc;
-                break;
-
-              case 'desc':
-                orderType = OrderType.desc;
-                break;
-
-              default:
-                orderType = null;
-                break;
-            }
-            break;
-
-          default:
-            var reflectedType = memberMirror.reflectedType;
-            // Is abstract filter
-            if (reflector
-                .reflectType(reflectedType)
-                .isSubtypeOf(_abstractFilterReflection)) {
-              var rawValue = json[memberName];
-              if (rawValue == null) {
-                return;
-              }
-              AbstractFilter? fieldValue =
-                  instanceMirror.invokeGetter(memberName) as AbstractFilter?;
-              fieldValue ??= TrueSightReflector.newInstance(reflectedType);
-              fieldValue?.fromJSON(rawValue);
-              return;
-            }
-            break;
-        }
-        return;
-      }
-    });
-  }
-
   /// Convert current filter to json object
-  @override
-  toJSON() {
+  dynamic toJSON() {
     var instanceMirror = reflector.reflect(this);
     var result = {};
     result['skip'] = skip;

@@ -1,4 +1,4 @@
-part of '../http_repository.dart';
+part of '../truesight_flutter.dart';
 
 /// Extension for `dio`'s Response class
 extension ExtendedResponse on Response {

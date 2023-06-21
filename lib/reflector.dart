@@ -1,4 +1,4 @@
-part of 'reflection.dart';
+part of 'truesight_flutter.dart';
 
 /// Reflector class that constructs `@reflector`
 class TrueSightReflector extends Reflectable {
@@ -6,8 +6,11 @@ class TrueSightReflector extends Reflectable {
       : super(
           declarationsCapability,
           invokingCapability,
+          metadataCapability,
           reflectedTypeCapability,
           typeCapability,
+          typeRelationsCapability,
+          typingCapability,
         );
 
   /// Create a new instance from a specific given Type

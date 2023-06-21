@@ -1,4 +1,4 @@
-part of 'data_structure.dart';
+part of '../truesight_flutter.dart';
 
 /// Define serialization methods for all data classes
 mixin DataSerialization {

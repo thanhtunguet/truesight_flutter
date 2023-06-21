@@ -17,7 +17,6 @@ public class TruesightFlutterPlugin: NSObject, FlutterPlugin {
         }
     }
     
-    
     public static func loadEnv() -> [String: String]? {
         guard let envFileURL = Bundle.main.url(forResource: ".env", withExtension: nil),
               let envContent = try? String(contentsOf: envFileURL) else {

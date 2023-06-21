@@ -1,10 +1,9 @@
-part of 'filters.dart';
+part of '../truesight_flutter.dart';
 
 /// This class defines filter operations for all Dart's number types
 /// (including int, double or generic num)
 ///
 /// This class also be used as interface of DateFilter
-@reflector
 class NumberFilter<T> extends AbstractFilter {
   /// Query all records that has its field's value is greater than or equal to this property's value
   T? greaterEqual;

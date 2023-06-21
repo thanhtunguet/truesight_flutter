@@ -1,8 +1,7 @@
-part of 'filters.dart';
+part of '../truesight_flutter.dart';
 
 /// This class defines filter operations for ID (primary key, foreign key) fields
 /// that is in string type (GUID, UUID, ...)
-@reflector
 class GuidFilter extends AbstractFilter {
   /// Query all records that has id is in this list
   List<String>? inList;

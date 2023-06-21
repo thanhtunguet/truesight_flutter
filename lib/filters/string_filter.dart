@@ -1,7 +1,6 @@
-part of 'filters.dart';
+part of '../truesight_flutter.dart';
 
 /// This class defines filter operations for String type
-@reflector
 class StringFilter extends AbstractFilter {
   /// Query all records that has its field's value equals to this property's value
   String? equal;

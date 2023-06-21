@@ -1,7 +1,6 @@
-part of 'filters.dart';
+part of '../truesight_flutter.dart';
 
 /// Base class for filter classes
-@reflector
 abstract interface class AbstractFilter {
   AbstractFilter();
 

@@ -1,4 +1,4 @@
-part of 'data_structure.dart';
+part of '../truesight_flutter.dart';
 
 /// DataList is a class used to mark the generic type for a data field
 /// in the form of a list (for Mapping and Content tables).
@@ -91,8 +91,5 @@ class DataList<T extends DataModel> with EquatableMixin {
 
   /// Equatable props of this list
   @override
-  List<Object?> get props => [
-        _list,
-        ..._list,
-      ];
+  List<Object?> get props => _list;
 }

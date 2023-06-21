@@ -1,6 +1,4 @@
-import 'package:objectbox/objectbox.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+part of 'truesight_flutter.dart';
 
 typedef OpenStoreFunction = Future<Store> Function({
   String? directory,
@@ -44,8 +42,7 @@ class Database {
   }) async {
     final docsDir = await getApplicationDocumentsDirectory();
     // Future<Store> openStore() {...} is defined in the generated objectbox.g.dart
-    final store =
-        await openStore(directory: p.join(docsDir.path, databaseName));
+    final store = await openStore(directory: join(docsDir.path, databaseName));
     return Database._create(store);
   }
 

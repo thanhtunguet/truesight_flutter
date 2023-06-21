@@ -1,4 +1,4 @@
-part of 'data_structure.dart';
+part of '../truesight_flutter.dart';
 
 /// DataModel is base class for all data structures that appear in your application
 @reflector
@@ -140,8 +140,10 @@ class DataModel with DataSerialization {
             result[memberName] = null;
             return;
           }
-          var isSerialized =
-              _isSerialized(serialized: serialized!, element: originalValue);
+          var isSerialized = _isSerialized(
+            serialized: serialized!,
+            element: originalValue,
+          );
           if (isSerialized) {
             return;
           }

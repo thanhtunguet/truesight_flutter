@@ -1,10 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:truesight_flutter/truesight_flutter.dart';
-
-part 'http/response.dart';
+part of '../truesight_flutter.dart';
 
 /// Repository that has methods to call HTTP APIs
 abstract class HttpRepository {

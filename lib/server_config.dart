@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:injectable/injectable.dart';
+part of 'truesight_flutter.dart';
 
 @singleton
 class ServerConfig {
