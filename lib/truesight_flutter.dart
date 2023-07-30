@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:objectbox/objectbox.dart';
@@ -15,15 +14,9 @@ import 'package:reflectable/reflectable.dart';
 
 import 'truesight_flutter_platform_interface.dart';
 
-part 'data_structure/data_filter.dart';
-
-part 'data_structure/data_list.dart';
-
 part 'data_structure/data_model.dart';
 
-part 'data_structure/data_serialization.dart';
-
-part 'data_structure/order_type.dart';
+part 'data_structure/data_type.dart';
 
 part 'database.dart';
 
@@ -39,9 +32,9 @@ part 'filters/number_filter.dart';
 
 part 'filters/string_filter.dart';
 
-part 'http/response.dart';
-
 part 'http/http_repository.dart';
+
+part 'http/response.dart';
 
 part 'reflector.dart';
 
