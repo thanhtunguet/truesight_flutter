@@ -11,12 +11,11 @@ import 'package:objectbox/objectbox.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reflectable/reflectable.dart';
+import 'package:truesight_flutter/json/json.dart';
 
 import 'truesight_flutter_platform_interface.dart';
 
 part 'data_structure/data_model.dart';
-
-part 'data_structure/data_type.dart';
 
 part 'database.dart';
 
