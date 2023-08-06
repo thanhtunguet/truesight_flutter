@@ -205,18 +205,18 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: "347d56c26d63519552ef9a569f2a593dda99a81fdbdff13c584b7197cfe05059"
+      sha256: ce75a1b40947fea0a0e16ce73337122a86762e38b982e1ccb909daa3b9bc4197
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.2"
+    version: "5.3.2"
   dio_cookie_manager:
     dependency: transitive
     description:
       name: dio_cookie_manager
-      sha256: ff1755fd56d02485146d95a589fb4ace1f0ae0c0f3ca702a817de2dc1fbb835e
+      sha256: "884b1099cba70a83751969d318084577c29de148600ffb7d4796f752d2cade02"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0+1"
   equatable:
     dependency: transitive
     description:
@@ -350,10 +350,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: "00d1b67d6e9fa443331da229084dd3eb04407f5a2dff22940bd7bba6af5722c3"
+      sha256: b3cadd2cd59a4103fd5f6bc572ca75111264698784e927aa471921c3477d5475
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.1"
+    version: "10.0.0"
   google_maps:
     dependency: transitive
     description:

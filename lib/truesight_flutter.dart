@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:path/path.dart';
@@ -14,6 +15,8 @@ import 'package:reflectable/reflectable.dart';
 import 'package:truesight_flutter/json/json.dart';
 
 import 'truesight_flutter_platform_interface.dart';
+
+export 'json/json.dart';
 
 part 'data_structure/data_model.dart';
 
@@ -36,6 +39,8 @@ part 'http/http_repository.dart';
 part 'http/response.dart';
 
 part 'reflector.dart';
+
+part 'routing.dart';
 
 part 'server_config.dart';
 

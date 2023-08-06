@@ -28,6 +28,10 @@ abstract class HttpRepository {
     }
   }
 
+  String url(String path) {
+    return join(baseUrl, path);
+  }
+
   /// BaseURL of current repository
   /// All API methods with uses it as prefix of API URL
   String get baseUrl {
