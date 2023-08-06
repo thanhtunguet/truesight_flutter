@@ -44,6 +44,8 @@ part 'routing.dart';
 
 part 'server_config.dart';
 
+part 'model_mapping.dart';
+
 class TruesightFlutter {
   Future<String?> getPlatformVersion() {
     return TruesightFlutterPlatform.instance.getPlatformVersion();

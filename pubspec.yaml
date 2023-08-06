@@ -1,6 +1,6 @@
 name: truesight_flutter
 description: Truesight core library for Flutter applications
-version: 1.0.0
+version: 1.0.0-alpha.2023.08.06.1
 homepage: https://github.com/thanhtunguet/truesight_flutter
 
 environment:

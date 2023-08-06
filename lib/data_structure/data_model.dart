@@ -15,24 +15,28 @@ abstract class DataModel {
       if (field is JsonDate) {
         if (json.containsKey(field.name) && json[field.name] != null) {
           field.value = DateTime.parse(json[field.name]);
-        } else {
-          field.value = null;
         }
         continue;
       }
 
       if (field is JsonObject) {
-        field.value = field.newInstance();
-        field.value!.fromJSON(json[field.name]);
+        if (json.containsKey(field.name) && json[field.name] != null) {
+          final TypeMapping type = modelMappings[field.genericType]!;
+          field.value = type.newInstance();
+          field.value.fromJSON(json[field.name]);
+        }
         continue;
       }
 
       if (field is JsonList) {
-        field.value = [];
-        for (var i = 0; i < json[field.name].length; i++) {
-          field.value!.add(field.newInstance());
-          field.value![i].fromJSON(json[field.name][i]);
+        final TypeMapping type = modelMappings[field.genericType]!;
+        final length = (json[field.name] as List).length;
+        field.value = type.newList(length);
+
+        for (var i = 0; i < length; i++) {
+          field.value[i].fromJSON(json[field.name][i]);
         }
+
         continue;
       }
     }

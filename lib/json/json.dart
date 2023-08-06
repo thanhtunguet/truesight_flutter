@@ -1,15 +1,10 @@
 import 'package:truesight_flutter/truesight_flutter.dart';
 
 part 'json_boolean.dart';
-
 part 'json_date.dart';
-
 part 'json_list.dart';
-
 part 'json_number.dart';
-
 part 'json_object.dart';
-
 part 'json_string.dart';
 
 typedef DataModelNewInstance = DataModel Function();
@@ -21,7 +16,7 @@ interface class JsonType<T> {
 
   Type? genericType;
 
-  late T? value;
+  late T value;
 
   late T? defaultValue;
 
@@ -33,16 +28,11 @@ interface class JsonType<T> {
     this.defaultValue,
   });
 
-  setRequired(bool isRequired) {
-    this.isRequired = isRequired;
-  }
-
   void operator <<(dynamic newValue) {
-    if (newValue == null) {
-      value = defaultValue;
-      return;
+    final deserializedValue = deserialize(newValue);
+    if (deserializedValue != null) {
+      value = deserializedValue;
     }
-    value = deserialize(newValue);
   }
 
   T? deserialize(dynamic value) {
@@ -53,11 +43,11 @@ interface class JsonType<T> {
     return value;
   }
 
-  toJSON() {
+  dynamic toJSON() {
     return serialize();
   }
 
-  fromJSON(dynamic value) {
+  void fromJSON(dynamic value) {
     this << value;
   }
 }
