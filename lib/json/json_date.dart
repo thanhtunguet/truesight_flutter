@@ -1,6 +1,6 @@
 part of 'json.dart';
 
-class JsonDate extends JsonType<DateTime> {
+class JsonDate extends JsonType<DateTime?> {
   JsonDate(
     super.name, {
     super.isRequired,

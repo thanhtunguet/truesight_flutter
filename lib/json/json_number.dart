@@ -1,6 +1,6 @@
 part of 'json.dart';
 
-class JsonNumber extends JsonType<num> {
+class JsonNumber extends JsonType<num?> {
   JsonNumber(
     super.name, {
     super.isRequired,

@@ -8,4 +8,9 @@ class JsonObject<T extends DataModel> extends JsonType<T> {
   }) {
     genericType = T;
   }
+
+  @override
+  T? deserialize(value) {
+    return this.value.fromJSON(value);
+  }
 }
