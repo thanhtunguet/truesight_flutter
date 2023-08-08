@@ -20,12 +20,21 @@ interface class JsonType<T> {
 
   late T? defaultValue;
 
+  String? error;
+
+  String? warning;
+
+  String? information;
+
+  String? helper;
+
   bool isRequired;
 
   JsonType(
     this.name, {
     this.isRequired = false,
     this.defaultValue,
+    this.helper,
   });
 
   void operator <<(dynamic newValue) {

@@ -11,9 +11,6 @@ class AppUser extends DataModel {
         manager,
       ];
 
-  @override
-  AppUser get newInstance => AppUser();
-
   JsonNumber id = JsonNumber("id");
 
   JsonString email = JsonString("email");
@@ -26,12 +23,7 @@ class AppUser extends DataModel {
 }
 
 configureModels() {
-  modelMappings[AppUser] = TypeMapping(
-      newInstance: AppUser.new,
-      newList: (int length) => List<AppUser>.generate(
-            length,
-            (index) => AppUser(),
-          ));
+  DataModel.addModel(AppUser, AppUser.new);
 }
 
 void main() {
@@ -48,12 +40,22 @@ void main() {
         'email': 'manager@example.com',
         'birthday': '2023-08-01T19:00:00Z',
         'members': [],
-        'manager': null,
+        'manager': {
+          'id': 3,
+          'email': 'high_level_manager@example.com',
+          'birthday': '2023-08-01T19:00:00Z',
+          'members': [],
+          'manager': null,
+        },
       },
     };
     var user = AppUser();
     user.fromJSON(json);
     expect(user.email.value, "email@example.com");
+    expect(user.manager.value.email.value, 'manager@example.com');
+    expect(user.manager.value.manager.value.email.value,
+        "high_level_manager@example.com");
+    print(user.manager.value.manager.value.email.value);
   });
 }
 
