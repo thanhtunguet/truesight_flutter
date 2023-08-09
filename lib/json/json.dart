@@ -1,13 +1,4 @@
-import 'dart:js_interop';
-
-import 'package:truesight_flutter/truesight_flutter.dart';
-
-part 'json_boolean.dart';
-part 'json_date.dart';
-part 'json_list.dart';
-part 'json_number.dart';
-part 'json_object.dart';
-part 'json_string.dart';
+part of '../truesight_flutter.dart';
 
 typedef DataModelNewInstance = DataModel Function();
 

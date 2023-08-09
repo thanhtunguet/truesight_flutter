@@ -1,4 +1,4 @@
-part of 'json.dart';
+part of '../truesight_flutter.dart';
 
 class JsonList<T extends DataModel> extends JsonType<List<T>> {
   JsonList(
@@ -12,9 +12,9 @@ class JsonList<T extends DataModel> extends JsonType<List<T>> {
   @override
   void fromJSON(dynamic value) {
     if (value is List) {
-      final TypeMapping typeMapping = typeMappings[genericType]!;
+      final _ModelType typeMapping = DataModel._getType(genericType!);
       this.value = value.map((element) {
-        final T instance = typeMapping.newInstance() as T;
+        final T instance = typeMapping.constructor() as T;
         instance.fromJSON(element);
         return instance;
       }).toList();

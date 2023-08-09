@@ -25,6 +25,7 @@ String getRoutingKey(Type page) {
 GoRoute createRoutingWidget(Type page) {
   return GoRoute(
     path: getRoutingKey(page),
-    builder: (context, state) => TrueSightReflector.newInstance<Widget>(page),
+    builder: (BuildContext context, GoRouterState state) =>
+        TrueSightReflector.newInstance<Widget>(page),
   );
 }

@@ -37,20 +37,31 @@ abstract class HttpRepository {
     String? baseUrl,
     StreamController<String>? serverUrlStream,
   }) : super() {
+    _initDio(baseUrl, serverUrlStream);
+  }
+
+  _initDio(
+    String? baseUrl,
+    StreamController<String>? serverUrlStream,
+  ) {
     dio = Dio();
+
     if (baseUrl != null && serverUrlStream != null) {
       throw AssertionError(
         "baseUrl and serverUrlStream should not be defined both in the same instance",
       );
     }
+
     if (baseUrl != null) {
       this.baseUrl = baseUrl;
     }
+
     if (serverUrlStream != null) {
       serverUrlStream.stream.listen((String baseUrl) {
         dio.options.baseUrl = baseUrl;
       });
     }
+
     if (useInterceptor) {
       dio.interceptors.add(interceptorsWrapper);
     }

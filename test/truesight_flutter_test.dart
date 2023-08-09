@@ -23,7 +23,7 @@ class AppUser extends DataModel {
 }
 
 configureModels() {
-  DataModel.addModel(AppUser, AppUser.new);
+  DataModel.setType(AppUser, AppUser.new);
 }
 
 void main() {

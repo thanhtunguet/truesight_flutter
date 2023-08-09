@@ -1,4 +1,4 @@
-part of 'json.dart';
+part of '../truesight_flutter.dart';
 
 class JsonObject<T extends DataModel> extends JsonType<T> {
   JsonObject(
@@ -11,8 +11,8 @@ class JsonObject<T extends DataModel> extends JsonType<T> {
 
   @override
   void fromJSON(dynamic value) {
-    final TypeMapping typeMapping = typeMappings[genericType]!;
-    final T instance = typeMapping.newInstance() as T;
+    final _ModelType typeMapping = DataModel._getType(genericType!);
+    final T instance = typeMapping.constructor() as T;
     if (value != null) {
       instance.fromJSON(value);
     }

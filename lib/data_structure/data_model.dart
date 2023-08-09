@@ -1,10 +1,26 @@
 part of '../truesight_flutter.dart';
 
+typedef InstanceConstructor<T extends DataModel> = T Function();
+
+class _ModelType<T extends DataModel> {
+  final InstanceConstructor<T> constructor;
+
+  const _ModelType({
+    required this.constructor,
+  });
+}
+
 abstract class DataModel {
   List<JsonType> get fields;
 
-  static addModel(Type className, NewInstanceFunction newInstance) {
-    typeMappings[className] = TypeMapping(newInstance: newInstance);
+  static const Map<Type, _ModelType> _modelTypes = {};
+
+  static setType(Type className, InstanceConstructor constructor) {
+    _modelTypes[className] = _ModelType(constructor: constructor);
+  }
+
+  static _ModelType _getType(Type type) {
+    return _modelTypes[type]!;
   }
 
   void fromJSON(Map<String, dynamic> json) {
@@ -44,10 +60,10 @@ abstract class DataModel {
         continue;
       }
 
-      final TypeMapping type = typeMappings[field.genericType]!;
+      final _ModelType type = _modelTypes[field.genericType]!;
 
       if (field is JsonObject) {
-        field.value = type.newInstance();
+        field.value = type.constructor();
         if (json.containsKey(field.name) && json[field.name] != null) {
           field.fromJSON(json[field.name]);
         }
@@ -59,7 +75,7 @@ abstract class DataModel {
           final length = json[field.name].length;
 
           for (var i = 0; i < length; i++) {
-            final instance = type.newInstance();
+            final instance = type.constructor();
             instance.fromJSON(json[field.name][i]);
             field.value[i] = instance;
           }
@@ -73,6 +89,7 @@ abstract class DataModel {
 
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> result = {};
+
     for (final field in fields) {
       if (field is JsonString || field is JsonNumber || field is JsonBoolean) {
         result[field.name] = field.value;
@@ -92,6 +109,7 @@ abstract class DataModel {
         continue;
       }
     }
+
     return result;
   }
 }

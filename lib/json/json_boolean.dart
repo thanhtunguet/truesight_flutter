@@ -1,4 +1,4 @@
-part of 'json.dart';
+part of '../truesight_flutter.dart';
 
 class JsonBoolean extends JsonType<bool?> {
   JsonBoolean(
