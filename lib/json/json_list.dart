@@ -10,10 +10,19 @@ class JsonList<T extends DataModel> extends JsonType<List<T>> {
   }
 
   @override
-  List<T>? deserialize(dynamic value) {
-    if (value is List<JsonType>) {
-      return value.map((e) => e.deserialize(value) as T).toList();
+  void fromJSON(dynamic value) {
+    if (value is List) {
+      final TypeMapping typeMapping = typeMappings[genericType]!;
+      this.value = value.map((element) {
+        final T instance = typeMapping.newInstance() as T;
+        instance.fromJSON(element);
+        return instance;
+      }).toList();
     }
-    return [];
+  }
+
+  @override
+  toJSON() {
+    return value.map((element) => element.toJSON()).toList();
   }
 }

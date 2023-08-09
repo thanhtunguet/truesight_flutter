@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:truesight_flutter/truesight_flutter.dart';
 
 part 'json_boolean.dart';
@@ -16,19 +18,19 @@ interface class JsonType<T> {
 
   Type? genericType;
 
+  bool isRequired;
+
   late T value;
 
   late T? defaultValue;
 
-  String? error;
-
-  String? warning;
+  String? helper;
 
   String? information;
 
-  String? helper;
+  String? warning;
 
-  bool isRequired;
+  String? error;
 
   JsonType(
     this.name, {
@@ -37,26 +39,11 @@ interface class JsonType<T> {
     this.helper,
   });
 
-  void operator <<(dynamic newValue) {
-    final deserializedValue = deserialize(newValue);
-    if (deserializedValue != null) {
-      value = deserializedValue;
-    }
-  }
-
-  T? deserialize(dynamic value) {
-    return value;
-  }
-
-  dynamic serialize() {
-    return value;
-  }
-
   dynamic toJSON() {
-    return serialize();
+    return value;
   }
 
   void fromJSON(dynamic value) {
-    this << value;
+    this.value = value ?? defaultValue;
   }
 }

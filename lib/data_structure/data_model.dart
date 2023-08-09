@@ -4,7 +4,7 @@ abstract class DataModel {
   List<JsonType> get fields;
 
   static addModel(Type className, NewInstanceFunction newInstance) {
-    modelMappings[className] = TypeMapping(newInstance: newInstance);
+    typeMappings[className] = TypeMapping(newInstance: newInstance);
   }
 
   void fromJSON(Map<String, dynamic> json) {
@@ -44,12 +44,12 @@ abstract class DataModel {
         continue;
       }
 
-      final TypeMapping type = modelMappings[field.genericType]!;
+      final TypeMapping type = typeMappings[field.genericType]!;
 
       if (field is JsonObject) {
         field.value = type.newInstance();
         if (json.containsKey(field.name) && json[field.name] != null) {
-          field.deserialize(json[field.name]);
+          field.fromJSON(json[field.name]);
         }
         continue;
       }

@@ -2,8 +2,6 @@ part of 'truesight_flutter.dart';
 
 typedef NewInstanceFunction<T extends DataModel> = T Function();
 
-typedef NewListFunction<T extends DataModel> = List<T> Function(int length);
-
 class TypeMapping<T extends DataModel> {
   final NewInstanceFunction<T> newInstance;
 
@@ -12,4 +10,4 @@ class TypeMapping<T extends DataModel> {
   });
 }
 
-final Map<Type, TypeMapping> modelMappings = {};
+final Map<Type, TypeMapping> typeMappings = {};

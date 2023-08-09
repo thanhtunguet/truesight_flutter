@@ -10,7 +10,17 @@ class JsonObject<T extends DataModel> extends JsonType<T> {
   }
 
   @override
-  T? deserialize(value) {
-    return this.value.fromJSON(value);
+  void fromJSON(dynamic value) {
+    final TypeMapping typeMapping = typeMappings[genericType]!;
+    final T instance = typeMapping.newInstance() as T;
+    if (value != null) {
+      instance.fromJSON(value);
+    }
+    this.value = instance;
+  }
+
+  @override
+  toJSON() {
+    return value.toJSON();
   }
 }

@@ -8,10 +8,16 @@ class JsonDate extends JsonType<DateTime?> {
   });
 
   @override
-  DateTime? deserialize(dynamic value) {
+  void fromJSON(dynamic value) {
     if (value is String) {
-      return DateTime.parse(value);
+      this.value = DateTime.parse(value);
+      return;
     }
-    return null;
+    this.value = DateTime.now();
+  }
+
+  @override
+  toJSON() {
+    return value?.toIso8601String();
   }
 }
