@@ -27,41 +27,25 @@ abstract class HttpRepository {
     },
   );
 
-  bool useInterceptor = true;
+  bool get useInterceptor;
+
+  ServerConfig get serverConfig {
+    return ServerConfig.instance();
+  }
+
+  late StreamSubscription<String> baseUrlSubscription;
 
   /// Construct a new HttpRepository instance with baseUrl string
   ///
   /// Each HttpRepository instance has its own dio instance, with unique baseUrl (prefix)
   /// and uses same cookies from base host
   HttpRepository({
-    String? baseUrl,
-    StreamController<String>? serverUrlStream,
+    String basePath = "",
   }) : super() {
-    _initDio(baseUrl, serverUrlStream);
-  }
-
-  _initDio(
-    String? baseUrl,
-    StreamController<String>? serverUrlStream,
-  ) {
     dio = Dio();
-
-    if (baseUrl != null && serverUrlStream != null) {
-      throw AssertionError(
-        "baseUrl and serverUrlStream should not be defined both in the same instance",
-      );
-    }
-
-    if (baseUrl != null) {
-      this.baseUrl = baseUrl;
-    }
-
-    if (serverUrlStream != null) {
-      serverUrlStream.stream.listen((String baseUrl) {
-        dio.options.baseUrl = baseUrl;
-      });
-    }
-
+    baseUrlSubscription = serverConfig.subscribe((baseUrl) {
+      this.baseUrl = join(baseUrl, basePath);
+    });
     if (useInterceptor) {
       dio.interceptors.add(interceptorsWrapper);
     }
@@ -71,7 +55,10 @@ abstract class HttpRepository {
     this.interceptorsWrapper = interceptorsWrapper;
   }
 
-  String url(String path) {
+  String url(
+    String path, {
+    String baseUrl = "",
+  }) {
     return join(baseUrl, path);
   }
 
@@ -84,7 +71,6 @@ abstract class HttpRepository {
   /// Set base URL of current repository
   set baseUrl(String baseUrl) {
     dio.options.baseUrl = baseUrl;
-    dio.options.contentType = ContentType.json.mimeType;
   }
 
   /// Get default content type configuration of this repository

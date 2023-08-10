@@ -3,16 +3,16 @@ part of '../truesight_flutter.dart';
 /// Extension for `dio`'s Response class
 extension ExtendedResponse on Response {
   /// Convert response body to a DataModel
-  T body<T extends DataModel>() {
-    T model = TrueSightReflector.newInstance<T>(T);
+  T body<T extends DataModel>(Type type) {
+    T model = DataModel.create<T>(type);
     model.fromJSON(data);
     return model;
   }
 
   /// Convert response body to a list of DataModel
-  List<T> list<T extends DataModel>() {
+  List<T> list<T extends DataModel>(Type type) {
     return data.map((element) {
-      T model = TrueSightReflector.newInstance<T>(T);
+      T model = DataModel.create<T>(type);
       model.fromJSON(element);
       return model;
     });

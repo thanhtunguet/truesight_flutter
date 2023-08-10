@@ -1,9 +1,9 @@
 part of 'truesight_flutter.dart';
 
 class ServerConfig {
-  final _serverConfig = StreamController.broadcast();
-
   static ServerConfig? _instance;
+
+  final _serverConfig = StreamController<String>.broadcast();
 
   void next(String baseUrl) {
     _serverConfig.add(baseUrl);
@@ -13,17 +13,19 @@ class ServerConfig {
     _serverConfig.close();
   }
 
-  void subscribe(void Function(dynamic) callback) {
-    _serverConfig.stream.listen(callback);
+  StreamSubscription<String> subscribe(dynamic Function(String) callback) {
+    return _serverConfig.stream.listen(callback);
   }
 
-  ServerConfig._init() {
+  ServerConfig._staticInit() {
     _instance = this;
   }
 
+  ServerConfig.init();
+
   factory ServerConfig.instance() {
     if (_instance == null) {
-      ServerConfig._init();
+      ServerConfig._staticInit();
     }
     return _instance!;
   }

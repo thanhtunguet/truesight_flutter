@@ -13,7 +13,7 @@ class _ModelType<T extends DataModel> {
 abstract class DataModel {
   List<JsonType> get fields;
 
-  static const Map<Type, _ModelType> _modelTypes = {};
+  static final Map<Type, _ModelType> _modelTypes = {};
 
   static setType(Type className, InstanceConstructor constructor) {
     _modelTypes[className] = _ModelType(constructor: constructor);
@@ -21,6 +21,12 @@ abstract class DataModel {
 
   static _ModelType _getType(Type type) {
     return _modelTypes[type]!;
+  }
+
+  static create<T extends DataModel>(Type type) {
+    final _ModelType modelType = _modelTypes[type]!;
+    final T instance = modelType.constructor() as T;
+    return instance;
   }
 
   void fromJSON(Map<String, dynamic> json) {

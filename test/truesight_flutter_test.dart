@@ -49,25 +49,18 @@ void main() {
         },
       },
     };
-    var user = AppUser();
+
+    final AppUser user = AppUser();
     user.fromJSON(json);
+
+    final AppUser manager = user.manager.value;
+
+    final AppUser highLevelManager = manager.manager.value;
+
     expect(user.email.value, "email@example.com");
-    expect(user.manager.value.email.value, 'manager@example.com');
-    expect(user.manager.value.manager.value.email.value,
-        "high_level_manager@example.com");
-    print(user.manager.value.manager.value.email.value);
+
+    expect(manager.email.value, 'manager@example.com');
+
+    expect(highLevelManager.email.value, "high_level_manager@example.com");
   });
 }
-
-final types = {
-  'AppUser': {
-    'newInstance': () => AppUser(),
-    'newList': (int length) {
-      var result = <AppUser>[];
-      for (var i = 0; i < length; i++) {
-        result[i] = AppUser();
-      }
-      return result;
-    }
-  },
-};
