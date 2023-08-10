@@ -3,26 +3,31 @@ part of '../truesight_flutter.dart';
 /// Repository that has methods to call HTTP APIs
 abstract class HttpRepository {
   late final Dio dio;
+
+  StreamSubscription<String>? baseUrlSubscription;
+
   abstract InterceptorsWrapper interceptorsWrapper;
+
   bool get useInterceptor;
 
   ServerConfig get serverConfig {
     return ServerConfig.instance();
   }
 
-  late StreamSubscription<String> baseUrlSubscription;
+  String basePath;
 
   /// Construct a new HttpRepository instance with baseUrl string
   ///
   /// Each HttpRepository instance has its own dio instance, with unique baseUrl (prefix)
   /// and uses same cookies from base host
   HttpRepository({
-    String basePath = "",
+    this.basePath = "/",
   }) : super() {
     dio = Dio();
     baseUrlSubscription = serverConfig.subscribe((baseUrl) {
-      this.baseUrl = join(baseUrl, basePath);
+      this.baseUrl = baseUrl;
     });
+
     if (useInterceptor) {
       dio.interceptors.add(interceptorsWrapper);
     }
@@ -35,7 +40,13 @@ abstract class HttpRepository {
   String url(
     String path,
   ) {
-    return join(baseUrl, path);
+    final uri = Uri.parse(baseUrl);
+
+    return Uri(
+      host: uri.host,
+      scheme: uri.scheme,
+      path: join(basePath, path),
+    ).toString();
   }
 
   /// BaseURL of current repository
