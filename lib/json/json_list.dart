@@ -23,6 +23,6 @@ class JsonList<T extends DataModel> extends JsonType<List<T>> {
 
   @override
   toJSON() {
-    return value.map((element) => element.toJSON()).toList();
+    return value?.map((element) => element.toJSON()).toList();
   }
 }

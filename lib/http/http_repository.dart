@@ -20,9 +20,7 @@ abstract class HttpRepository {
   ///
   /// Each HttpRepository instance has its own dio instance, with unique baseUrl (prefix)
   /// and uses same cookies from base host
-  HttpRepository({
-    this.basePath = "/",
-  }) : super() {
+  HttpRepository(this.basePath) : super() {
     dio = Dio();
     baseUrlSubscription = serverConfig.subscribe((baseUrl) {
       this.baseUrl = baseUrl;
@@ -40,13 +38,7 @@ abstract class HttpRepository {
   String url(
     String path,
   ) {
-    final uri = Uri.parse(baseUrl);
-
-    return Uri(
-      host: uri.host,
-      scheme: uri.scheme,
-      path: join(basePath, path),
-    ).toString();
+    return "$baseUrl/$basePath/$path";
   }
 
   /// BaseURL of current repository

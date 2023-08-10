@@ -21,6 +21,6 @@ class JsonObject<T extends DataModel> extends JsonType<T> {
 
   @override
   toJSON() {
-    return value.toJSON();
+    return value?.toJSON();
   }
 }

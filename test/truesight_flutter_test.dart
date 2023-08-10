@@ -53,9 +53,9 @@ void main() {
     final AppUser user = AppUser();
     user.fromJSON(json);
 
-    final AppUser manager = user.manager.value;
+    final AppUser manager = user.manager.value!;
 
-    final AppUser highLevelManager = manager.manager.value;
+    final AppUser highLevelManager = manager.manager.value!;
 
     expect(user.email.value, "email@example.com");
 

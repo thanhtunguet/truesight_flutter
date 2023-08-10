@@ -11,9 +11,9 @@ interface class JsonType<T> {
 
   bool isRequired;
 
-  late T value;
+  T? value;
 
-  late T? defaultValue;
+  T? defaultValue;
 
   String? helper;
 

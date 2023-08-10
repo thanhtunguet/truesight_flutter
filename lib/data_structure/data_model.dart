@@ -89,7 +89,7 @@ abstract class DataModel {
           for (var i = 0; i < length; i++) {
             final instance = type.constructor();
             instance.fromJSON(json[field.name][i]);
-            field.value[i] = instance;
+            field.value?[i] = instance;
           }
         } else {
           field.value = [];
@@ -112,12 +112,12 @@ abstract class DataModel {
         continue;
       }
       if (field is JsonObject) {
-        result[field.name] = field.value.toJSON();
+        result[field.name] = field.value?.toJSON();
         continue;
       }
       if (field is JsonList) {
         result[field.name] =
-            field.value.map((element) => element.toJSON()).toList();
+            field.value?.map((element) => element.toJSON()).toList();
         continue;
       }
     }
