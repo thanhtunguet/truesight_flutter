@@ -31,13 +31,19 @@ abstract class DataModel {
 
   void fromJSON(Map<String, dynamic> json) {
     final Map<String, String> errors =
-        json.containsKey("errors") ? json["errors"] : {};
+        json.containsKey("errors") && json["errors"] is Map
+            ? json["errors"]
+            : {};
 
     final Map<String, String> warnings =
-        json.containsKey("warnings") ? json["warnings"] : {};
+        json.containsKey("warnings") && json["warnings"] is Map
+            ? json["warnings"]
+            : {};
 
     final Map<String, String> informations =
-        json.containsKey("informations") ? json["informations"] : {};
+        json.containsKey("informations") && json["informations"] is Map
+            ? json["informations"]
+            : {};
 
     for (final field in fields) {
       if (errors.containsKey(field.name)) {
