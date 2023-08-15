@@ -36,7 +36,11 @@ class StringFilter extends AbstractFilter {
 
   /// Convert this filter from JSON
   @override
-  void fromJSON(Map<String, dynamic> json) {
+  void fromJSON(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      return;
+    }
+
     if (json.containsKey("equal")) {
       equal = json["equal"];
     }

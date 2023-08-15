@@ -28,7 +28,11 @@ class DateFilter extends NumberFilter<DateTime> {
 
   /// Deserialize data from JSON
   @override
-  void fromJSON(Map<String, dynamic> json) {
+  void fromJSON(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      return;
+    }
+
     if (json.containsKey("greaterEqual")) {
       greaterEqual = DateTime.parse(json["greaterEqual"]);
     }

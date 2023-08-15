@@ -2,7 +2,7 @@ part of '../truesight_flutter.dart';
 
 typedef DataModelNewInstance = DataModel Function();
 
-interface class JsonType<T> {
+interface class JsonType<T> implements DataSerializable {
   final String name;
 
   final Type type = T;
@@ -30,10 +30,12 @@ interface class JsonType<T> {
     this.helper,
   });
 
+  @override
   dynamic toJSON() {
     return value;
   }
 
+  @override
   void fromJSON(dynamic value) {
     this.value = value ?? defaultValue;
   }

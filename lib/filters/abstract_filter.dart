@@ -1,13 +1,15 @@
 part of '../truesight_flutter.dart';
 
 /// Base class for filter classes
-abstract interface class AbstractFilter {
+abstract interface class AbstractFilter implements DataSerializable {
   AbstractFilter();
 
   /// Deserialize data from JSON
-  void fromJSON(Map<String, dynamic> json);
+  @override
+  void fromJSON(dynamic json);
 
   /// Convert this filter to JSON
+  @override
   Map<String, dynamic> toJSON();
 
   /// Convert this filter directly to JSON string

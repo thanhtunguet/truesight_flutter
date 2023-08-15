@@ -14,7 +14,9 @@ import 'package:reflectable/reflectable.dart';
 
 import 'truesight_flutter_platform_interface.dart';
 
+part 'data_structure/data_filter.dart';
 part 'data_structure/data_model.dart';
+part 'data_structure/data_serializable.dart';
 part 'database.dart';
 part 'filters/abstract_filter.dart';
 part 'filters/date_filter.dart';

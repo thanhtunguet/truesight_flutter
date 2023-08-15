@@ -33,7 +33,11 @@ class NumberFilter<T> extends AbstractFilter {
 
   /// Deserialize a JSON object to map values to this NumberFilter
   @override
-  void fromJSON(Map<String, dynamic> json) {
+  void fromJSON(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      return;
+    }
+
     if (json.containsKey("greaterEqual")) {
       greaterEqual = json["greaterEqual"];
     }

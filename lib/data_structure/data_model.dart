@@ -10,7 +10,7 @@ class _ModelType<T extends DataModel> {
   });
 }
 
-abstract class DataModel {
+abstract class DataModel implements DataSerializable {
   List<JsonType> get fields;
 
   static final Map<Type, _ModelType> _modelTypes = {};
@@ -29,76 +29,86 @@ abstract class DataModel {
     return instance;
   }
 
-  void fromJSON(Map<String, dynamic> json) {
-    final Map<String, String> errors =
-        json.containsKey("errors") && json["errors"] is Map
-            ? json["errors"]
-            : {};
+  @override
+  void fromJSON(dynamic json) {
+    if (json is Map<String, dynamic>) {
+      final Map<String, String> errors =
+          json.containsKey("errors") && json["errors"] is Map
+              ? json["errors"]
+              : {};
 
-    final Map<String, String> warnings =
-        json.containsKey("warnings") && json["warnings"] is Map
-            ? json["warnings"]
-            : {};
+      final Map<String, String> warnings =
+          json.containsKey("warnings") && json["warnings"] is Map
+              ? json["warnings"]
+              : {};
 
-    final Map<String, String> informations =
-        json.containsKey("informations") && json["informations"] is Map
-            ? json["informations"]
-            : {};
+      final Map<String, String> informations =
+          json.containsKey("informations") && json["informations"] is Map
+              ? json["informations"]
+              : {};
 
-    for (final field in fields) {
-      if (errors.containsKey(field.name)) {
-        field.error = errors[field.name];
-      }
-
-      if (warnings.containsKey(field.name)) {
-        field.warning = warnings[field.name];
-      }
-
-      if (informations.containsKey(field.name)) {
-        field.information = informations[field.name];
-      }
-
-      if (field is JsonString || field is JsonBoolean || field is JsonNumber) {
-        field.value = json[field.name];
-        continue;
-      }
-
-      if (field is JsonDate) {
-        if (json.containsKey(field.name) && json[field.name] != null) {
-          field.value = DateTime.parse(json[field.name]);
-        } else {
-          field.value = null;
+      for (final field in fields) {
+        if (errors.containsKey(field.name)) {
+          field.error = errors[field.name];
         }
-        continue;
-      }
 
-      final _ModelType type = _modelTypes[field.genericType]!;
-
-      if (field is JsonObject) {
-        field.value = type.constructor();
-        if (json.containsKey(field.name) && json[field.name] != null) {
-          field.fromJSON(json[field.name]);
+        if (warnings.containsKey(field.name)) {
+          field.warning = warnings[field.name];
         }
-        continue;
-      }
 
-      if (field is JsonList) {
-        if (json.containsKey(field.name) && json[field.name] is List) {
-          final length = json[field.name].length;
+        if (informations.containsKey(field.name)) {
+          field.information = informations[field.name];
+        }
 
-          for (var i = 0; i < length; i++) {
-            final instance = type.constructor();
-            instance.fromJSON(json[field.name][i]);
-            field.value?[i] = instance;
+        if (field is JsonString ||
+            field is JsonBoolean ||
+            field is JsonNumber) {
+          field.value = json[field.name];
+          continue;
+        }
+
+        if (field is JsonDate) {
+          if (json.containsKey(field.name) && json[field.name] != null) {
+            field.value = DateTime.parse(json[field.name]);
+          } else {
+            field.value = null;
           }
-        } else {
-          field.value = [];
+          continue;
         }
-        continue;
+
+        final _ModelType type = _modelTypes[field.genericType]!;
+
+        if (field is JsonObject) {
+          field.value = type.constructor();
+          if (json.containsKey(field.name) && json[field.name] != null) {
+            field.fromJSON(json[field.name]);
+          }
+          continue;
+        }
+
+        if (field is JsonList) {
+          if (json.containsKey(field.name) && json[field.name] is List) {
+            final length = json[field.name].length;
+
+            for (var i = 0; i < length; i++) {
+              final instance = type.constructor();
+              instance.fromJSON(json[field.name][i]);
+              field.value?[i] = instance;
+            }
+          } else {
+            field.value = [];
+          }
+          continue;
+        }
       }
+      return;
     }
+    throw Exception(
+      "Data passed to DataModel.fromJSON must be a Map<String, dynamic>",
+    );
   }
 
+  @override
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> result = {};
 

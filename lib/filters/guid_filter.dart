@@ -25,7 +25,11 @@ class GuidFilter extends AbstractFilter {
 
   /// Deserialize fields from JSON
   @override
-  void fromJSON(Map<String, dynamic> json) {
+  void fromJSON(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      return;
+    }
+
     if (json.containsKey("in")) {
       inList = json["in"];
     }
