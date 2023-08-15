@@ -826,7 +826,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-alpha.2023.8.15.1"
+    version: "1.0.0-alpha.2023.8.15.2"
   typed_data:
     dependency: transitive
     description:

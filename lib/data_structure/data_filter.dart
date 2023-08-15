@@ -10,7 +10,7 @@ enum OrderType {
 }
 
 abstract class DataFilter {
-  abstract List<AbstractFilter> fields;
+  List<AbstractFilter> get fields;
 
   /// Skip value for pagination
   int skip = 0;
