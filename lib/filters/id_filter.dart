@@ -16,10 +16,10 @@ class IdFilter extends AbstractFilter {
   int? notEqual;
 
   /// Initialize new IdFilter instance
-  IdFilter() : super();
+  IdFilter(super.fieldName);
 
   /// Initialize new IdFilter instance from JSON
-  IdFilter.fromJSON(Map<String, dynamic> json) {
+  IdFilter.fromJSON(super.fieldName, Map<String, dynamic> json) {
     fromJSON(json);
   }
 

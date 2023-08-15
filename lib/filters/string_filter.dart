@@ -27,10 +27,10 @@ class StringFilter extends AbstractFilter {
   String? notContain;
 
   /// Initialize new StringFilter instance
-  StringFilter() : super();
+  StringFilter(super.fieldName);
 
   /// Initialize new StringFilter instance from a JSON value
-  StringFilter.fromJSON(Map<String, dynamic> json) {
+  StringFilter.fromJSON(super.fieldName, Map<String, dynamic> json) {
     fromJSON(json);
   }
 

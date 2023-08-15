@@ -2,7 +2,9 @@ part of '../truesight_flutter.dart';
 
 /// Base class for filter classes
 abstract interface class AbstractFilter implements DataSerializable {
-  AbstractFilter();
+  final String fieldName;
+
+  AbstractFilter(this.fieldName);
 
   /// Deserialize data from JSON
   @override

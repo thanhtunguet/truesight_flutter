@@ -6,10 +6,11 @@ part of '../truesight_flutter.dart';
 /// we use NumberFilter as interface of this class
 class DateFilter extends NumberFilter<DateTime> {
   /// Initialize new DateFilter instance
-  DateFilter() : super();
+  DateFilter(super.fieldName);
 
   /// Initialize new DateFilter instance from JSON
-  DateFilter.fromJSON(Map<String, dynamic> json) : super.fromJSON(json) {
+  DateFilter.fromJSON(String fieldName, Map<String, dynamic> json)
+      : super.fromJSON(fieldName, json) {
     fromJSON(json);
   }
 

@@ -9,19 +9,9 @@ enum OrderType {
   desc,
 }
 
-extension OrderTypeExt on OrderType {
-  String? asString() {
-    if (this == OrderType.asc) {
-      return "ASC";
-    }
-    if (this == OrderType.desc) {
-      return "DESC";
-    }
-    return null;
-  }
-}
+abstract class DataFilter {
+  abstract List<AbstractFilter> fields;
 
-abstract class DataFilter extends DataModel {
   /// Skip value for pagination
   int skip = 0;
 
@@ -44,54 +34,56 @@ abstract class DataFilter extends DataModel {
     return null;
   }
 
+  String? orderTypeAsString() {
+    if (orderType == OrderType.asc) {
+      return "ASC";
+    }
+    if (orderType == OrderType.desc) {
+      return "DESC";
+    }
+    return null;
+  }
+
   /// Convert current filter to json object
-  @override
   Map<String, dynamic> toJSON() {
-    final Map<String, dynamic> result = super.toJSON();
+    final Map<String, dynamic> result = {
+      'skip': skip,
+      'take': take,
+      'orderBy': orderBy,
+      'orderType': orderTypeAsString(),
+    };
 
-    result['skip'] = skip;
-
-    result['take'] = take;
-
-    result['orderBy'] = orderBy;
-
-    switch (orderType) {
-      case OrderType.asc:
-        result['orderType'] = 'ASC';
-        break;
-
-      case OrderType.desc:
-        result['orderType'] = 'DESC';
-        break;
-
-      default:
-        result['orderType'] = null;
-        break;
+    for (final field in fields) {
+      result[field.fieldName] = field.toJSON();
     }
 
     return result;
   }
 
-  @override
   void fromJSON(dynamic json) {
-    if (json is Map<String, dynamic>) {
-      super.fromJSON(json);
-      if (json.containsKey("skip")) {
-        skip = json["skip"];
-      }
-      if (json.containsKey("take")) {
-        take = json["take"];
-      }
-      if (json.containsKey("orderBy")) {
-        orderBy = json["orderBy"];
-      }
-      if (json.containsKey("orderType")) {
-        orderType = fromString(json["orderType"]);
+    if (json is! Map<String, dynamic>) {
+      throw Exception(
+        "Data passed to DataFilter.fromJSON must be a Map<String, dynamic>",
+      );
+    }
+
+    if (json.containsKey("skip")) {
+      skip = json["skip"];
+    }
+    if (json.containsKey("take")) {
+      take = json["take"];
+    }
+    if (json.containsKey("orderBy")) {
+      orderBy = json["orderBy"];
+    }
+    if (json.containsKey("orderType")) {
+      orderType = fromString(json["orderType"]);
+    }
+    for (final field in fields) {
+      if (json.containsKey(field.fieldName)) {
+        field.fromJSON(json[field.fieldName]);
       }
     }
-    throw Exception(
-      "Data passed to DataFilter.fromJSON must be a Map<String, dynamic>",
-    );
   }
 
   /// Convert current filter to JSON string

@@ -16,10 +16,10 @@ class GuidFilter extends AbstractFilter {
   String? notEqual;
 
   /// Initialize new GuidFilter instance
-  GuidFilter() : super();
+  GuidFilter(super.fieldName);
 
   /// Initialize new GuidFilter instance from JSON
-  GuidFilter.fromJSON(Map<String, dynamic> json) {
+  GuidFilter.fromJSON(super.fieldName, Map<String, dynamic> json) {
     fromJSON(json);
   }
 

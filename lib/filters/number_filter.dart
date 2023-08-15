@@ -24,10 +24,10 @@ class NumberFilter<T> extends AbstractFilter {
   T? notEqual;
 
   /// Initialize new NumberFilter instance
-  NumberFilter() : super();
+  NumberFilter(super.fieldName);
 
   /// Initialize new NumberFilter instance from JSON
-  NumberFilter.fromJSON(Map<String, dynamic> json) {
+  NumberFilter.fromJSON(super.fieldName, Map<String, dynamic> json) {
     fromJSON(json);
   }
 
