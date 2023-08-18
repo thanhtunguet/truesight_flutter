@@ -32,17 +32,17 @@ abstract class DataModel implements DataSerializable {
   @override
   void fromJSON(dynamic json) {
     if (json is Map<String, dynamic>) {
-      final Map<String, String> errors =
+      final Map<String, dynamic> errors =
           json.containsKey("errors") && json["errors"] is Map
               ? json["errors"]
               : {};
 
-      final Map<String, String> warnings =
+      final Map<String, dynamic> warnings =
           json.containsKey("warnings") && json["warnings"] is Map
               ? json["warnings"]
               : {};
 
-      final Map<String, String> informations =
+      final Map<String, dynamic> informations =
           json.containsKey("informations") && json["informations"] is Map
               ? json["informations"]
               : {};
