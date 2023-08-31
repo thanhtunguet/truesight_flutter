@@ -1,0 +1,20 @@
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Paths
+
+def String readEnvironmentFromFile(String varName) {
+    try {
+        def envFile = new File(rootProject.projectDir, "../.env")
+        def envContent = new String(Files.readAllBytes(Paths.get(envFile.getPath())), StandardCharsets.UTF_8)
+        def envLines = envContent.trim().split("\\r?\\n")
+        for (String line : envLines) {
+            def parts = line.trim().split("=")
+            if (parts.length == 2 && parts[0] == varName) {
+                return parts[1]
+            }
+        }
+    } catch (Exception e) {
+        println("Error reading .env file: ${e.message}")
+    }
+    return null
+}

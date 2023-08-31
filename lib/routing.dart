@@ -10,12 +10,14 @@ class UsePageRoute {
 String getRoutingKey(Type page) {
   TypeMirror mirror = reflector.reflectType(page);
   var routingKey = "";
+
   for (var element in mirror.metadata) {
     if (element is UsePageRoute) {
       routingKey = element.path;
       break;
     }
   }
+
   return routingKey;
 }
 
@@ -25,7 +27,8 @@ String getRoutingKey(Type page) {
 GoRoute createRoutingWidget(Type page) {
   return GoRoute(
     path: getRoutingKey(page),
-    builder: (BuildContext context, GoRouterState state) =>
-        TrueSightReflector.newInstance<Widget>(page),
+    builder: (BuildContext context, GoRouterState state) {
+      return TrueSightReflector.newInstance<Widget>(page);
+    },
   );
 }
