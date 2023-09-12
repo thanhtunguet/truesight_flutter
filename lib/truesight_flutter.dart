@@ -8,6 +8,8 @@ import 'package:reflectable/reflectable.dart';
 
 import 'truesight_flutter_platform_interface.dart';
 
+export 'package:truesight_core/truesight_core.dart';
+
 part 'reflector.dart';
 part 'routing.dart';
 part 'server_config.dart';
