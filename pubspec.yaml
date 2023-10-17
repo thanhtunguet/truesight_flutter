@@ -1,6 +1,6 @@
 name: truesight_flutter
 description: Truesight core library for Flutter applications
-version: 23.9.12
+version: 23.10.17
 homepage: https://github.com/thanhtunguet/truesight_flutter
 
 environment:
@@ -17,7 +17,7 @@ dependencies:
   plugin_platform_interface: ^2.1.6
   reflectable: ^4.0.5
   sentry_flutter: ^7.9.0
-  truesight_core: 2309.12.1
+  truesight_core: ^2310.17.1
 
 dev_dependencies:
   flutter_test:
