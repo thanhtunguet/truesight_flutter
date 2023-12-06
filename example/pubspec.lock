@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0+1"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -342,10 +350,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: "5668e6d3dbcb2d0dfa25f7567554b88c57e1e3f3c440b672b24d4a9477017d5b"
+      sha256: c247a4f76071c3b97bb5ae8912968870d5565644801c5e09f3bc961b4d874895
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.2"
+    version: "12.1.1"
   google_maps:
     dependency: transitive
     description:
@@ -816,17 +824,17 @@ packages:
     dependency: transitive
     description:
       name: truesight_core
-      sha256: "6363fde8878dcb577498e62ffd7c46510b648fa3dccc1ab4c9c334fedefce05a"
+      sha256: "1017c952cbca42ea6e0c8ab1f7be9bd18e614a23c63868bdb49792dc1d461660"
       url: "https://pub.dev"
     source: hosted
-    version: "2309.12.1"
+    version: "2312.6.1"
   truesight_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "23.9.5-1"
+    version: "23.10.17"
   typed_data:
     dependency: transitive
     description:
