@@ -5,7 +5,6 @@ class TrueSightReflector extends Reflectable {
   const TrueSightReflector()
       : super(
           declarationsCapability,
-          invokingCapability,
           metadataCapability,
         );
 
@@ -18,3 +17,25 @@ class TrueSightReflector extends Reflectable {
 
 /// The must-have annotation of all classes in the application that need reflection
 const reflector = TrueSightReflector();
+
+class UsePageRoute {
+  final String path;
+
+  const UsePageRoute(this.path);
+}
+
+/// Get routing key of Widget class
+String getRoutingKey(Type page) {
+  TypeMirror mirror = reflector.reflectType(page);
+
+  var routingKey = "";
+
+  for (var element in mirror.metadata) {
+    if (element is UsePageRoute) {
+      routingKey = element.path;
+      break;
+    }
+  }
+
+  return routingKey;
+}

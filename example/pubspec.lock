@@ -834,7 +834,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "23.10.17"
+    version: "23.12.6"
   typed_data:
     dependency: transitive
     description:
