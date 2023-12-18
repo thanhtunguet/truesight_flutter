@@ -824,17 +824,17 @@ packages:
     dependency: transitive
     description:
       name: truesight_core
-      sha256: "8debed69ee0d02fc58fca1722fc40d235571b841e18dbf3c020f4384fd27d7ca"
+      sha256: "1e04c20f9f8a98b7291a11f51f97a33ad4c314b419d7c4366ff3a9a04e38d51c"
       url: "https://pub.dev"
     source: hosted
-    version: "2312.17.2"
+    version: "2312.18.1"
   truesight_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "23.15.1"
+    version: "2312.17.2"
   typed_data:
     dependency: transitive
     description:

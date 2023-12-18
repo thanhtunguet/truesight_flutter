@@ -1,3 +1,8 @@
+## 2312.18.0
+
+- Tag the version with the format `yymm.dd.patch`
+- Adding documentation
+
 ## 23.10.17
 
 - Update truesight_core

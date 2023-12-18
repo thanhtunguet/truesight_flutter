@@ -1,5 +1,6 @@
 part of 'truesight_flutter.dart';
 
+/// This class manages the Url of backend server
 class ServerConfig {
   static ServerConfig? _instance;
 
