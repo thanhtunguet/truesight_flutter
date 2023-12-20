@@ -15,7 +15,7 @@ String getRoutingKey(
 }) {
   String path = _routes[type]!;
   pathParameters?.forEach((key, value) {
-    path = path.replaceAll(key, value);
+    path = path.replaceAll(":$key", value);
   });
   final uri = Uri(
     path: path,
