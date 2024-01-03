@@ -1,3 +1,7 @@
+## 2401.4.1
+
+- Cập nhật truesight_core
+
 ## 2312.18.0
 
 - Tag the version with the format `yymm.dd.patch`
