@@ -16,6 +16,10 @@ abstract class HttpRepository {
   /// If the baseUrl should be watched from a stream, state or something else, returns null
   String? get baseUrl;
 
+  String url(String path) {
+    return "$baseUrl/$path";
+  }
+
   /// Set the baseUrl for dio instance
   set baseUrl(String? baseUrl) {
     if (baseUrl != null) {
@@ -29,14 +33,14 @@ abstract class HttpRepository {
 
   /// InterceptorsWrapper for this repository
   /// Must be set if useInterceptors is true
-  abstract InterceptorsWrapper interceptorWrapper;
+  abstract InterceptorsWrapper interceptorsWrapper;
 
   /// BaseOptions for Dio
   /// Will be used to initialize the dio instance
   BaseOptions? get options => null;
 
   addInterceptors(InterceptorsWrapper interceptorsWrapper) {
-    _dio.interceptors.add(interceptorWrapper);
+    _dio.interceptors.add(interceptorsWrapper);
   }
 
   /// Abstract constructor
@@ -44,7 +48,7 @@ abstract class HttpRepository {
     _dio = Dio(options);
     addInstance(this);
     if (useInterceptors) {
-      addInterceptors(interceptorWrapper);
+      addInterceptors(interceptorsWrapper);
     }
     if (baseUrl != null) {
       baseUrl = baseUrl;
@@ -63,6 +67,27 @@ abstract class HttpRepository {
   }) {
     return _dio.request(
       url,
+      data: data,
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      options: options,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
+
+  /// Wrap POST method from Dio
+  Future<Response> post(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) {
+    return _dio.post(
+      path,
       data: data,
       queryParameters: queryParameters,
       cancelToken: cancelToken,

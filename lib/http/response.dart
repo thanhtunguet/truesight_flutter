@@ -15,7 +15,7 @@ extension HttpResponse on Response {
     }).toList();
   }
 
-  int bodyAsInt() {
+  int bodyAsInteger() {
     return int.parse(data);
   }
 
@@ -25,5 +25,13 @@ extension HttpResponse on Response {
 
   String bodyAsString() {
     return data.toString();
+  }
+
+  bool bodyAsBoolean() {
+    return bool.parse(data);
+  }
+
+  DateTime bodyAsDateTime() {
+    return DateTime.parse(data);
   }
 }

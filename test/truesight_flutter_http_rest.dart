@@ -5,7 +5,7 @@ import 'package:truesight_flutter/http/http.dart';
 
 final class IpRepository extends HttpRepository {
   @override
-  InterceptorsWrapper interceptorWrapper = InterceptorsWrapper();
+  InterceptorsWrapper interceptorsWrapper = InterceptorsWrapper();
 
   @override
   String? get baseUrl => 'https://checkip.amazonaws.com';

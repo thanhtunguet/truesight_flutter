@@ -3,23 +3,25 @@ import 'dart:convert';
 import 'package:truesight_flutter/json_serializable.dart';
 
 part 'abstract_id_filter.dart';
+part 'abstract_number_filter.dart';
 part 'date_filter.dart';
 part 'double_filter.dart';
 part 'filter_field.dart';
 part 'guid_filter.dart';
 part 'id_filter.dart';
 part 'int_filter.dart';
-part 'abstract_number_filter.dart';
-part 'string_filter.dart';
 part 'number_filter.dart';
+part 'string_filter.dart';
 
 abstract class DataFilter implements JsonSerializable {
   static const ORDER_ASC = "ASC";
 
   static const ORDER_DESC = "DESC";
 
+  /// Number of entities to skip
   int? skip = 0;
 
+  /// Number of entities to take in a request
   int? take = 10;
 
   String? orderBy;

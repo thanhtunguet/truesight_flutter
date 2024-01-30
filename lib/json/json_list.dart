@@ -1,6 +1,7 @@
 part of 'json.dart';
 
-base class JsonList<T extends DataModel> extends JsonField<List<T>> implements JsonEntity {
+base class JsonList<T extends DataModel> extends JsonField<List<T>>
+    implements JsonEntity {
   @override
   Type genericType = T;
 

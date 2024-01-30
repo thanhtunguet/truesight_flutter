@@ -29,18 +29,12 @@ class StringFilter extends FilterField {
   /// Initialize new StringFilter instance
   StringFilter(super.fieldName);
 
-  /// Initialize new StringFilter instance from a JSON value
-  StringFilter.fromJSON(super.fieldName, Map<String, dynamic> json) {
-    fromJSON(json);
-  }
-
   /// Convert this filter from JSON
   @override
   void fromJSON(dynamic json) {
     if (json is! Map<String, dynamic>) {
       return;
     }
-
     if (json.containsKey(FilterField.equal)) {
       equal = json[FilterField.equal];
     }
