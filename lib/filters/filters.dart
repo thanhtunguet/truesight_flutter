@@ -35,9 +35,12 @@ abstract class DataFilter implements JsonSerializable {
     final Map<String, dynamic> json = {};
     json["skip"] = skip;
     json["take"] = take;
-    json["orderBy"] = orderBy;
-    json["orderType"] = orderType;
-
+    if (orderBy != null) {
+      json["orderBy"] = orderBy;
+    }
+    if (orderType != null) {
+      json["orderType"] = orderType;
+    }
     for (final field in fields) {
       json[field.name] = field.toJSON();
     }

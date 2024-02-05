@@ -16,7 +16,13 @@ extension HttpResponse on Response {
   }
 
   int bodyAsInteger() {
-    return int.parse(data);
+    if (data is String) {
+      return int.parse(data);
+    }
+    if (data is num) {
+      return data.toInt();
+    }
+    return data;
   }
 
   double bodyAsDouble() {

@@ -80,4 +80,6 @@ abstract base class JsonField<T> implements JsonSerializable {
     }
     return null;
   }
+
+  bool get hasError => error != null && error!.isNotEmpty;
 }

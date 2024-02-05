@@ -1,3 +1,7 @@
+## 2402.5.1
+
+- Deprecate getRoutingKey
+
 ## 2401.30.0
 
 - Add stateful text form field
