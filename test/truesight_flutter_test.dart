@@ -16,23 +16,32 @@ class AppUser extends DataModel {
         members,
       ];
 
-  JsonString username = JsonString('username', isRequired: false, helper: 'Username of the user');
+  JsonString username =
+      JsonString('username', isRequired: false, helper: 'Username of the user');
 
-  JsonString password = JsonString('password', isRequired: false, helper: 'Password of the user');
+  JsonString password =
+      JsonString('password', isRequired: false, helper: 'Password of the user');
 
-  JsonString email = JsonString('email', isRequired: false, helper: 'Email of the user');
+  JsonString email =
+      JsonString('email', isRequired: false, helper: 'Email of the user');
 
-  JsonBoolean isAdmin = JsonBoolean('isAdmin', isRequired: false, helper: 'Is the user an admin');
+  JsonBoolean isAdmin =
+      JsonBoolean('isAdmin', isRequired: false, helper: 'Is the user an admin');
 
-  JsonDate dateOfBirth = JsonDate('dateOfBirth', isRequired: false, helper: 'User\'s date of birth');
+  JsonDate dateOfBirth = JsonDate('dateOfBirth',
+      isRequired: false, helper: 'User\'s date of birth');
 
-  JsonInteger age = JsonInteger('age', isRequired: false, helper: 'Age of the user');
+  JsonInteger age =
+      JsonInteger('age', isRequired: false, helper: 'Age of the user');
 
-  JsonDouble level = JsonDouble('level', isRequired: false, helper: 'Level of the user');
+  JsonDouble level =
+      JsonDouble('level', isRequired: false, helper: 'Level of the user');
 
-  JsonObject<AppUser> manager = JsonObject('manager', isRequired: false, helper: 'Manager of the user');
+  JsonObject<AppUser> manager =
+      JsonObject('manager', isRequired: false, helper: 'Manager of the user');
 
-  JsonList<AppUser> members = JsonList<AppUser>('members', isRequired: false, helper: 'Members that this user manages');
+  JsonList<AppUser> members = JsonList<AppUser>('members',
+      isRequired: false, helper: 'Members that this user manages');
 }
 
 class AppUserFilter extends DataFilter {
@@ -100,7 +109,8 @@ void main() {
     expect(user.members.value[0].username.value, sampleMember['username']);
     expect(user.members.value[0].password.value, sampleMember['password']);
     expect(user.members.value[0].email.value, sampleMember['email']);
-    expect(user.members.value[0].dateOfBirth.toJSON(), sampleMember['dateOfBirth']);
+    expect(user.members.value[0].dateOfBirth.toJSON(),
+        sampleMember['dateOfBirth']);
     expect(user.members.value[0].age.value, sampleMember['age']);
     expect(user.members.value[0].level.value, sampleMember['level']);
 
@@ -119,5 +129,13 @@ void main() {
     if (kDebugMode) {
       print(filter.toString());
     }
+  });
+
+  test('empty serialization', () {
+    AppUser appUser = AppUser();
+    if (kDebugMode) {
+      print(appUser.toString());
+    }
+    expect(appUser.toString(), '{}');
   });
 }

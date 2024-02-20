@@ -1,8 +1,10 @@
 part of 'json.dart';
 
 base class JsonDate extends JsonField<DateTime> {
+  static final defaultDateTime = DateTime(1970, 1, 1);
+
   @override
-  DateTime defaultValue = DateTime.now();
+  DateTime defaultValue = defaultDateTime;
 
   JsonDate(
     super.name, {

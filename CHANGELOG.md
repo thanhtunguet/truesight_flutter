@@ -1,3 +1,9 @@
+## 2402.20.1
+
+### Fixed
+
+- Ignore null value when converting to JSON
+
 ## 2402.20.0
 
 ### Added

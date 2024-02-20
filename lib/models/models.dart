@@ -44,13 +44,20 @@ abstract class DataModel implements JsonSerializable {
   @override
   void fromJSON(json) {
     if (json is Map<String, dynamic>) {
-      final Map<String, dynamic> errors = json.containsKey(errorKey) && json[errorKey] is Map ? json[errorKey] : {};
+      final Map<String, dynamic> errors =
+          json.containsKey(errorKey) && json[errorKey] is Map
+              ? json[errorKey]
+              : {};
 
       final Map<String, dynamic> warnings =
-          json.containsKey(warningKey) && json[warningKey] is Map ? json[warningKey] : {};
+          json.containsKey(warningKey) && json[warningKey] is Map
+              ? json[warningKey]
+              : {};
 
       final Map<String, dynamic> informations =
-          json.containsKey(informationKey) && json[informationKey] is Map ? json[informationKey] : {};
+          json.containsKey(informationKey) && json[informationKey] is Map
+              ? json[informationKey]
+              : {};
 
       for (final field in fields) {
         try {
@@ -97,7 +104,8 @@ abstract class DataModel implements JsonSerializable {
             continue;
           }
         } catch (error) {
-          _logger.severe("Error while parsing field ${field.name}: ${error.toString()}");
+          _logger.severe(
+              "Error while parsing field ${field.name}: ${error.toString()}");
         }
       }
       return;
@@ -112,6 +120,9 @@ abstract class DataModel implements JsonSerializable {
     final Map<String, dynamic> result = {};
 
     for (final field in fields) {
+      if (field.isNull) {
+        continue;
+      }
       if (field is JsonString ||
           field is JsonNumber ||
           field is JsonBoolean ||
@@ -129,7 +140,8 @@ abstract class DataModel implements JsonSerializable {
         continue;
       }
       if (field is JsonList) {
-        result[field.name] = field.value.map((element) => element.toJSON()).toList();
+        result[field.name] =
+            field.value.map((element) => element.toJSON()).toList();
         continue;
       }
     }
