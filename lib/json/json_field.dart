@@ -36,6 +36,16 @@ abstract base class JsonField<T> implements JsonSerializable {
     return defaultValue;
   }
 
+  /// Check if the data is null
+  bool get isNull {
+    return _value == null;
+  }
+
+  /// Check if the data is not null
+  bool get isNotNull {
+    return _value != null;
+  }
+
   /// value setter
   set value(T value) {
     _value = value;
@@ -70,13 +80,11 @@ abstract base class JsonField<T> implements JsonSerializable {
   }
 
   String? validate() {
-    if (error != null) {
+    if (hasError) {
       return error;
     }
-    if (isRequired) {
-      if (_value == null) {
-        return "Field $name is required";
-      }
+    if (isRequired && isNull) {
+      return "Field $name is required";
     }
     return null;
   }

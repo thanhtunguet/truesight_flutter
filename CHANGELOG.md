@@ -1,3 +1,9 @@
+## 2402.20.0
+
+### Added
+
+- Getter: `isNull`, `isNotNull` for `JsonField`
+
 ## 2402.5.1
 
 - Deprecate getRoutingKey
