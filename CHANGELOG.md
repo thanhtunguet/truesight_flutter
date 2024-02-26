@@ -1,3 +1,9 @@
+## 2402.26.1
+
+### Added 
+
+- `rawValue` field.
+
 ## 2402.26.0
 
 ### Added 

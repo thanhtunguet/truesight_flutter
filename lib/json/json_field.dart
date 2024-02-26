@@ -10,6 +10,9 @@ abstract base class JsonField<T> implements JsonSerializable {
   /// internal value
   T? _value;
 
+  /// Raw value (nullable)
+  T? get rawValue => _value;
+
   /// Default value for the field
   abstract T defaultValue;
 
