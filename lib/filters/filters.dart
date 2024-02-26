@@ -28,6 +28,8 @@ abstract class DataFilter implements JsonSerializable {
 
   String? orderType;
 
+  String? search;
+
   List<FilterField> get fields;
 
   @override
@@ -40,6 +42,9 @@ abstract class DataFilter implements JsonSerializable {
     }
     if (orderType != null) {
       json["orderType"] = orderType;
+    }
+    if (search != null) {
+      json["search"] = search;
     }
     for (final field in fields) {
       json[field.name] = field.toJSON();
@@ -62,6 +67,9 @@ abstract class DataFilter implements JsonSerializable {
       }
       if (json.containsKey("orderType") && json["orderType"] is String?) {
         take = json["orderType"];
+      }
+      if (json.containsKey("search") && json["search"] is String?) {
+        search = json["search"];
       }
 
       for (final field in fields) {

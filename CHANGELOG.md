@@ -1,3 +1,9 @@
+## 2402.26.0
+
+### Added 
+
+- `search` field for `DataFilter`
+
 ## 2402.20.1
 
 ### Fixed
