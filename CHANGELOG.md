@@ -1,3 +1,9 @@
+## 2402.26.2
+
+### Changed
+
+- Default `take` value for DataFilter is `20`
+
 ## 2402.26.1
 
 ### Added 

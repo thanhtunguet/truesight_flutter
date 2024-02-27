@@ -22,7 +22,7 @@ abstract class DataFilter implements JsonSerializable {
   int? skip = 0;
 
   /// Number of entities to take in a request
-  int? take = 10;
+  int? take = 20;
 
   String? orderBy;
 
