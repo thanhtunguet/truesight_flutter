@@ -1,3 +1,9 @@
+## 2404.12.1
+
+### Changed
+
+- Format date with local timezone
+
 ## 2402.26.2
 
 ### Changed
