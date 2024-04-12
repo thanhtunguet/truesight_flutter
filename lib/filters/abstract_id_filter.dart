@@ -23,7 +23,6 @@ class AbstractIdFilter<T> extends FilterField {
     if (json is! Map<String, dynamic>) {
       return;
     }
-
     if (json.containsKey(FilterField.inList)) {
       inList = json[FilterField.inList];
     }
