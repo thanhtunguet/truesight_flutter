@@ -6,3 +6,4 @@ part 'cookies.dart';
 part 'http_repository.dart';
 part 'request.dart';
 part 'response.dart';
+part 'status_code.dart';
