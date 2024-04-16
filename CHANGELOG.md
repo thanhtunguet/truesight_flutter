@@ -1,3 +1,9 @@
+## 2404.16.1
+
+### Added
+
+- Cookies and shared_preferences
+
 ## 2404.12.1
 
 ### Changed
