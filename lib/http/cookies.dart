@@ -32,7 +32,7 @@ Map<String, String> _parseSetCookie(String setCookieString) {
   return cookies;
 }
 
-Future<Map<String, dynamic>> getCookies() async {
+Future<Map<String, dynamic>> _getCookies() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final Set<String> keys = prefs.getKeys();
 
