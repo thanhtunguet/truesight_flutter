@@ -14,7 +14,7 @@ bool _isCookieKey(String key) {
   return key.startsWith(_cookieKeyPrefix);
 }
 
-Map<String, String> parseSetCookie(String setCookieString) {
+Map<String, String> _parseSetCookie(String setCookieString) {
   // Initialize an empty map to store key-value pairs of the cookie
   Map<String, String> cookies = {};
   // Split the Set-Cookie string by '; ' to separate the cookie attributes
