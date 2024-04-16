@@ -47,3 +47,14 @@ Future<Map<String, dynamic>> _getCookies() async {
 
   return prefsMap;
 }
+
+Future<void> clearCookies() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final Set<String> keys = prefs.getKeys();
+
+  for (String key in keys) {
+    if (_isCookieKey(key)) {
+      prefs.remove(key);
+    }
+  }
+}
