@@ -6,6 +6,10 @@ String _getCookieKey(String key) {
   return "$_cookieKeyPrefix$key";
 }
 
+String _getCookieKeyReversed(String key) {
+  return key.replaceAll(_cookieKeyPrefix, "");
+}
+
 bool _isCookieKey(String key) {
   return key.startsWith(_cookieKeyPrefix);
 }
@@ -36,7 +40,8 @@ Future<Map<String, dynamic>> getCookies() async {
 
   for (String key in keys) {
     if (_isCookieKey(key)) {
-      prefsMap[key] = prefs.get(key); // Get value as dynamic
+      prefsMap[_getCookieKeyReversed(key)] =
+          prefs.get(key); // Get value as dynamic
     }
   }
 
