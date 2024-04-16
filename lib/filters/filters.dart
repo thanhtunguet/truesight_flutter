@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:truesight_flutter/json_serializable.dart';
 
 part 'abstract_id_filter.dart';
