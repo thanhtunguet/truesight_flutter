@@ -32,6 +32,11 @@ abstract class DataModel implements JsonSerializable {
   }
 
   static ModelType getType(Type type) {
+    if (!_modelTypes.containsKey(type)) {
+      throw Exception(
+        "Can not find type $type, may be you have not registered the model class with `DataModel.setType`",
+      );
+    }
     return _modelTypes[type]!;
   }
 
@@ -116,7 +121,7 @@ abstract class DataModel implements JsonSerializable {
   }
 
   @override
-  toJSON() {
+  Map<String, dynamic> toJSON() {
     final Map<String, dynamic> result = {};
 
     for (final field in fields) {
@@ -136,7 +141,7 @@ abstract class DataModel implements JsonSerializable {
         continue;
       }
       if (field is JsonObject) {
-        result[field.name] = field.value?.toJSON();
+        result[field.name] = field.rawValue?.toJSON();
         continue;
       }
       if (field is JsonList) {

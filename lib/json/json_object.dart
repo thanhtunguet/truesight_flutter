@@ -16,6 +16,14 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
   });
 
   @override
+  T get value {
+    if (_value != null) {
+      return _value!;
+    }
+    return DataModel.getType(genericType).constructor() as T;
+  }
+
+  @override
   void fromJSON(json) {
     final T model = DataModel.getType(genericType).constructor() as T;
     model.fromJSON(json);

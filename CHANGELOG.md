@@ -1,3 +1,9 @@
+## 2404.17.1
+
+### Changed
+
+- Default value for JsonObject now a Model
+
 ## 2404.16.1
 
 ### Added

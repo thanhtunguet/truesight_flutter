@@ -39,6 +39,11 @@ abstract base class JsonField<T> implements JsonSerializable {
     return defaultValue;
   }
 
+  /// value setter
+  set value(T value) {
+    _value = value;
+  }
+
   /// Check if the data is null
   bool get isNull {
     return _value == null;
@@ -47,11 +52,6 @@ abstract base class JsonField<T> implements JsonSerializable {
   /// Check if the data is not null
   bool get isNotNull {
     return _value != null;
-  }
-
-  /// value setter
-  set value(T value) {
-    _value = value;
   }
 
   JsonField(
