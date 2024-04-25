@@ -2,7 +2,7 @@ part of 'http.dart';
 
 extension RequestExtension on RequestOptions {
   Future<void> readCookies() async {
-    final cookies = await _getCookies();
+    final cookies = await getCookies();
 
     final cookieString = cookies.entries.map((element) {
       return "${element.key}=${element.value}";

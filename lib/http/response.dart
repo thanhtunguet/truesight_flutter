@@ -47,7 +47,7 @@ extension HttpResponse on Response {
     final Map<String, String> cookieMap = {};
     if (cookies != null) {
       for (var element in cookies) {
-        final map = _parseSetCookie(element);
+        final map = parseSetCookie(element);
         cookieMap.addAll(map);
       }
     }
