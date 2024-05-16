@@ -7,3 +7,4 @@ part 'http_repository.dart';
 part 'request.dart';
 part 'response.dart';
 part 'status_code.dart';
+part 'default_interceptors.dart';

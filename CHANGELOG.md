@@ -1,3 +1,8 @@
+## 2405.16.1
+
+### Added
+- Add default interceptors
+
 ## 2404.17.1
 
 ### Changed
