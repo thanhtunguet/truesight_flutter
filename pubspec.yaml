@@ -1,6 +1,6 @@
 name: truesight_flutter
 description: "Dart library for TrueSight projects"
-version: 2405.16.1
+version: 2405.17.1
 homepage: https://github.com/thanhtunguet/truesight_flutter
 
 environment:
@@ -11,10 +11,10 @@ dependencies:
   dio: ^5.0.0
   flutter:
     sdk: flutter
-  go_router: ^13.2.2
+  flutter_dotenv: ^5.0.0
   intl: 0.18.1
   logging: ^1.2.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.0.0
 
 dev_dependencies:
   flutter_test:

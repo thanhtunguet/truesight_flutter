@@ -159,18 +159,6 @@ class UserRepository extends HttpRepository {
 }
 ```
 
-### Routing
-
-Cung cấp 2 method `getRoutingKey` và `addRoutingKey` để tạo ra bảng map routing giữa các `Widget` và deep link tương ứng cho `Widget` đó.
-
-```dart
-void configureRoutes() {
-  addRoutingKey(ProductDetailPage, "/product");
-}
-
-getRoutingKey(ProductDetailPage);
-```
-
 ### Extensions
 
 ## Additional information

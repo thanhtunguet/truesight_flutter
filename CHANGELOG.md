@@ -1,3 +1,9 @@
+## 2405.17.1
+
+### Added
+
+- BaseRepository
+
 ## 2405.16.1
 
 ### Added
