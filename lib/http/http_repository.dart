@@ -33,7 +33,7 @@ abstract class HttpRepository {
 
   /// InterceptorsWrapper for this repository
   /// Must be set if useInterceptors is true
-  abstract InterceptorsWrapper interceptorsWrapper;
+  InterceptorsWrapper get interceptorsWrapper => InterceptorsWrapper();
 
   /// BaseOptions for Dio
   /// Will be used to initialize the dio instance
