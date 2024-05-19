@@ -1,3 +1,9 @@
+## 2405.19.1
+
+### Added
+
+- Default interceptor for repository
+
 ## 2405.17.1
 
 ### Added
