@@ -1,3 +1,9 @@
+## 2405.20.1
+
+### Removed
+
+- intl as dependency
+
 ## 2405.19.1
 
 ### Added
