@@ -1,22 +1,29 @@
 import 'package:intl/intl.dart';
 
 extension NumberFormatter on num {
-  String asMoney({bool hasDecimals = false}) {
+  String asMoney({
+    bool hasDecimals = false,
+    String currency = 'VND',
+  }) {
     var formatter = NumberFormat(hasDecimals ? '###,###.000' : '###,###');
-    return formatter.format(this);
+    return '${formatter.format(this)} $currency';
   }
 }
 
 extension DoubleFormatter on double {
-  String asMoney({bool hasDecimals = false}) {
-    var formatter = NumberFormat(hasDecimals ? '###,###.000' : '###,###');
-    return formatter.format(this);
+  String asMoney({
+    bool hasDecimals = false,
+    String currency = 'VND',
+  }) {
+    return (this as num).asMoney(hasDecimals: hasDecimals, currency: currency);
   }
 }
 
 extension IntegerFormatter on double {
-  String asMoney({bool hasDecimals = false}) {
-    var formatter = NumberFormat(hasDecimals ? '###,###.000' : '###,###');
-    return formatter.format(this);
+  String asMoney({
+    bool hasDecimals = false,
+    String currency = 'VND',
+  }) {
+    return (this as num).asMoney(hasDecimals: hasDecimals, currency: currency);
   }
 }
