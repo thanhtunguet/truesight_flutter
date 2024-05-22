@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
 import 'package:truesight_flutter/json_serializable.dart';
-import 'package:truesight_flutter/models/models.dart';
+import 'package:truesight_flutter/truesight_flutter.dart';
 
 part 'json_boolean.dart';
 part 'json_date.dart';
