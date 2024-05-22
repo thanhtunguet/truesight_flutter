@@ -1,3 +1,9 @@
+## 2405.22.2
+
+### Added 
+
+- Double formatter
+
 ## 2405.22.1
 
 ### Added
