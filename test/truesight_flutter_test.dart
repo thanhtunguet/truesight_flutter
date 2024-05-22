@@ -138,4 +138,10 @@ void main() {
     }
     expect(appUser.toString(), '{}');
   });
+
+  test('number format', () {
+    const num x = 16660066600000;
+    print(x.asMoney());
+    print(x.asMoney(hasDecimals: true));
+  });
 }
