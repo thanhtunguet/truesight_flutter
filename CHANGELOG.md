@@ -1,3 +1,9 @@
+## 2405.22.1
+
+### Added
+
+- DateTime format extension
+
 ## 2405.20.1
 
 ### Removed

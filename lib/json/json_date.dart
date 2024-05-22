@@ -27,6 +27,6 @@ base class JsonDate extends JsonField<DateTime> {
   }
 
   String format({String dateFormat = "YYYY-MM-DD"}) {
-    return DateFormat(dateFormat).format(value.toLocal());
+    return value.format(dateFormat: dateFormat);
   }
 }
