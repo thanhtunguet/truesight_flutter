@@ -49,4 +49,16 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
       'id': id,
     }).then((response) => response.body<T>());
   }
+
+  Future<T> approve(T entity) async {
+    return _dio
+        .post(url("approve"), data: entity.toJSON())
+        .then((response) => response.body<T>());
+  }
+
+  Future<T> reject(T entity) async {
+    return _dio
+        .post(url("reject"), data: entity.toJSON())
+        .then((response) => response.body<T>());
+  }
 }

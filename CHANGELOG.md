@@ -1,3 +1,9 @@
+## 2405.25.1
+
+### Added
+
+- Approve and reject methods
+
 ## 2405.22.2
 
 ### Added 
