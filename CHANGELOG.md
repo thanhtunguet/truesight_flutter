@@ -1,3 +1,9 @@
+## 2405.26.1
+
+### Added 
+
+- Simple Infinite List
+
 ## 2405.25.1
 
 ### Added
