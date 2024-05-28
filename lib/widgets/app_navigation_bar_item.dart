@@ -5,6 +5,8 @@ class AppNavigationBarItem extends StatelessWidget {
 
   final IconData? activeIcon;
 
+  final Widget? image;
+
   final String label;
 
   final bool isActive;
@@ -18,6 +20,7 @@ class AppNavigationBarItem extends StatelessWidget {
     required this.label,
     this.activeIcon,
     this.onIndexChanged,
+    this.image,
   });
 
   @override
@@ -45,10 +48,11 @@ class AppNavigationBarItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: color,
-              ),
+              image ??
+                  Icon(
+                    icon,
+                    color: color,
+                  ),
               Text(
                 label,
                 style: TextStyle(

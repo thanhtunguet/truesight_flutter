@@ -1,3 +1,9 @@
+## 2405.28.1
+
+### Added
+
+- Add AppNavigationBar widget
+
 ## 2405.26.1
 
 ### Added 
