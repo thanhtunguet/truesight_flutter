@@ -1,3 +1,9 @@
+## 2405.30.1
+
+### Added 
+
+- Go back button
+
 ## 2405.28.1
 
 ### Added

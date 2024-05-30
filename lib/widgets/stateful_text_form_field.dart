@@ -50,7 +50,7 @@ class StatefulTextFormField extends StatelessWidget {
     }
     if (field.warning?.isNotEmpty == true) {
       return TextStyle(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       );
     }
     if (field.information?.isNotEmpty == true) {
