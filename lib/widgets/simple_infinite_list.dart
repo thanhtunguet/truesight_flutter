@@ -49,20 +49,24 @@ class _SimpleInfiniteListState<T extends DataModel, TFilter extends DataFilter,
         widget.repository.list(filter),
         widget.repository.count(filter),
       ]).then((values) {
-        final List<T> list = values[0] as List<T>;
-        final int count = values[1] as int;
-        final isLastPage =
-            list.length < _pageSize || list.length + (filter.skip!) == count;
+        if (mounted) {
+          final List<T> list = values[0] as List<T>;
+          final int count = values[1] as int;
+          final isLastPage =
+              list.length < _pageSize || list.length + (filter.skip!) == count;
 
-        if (isLastPage) {
-          _pagingController.appendLastPage(list);
-        } else {
-          final nextPageKey = pageKey + list.length;
-          _pagingController.appendPage(list, nextPageKey);
+          if (isLastPage) {
+            _pagingController.appendLastPage(list);
+          } else {
+            final nextPageKey = pageKey + list.length;
+            _pagingController.appendPage(list, nextPageKey);
+          }
         }
       });
     } catch (error) {
-      _pagingController.error = error;
+      if (mounted) {
+        _pagingController.error = error;
+      }
     }
   }
 

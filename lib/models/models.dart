@@ -4,6 +4,8 @@ import 'package:logging/logging.dart';
 import 'package:truesight_flutter/json/json.dart';
 import 'package:truesight_flutter/json_serializable.dart';
 
+part 'identified_model.dart';
+
 typedef InstanceConstructor<T extends DataModel> = T Function();
 
 class ModelType<T extends DataModel> {

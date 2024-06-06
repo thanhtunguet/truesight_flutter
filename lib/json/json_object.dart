@@ -25,9 +25,11 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
 
   @override
   void fromJSON(json) {
-    final T model = DataModel.getType(genericType).constructor() as T;
-    model.fromJSON(json);
-    _value = model;
+    if (json != null) {
+      final T model = DataModel.getType(genericType).constructor() as T;
+      model.fromJSON(json);
+      _value = model;
+    }
   }
 
   @override
