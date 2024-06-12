@@ -1,3 +1,9 @@
+## 2406.12.1
+
+### Fixed
+
+- Format date value only
+
 ## 2406.6.1
 
 ### Fixed
