@@ -1,3 +1,9 @@
+## 2406.12.3
+
+### Fixed
+
+- Dart typed_data
+
 ## 2406.12.2
 
 ### Added
