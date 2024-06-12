@@ -2,6 +2,16 @@ part of 'http.dart';
 
 const _cookieKeyPrefix = "cookie-";
 
+extension TrueSightCookies on Map<String, dynamic> {
+  String? get token => this['Token'];
+
+  String? get refreshToken => this['RefreshToken'];
+
+  bool get hasToken => this['Token'] != null;
+
+  bool get hasRefreshToken => this['RefreshToken'] != null;
+}
+
 String _getCookieKey(String key) {
   return "$_cookieKeyPrefix$key";
 }
@@ -40,8 +50,7 @@ Future<Map<String, dynamic>> getCookies() async {
 
   for (String key in keys) {
     if (_isCookieKey(key)) {
-      prefsMap[_getCookieKeyReversed(key)] =
-          prefs.get(key); // Get value as dynamic
+      prefsMap[_getCookieKeyReversed(key)] = prefs.get(key); // Get value as dynamic
     }
   }
 

@@ -1,3 +1,9 @@
+## 2406.12.2
+
+### Added
+
+- TrueSightImageProvider
+
 ## 2406.12.1
 
 ### Fixed
