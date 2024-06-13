@@ -1,3 +1,9 @@
+## 2406.13.2
+
+### Fixed
+
+- Dispose simple list
+
 ## 2406.13.1
 
 ### Added

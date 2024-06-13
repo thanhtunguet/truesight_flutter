@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class GoBackButton extends StatelessWidget {
@@ -5,10 +7,13 @@ class GoBackButton extends StatelessWidget {
 
   final double? size;
 
+  final FutureOr<void> Function(BuildContext)? onGoBack;
+
   const GoBackButton({
     super.key,
     this.color,
     this.size,
+    this.onGoBack,
   });
 
   @override
@@ -20,6 +25,9 @@ class GoBackButton extends StatelessWidget {
         size: size,
       ),
       onPressed: () {
+        if (onGoBack != null) {
+          onGoBack!(context);
+        }
         Navigator.of(context).pop();
       },
     );
