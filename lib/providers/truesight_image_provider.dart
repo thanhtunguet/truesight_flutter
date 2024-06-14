@@ -12,6 +12,7 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
     final uri = Uri.parse(url);
     final Uri result = uri.replace(
       queryParameters: <String, String>{
+        ...uri.queryParameters,
         'token': cookies.token ?? '',
       },
     );
