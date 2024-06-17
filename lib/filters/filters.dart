@@ -18,17 +18,31 @@ abstract class DataFilter implements JsonSerializable {
 
   static const ORDER_DESC = "DESC";
 
+  static const String VIEW_CODE_ALL = "ALL";
+  static const String VIEW_CODE_RECENTLY = "RECENTLY";
+  static const String VIEW_CODE_OWNER = "OWNER";
+  static const String VIEW_CODE_PENDING = "PENDING";
+  static const String VIEW_CODE_REVIEWING = "REVIEWING";
+  static const String VIEW_CODE_APPROVED = "APPROVED";
+  static const String VIEW_CODE_COMPLETED = "COMPLETED";
+
   /// Number of entities to skip
   int? skip = 0;
 
   /// Number of entities to take in a request
   int? take = 20;
 
+  /// Field name to order by
   String? orderBy;
 
+  /// Order orientation
   String? orderType;
 
+  /// Search field
   String? search;
+
+  /// Document view code
+  String? viewCode;
 
   List<FilterField> get fields;
 
@@ -45,6 +59,9 @@ abstract class DataFilter implements JsonSerializable {
     }
     if (search != null) {
       json["search"] = search;
+    }
+    if (viewCode != null) {
+      json["viewCode"] = viewCode;
     }
     for (final field in fields) {
       json[field.name] = field.toJSON();
@@ -70,6 +87,9 @@ abstract class DataFilter implements JsonSerializable {
       }
       if (json.containsKey("search") && json["search"] is String?) {
         search = json["search"];
+      }
+      if (json.containsKey("viewCode") && json["viewCode"] is String?) {
+        viewCode = json["viewCode"];
       }
 
       for (final field in fields) {
