@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:truesight_flutter/json_serializable.dart';
@@ -58,7 +60,6 @@ abstract class DataFilter implements JsonSerializable {
     for (final field in fields) {
       json[field.name] = field.toJSON();
     }
-
     return json;
   }
 

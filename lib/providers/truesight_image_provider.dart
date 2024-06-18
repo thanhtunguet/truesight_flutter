@@ -33,12 +33,14 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
 
   @override
   ImageStreamCompleter loadImage(Uri key, ImageDecoderCallback decode) {
-    final StreamController<ImageChunkEvent> chunkEvents = StreamController<ImageChunkEvent>();
+    final StreamController<ImageChunkEvent> chunkEvents =
+        StreamController<ImageChunkEvent>();
     debugPrint('Fetching "$key"...');
     return MultiFrameImageStreamCompleter(
       codec: _httpClient
           .getUrl(key)
-          .then<HttpClientResponse>((HttpClientRequest request) => request.close())
+          .then<HttpClientResponse>(
+              (HttpClientRequest request) => request.close())
           .then<Uint8List>((HttpClientResponse response) {
             return consolidateHttpClientResponseBytes(
               response,
@@ -70,5 +72,6 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
   }
 
   @override
-  String toString() => '${objectRuntimeType(this, 'TrueSightImageProvider')}("$url")';
+  String toString() =>
+      '${objectRuntimeType(this, 'TrueSightImageProvider')}("$url")';
 }
