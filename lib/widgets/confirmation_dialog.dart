@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:truesight_flutter/truesight_flutter.dart';
+import 'package:truesight_flutter/widgets/carbon_button.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String title;
