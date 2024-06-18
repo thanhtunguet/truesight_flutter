@@ -30,6 +30,10 @@ abstract interface class FilterField implements JsonSerializable {
 
   static const String notInList = "notIn";
 
+  static const String search = "search";
+
+  static const String viewCode = "viewCode";
+
   final String name;
 
   FilterField(this.name);

@@ -1,3 +1,10 @@
+## 2406.18.2
+
+### Added
+
+- Add widget: CarbonButton
+- Add widget: ConfirmationDialog
+
 ## 2406.13.2
 
 ### Fixed

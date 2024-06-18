@@ -1,10 +1,11 @@
 part of 'json.dart';
 
-abstract base class JsonField<T> implements JsonSerializable {
+abstract base class JsonField<T> implements JsonSerializableField {
   /// Type of the JsonField
   late Type type;
 
   /// Field name
+  @override
   String name;
 
   /// internal value
