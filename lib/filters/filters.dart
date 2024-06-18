@@ -18,14 +18,6 @@ abstract class DataFilter implements JsonSerializable {
 
   static const ORDER_DESC = "DESC";
 
-  static const String VIEW_CODE_ALL = "ALL";
-  static const String VIEW_CODE_RECENTLY = "RECENTLY";
-  static const String VIEW_CODE_OWNER = "OWNER";
-  static const String VIEW_CODE_PENDING = "PENDING";
-  static const String VIEW_CODE_REVIEWING = "REVIEWING";
-  static const String VIEW_CODE_APPROVED = "APPROVED";
-  static const String VIEW_CODE_COMPLETED = "COMPLETED";
-
   /// Number of entities to skip
   int? skip = 0;
 
