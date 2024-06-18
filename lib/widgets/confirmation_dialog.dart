@@ -64,7 +64,7 @@ class ConfirmationDialog extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                label: 'Không'.hardcoded,
+                label: 'Không',
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
@@ -74,7 +74,7 @@ class ConfirmationDialog extends StatelessWidget {
                   onConfirm();
                   Navigator.of(context).pop();
                 },
-                label: 'Xác nhận'.hardcoded,
+                label: 'Xác nhận',
                 color: Theme.of(context).colorScheme.primary,
                 // textStyle: TextStyle(fontSize: 16),
               ),
