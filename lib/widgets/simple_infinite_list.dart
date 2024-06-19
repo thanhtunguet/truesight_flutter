@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:truesight_flutter/truesight_flutter.dart';
 
-class SimpleInfiniteList<T extends DataModel, TFilter extends DataFilter, TRepo extends BaseRepository<T, TFilter>>
-    extends StatefulWidget {
+class SimpleInfiniteList<T extends DataModel, TFilter extends DataFilter,
+    TRepo extends BaseRepository<T, TFilter>> extends StatefulWidget {
   final Widget Function(BuildContext context, T item, int index) itemBuilder;
 
   final TFilter Function() filterInitializer;
@@ -24,10 +24,12 @@ class SimpleInfiniteList<T extends DataModel, TFilter extends DataFilter, TRepo 
 }
 
 class _SimpleInfiniteListState<T extends DataModel, TFilter extends DataFilter,
-    TRepo extends BaseRepository<T, TFilter>> extends State<SimpleInfiniteList<T, TFilter, TRepo>> {
+        TRepo extends BaseRepository<T, TFilter>>
+    extends State<SimpleInfiniteList<T, TFilter, TRepo>> {
   static const _pageSize = 20;
 
-  final PagingController<int, T> _pagingController = PagingController<int, T>(firstPageKey: 0);
+  final PagingController<int, T> _pagingController =
+      PagingController<int, T>(firstPageKey: 0);
 
   late TFilter filter;
 
@@ -56,7 +58,8 @@ class _SimpleInfiniteListState<T extends DataModel, TFilter extends DataFilter,
         if (mounted) {
           final List<T> list = values[0] as List<T>;
           final int count = values[1] as int;
-          final isLastPage = list.length < _pageSize || list.length + (filter.skip!) == count;
+          final isLastPage =
+              list.length < _pageSize || list.length + (filter.skip!) == count;
 
           if (isLastPage) {
             _pagingController.appendLastPage(list);
@@ -74,7 +77,7 @@ class _SimpleInfiniteListState<T extends DataModel, TFilter extends DataFilter,
   }
 
   Future<void> _onRefresh() async {
-    await _handleFetchNewData(pageKey: 0);
+    return _pagingController.refresh();
   }
 
   @override

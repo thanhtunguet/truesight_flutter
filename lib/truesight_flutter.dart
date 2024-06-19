@@ -7,4 +7,5 @@ export 'filters/filters.dart';
 export 'http/http.dart';
 export 'json/json.dart';
 export 'models/models.dart';
+export 'services/services.dart';
 export 'widgets/widgets.dart';
