@@ -278,7 +278,6 @@ class MyApp extends StatelessWidget {
 ## Widget Documentation
 
 - [AppNavigationBar](docs/app_navigation_bar.md)
-- [AppNavigationBarItem](docs/app_navigation_bar_item.md)
 - [AppTitle](docs/app_title.md)
 - [BodyText](docs/body_text.md)
 - [CarbonButton](docs/carbon_button.md)
