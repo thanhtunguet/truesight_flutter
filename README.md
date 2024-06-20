@@ -275,6 +275,51 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+## Custom Image Provider: TrueSightImageProvider
+
+A custom image provider designed to fetch images with appended authentication tokens from the server.
+
+### Overview
+
+The `TrueSightImageProvider` class extends `ImageProvider<Uri>` and modifies image loading behavior to include authentication tokens fetched from cookies.
+
+### Constructor
+
+```dart
+TrueSightImageProvider(String url)
+```
+
+Constructs an instance of `TrueSightImageProvider` with the provided image URL.
+
+### Methods
+
+- **obtainKey(ImageConfiguration configuration)**: Asynchronously obtains a key for the image. Appends authentication token to the URL's query parameters.
+  
+- **loadImage(Uri key, ImageDecoderCallback decode)**: Loads the image from the specified URL with authentication headers using an HTTP client. Tracks loading progress with chunk events.
+
+### Example Usage
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyImageWidget extends StatelessWidget {
+  final String imageUrl = 'https://example.com/image.jpg';
+
+  @override
+  Widget build(BuildContext context) {
+    final imageProvider = TrueSightImageProvider(imageUrl);
+
+    return Image(
+      image: imageProvider,
+      fit: BoxFit.cover,
+    );
+  }
+}
+```
+
+In this example, `TrueSightImageProvider` is used as the image provider for an `Image` widget, ensuring the image is fetched with proper authentication.
+
+
 ## Widget Documentation
 
 - [AppNavigationBar](docs/app_navigation_bar.md)
