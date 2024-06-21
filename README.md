@@ -17,26 +17,55 @@ _Core library for TrueSight team's Flutter applications._
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Widgets Documentation](#widgets-documentation)
-  - [App Navigation Bar](#app-navigation-bar)
-  - [App Title](#app-title)
-  - [Body Text](#body-text)
-  - [Carbon Button](#carbon-button)
-  - [Confirmation Dialog](#confirmation-dialog)
-  - [Ellipsis Text](#ellipsis-text)
-  - [Go Back Button](#go-back-button)
-  - [Icon Placeholder](#icon-placeholder)
-  - [Image Placeholder](#image-placeholder)
-  - [Sign In Button](#sign-in-button)
-  - [Simple Infinite List](#simple-infinite-list)
-  - [Stateful Text Form Field](#stateful-text-form-field)
-- [Custom Image Provider](#custom-image-provider)
-- [Cookie Storage](#cookie-storage)
-- [Date and Time Formats](#date-and-time-formats)
+
+- [truesight\_flutter](#truesight_flutter)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+    - [JSON Serialization](#json-serialization)
+      - [Mapping Data from JSON](#mapping-data-from-json)
+      - [Converting to JSON](#converting-to-json)
+    - [Advanced Filters](#advanced-filters)
+    - [HTTP Requests](#http-requests)
+    - [TrueSightService](#truesightservice)
+      - [Initialization](#initialization)
+        - [`initialize`](#initialize)
+          - [Parameters](#parameters)
+          - [Usage](#usage-1)
+      - [Properties](#properties)
+        - [`faceIdEnabled`](#faceidenabled)
+          - [Getter](#getter)
+          - [Setter](#setter)
+          - [Usage](#usage-2)
+        - [`baseApiUrl`](#baseapiurl)
+          - [Getter](#getter-1)
+          - [Setter](#setter-1)
+          - [Usage](#usage-3)
+      - [Private Methods](#private-methods)
+        - [`_getOrCreate`](#_getorcreate)
+          - [Parameters](#parameters-1)
+          - [Returns](#returns)
+      - [Example](#example)
+  - [Custom Image Provider](#custom-image-provider)
+    - [Overview](#overview)
+    - [Constructor](#constructor)
+    - [Methods](#methods)
+    - [Example Usage](#example-usage)
+  - [Widget Documentation](#widget-documentation)
+  - [Cookie Management](#cookie-management)
+    - [Overview](#overview-1)
+    - [Storing Cookies](#storing-cookies)
+    - [Retrieving Cookies](#retrieving-cookies)
+    - [Clearing Cookies](#clearing-cookies)
+    - [Cookie Extension Methods](#cookie-extension-methods)
+    - [Example Usage](#example-usage-1)
+  - [Date and Time Formats](#date-and-time-formats)
+    - [Available Formats](#available-formats)
+    - [Formatting Dates](#formatting-dates)
+    - [Extension Method for DateTime](#extension-method-for-datetime)
+    - [Summary](#summary)
+  - [Additional Information](#additional-information)
+
 
 ## Getting Started
 
@@ -290,7 +319,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-## Custom Image Provider: TrueSightImageProvider
+## Custom Image Provider
 
 A custom image provider designed to fetch images with appended authentication tokens from the server.
 
