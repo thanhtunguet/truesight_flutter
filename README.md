@@ -23,6 +23,33 @@ _Core library for TrueSight team's Flutter applications._
 - Integration with `go_router` as the default routing mechanism
 - Various other utilities
 
+Here is the revised table of contents with a single section for widget documentation:
+
+---
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Widgets Documentation](#widgets-documentation)
+  - [App Navigation Bar](#app-navigation-bar)
+  - [App Title](#app-title)
+  - [Body Text](#body-text)
+  - [Carbon Button](#carbon-button)
+  - [Confirmation Dialog](#confirmation-dialog)
+  - [Ellipsis Text](#ellipsis-text)
+  - [Go Back Button](#go-back-button)
+  - [Icon Placeholder](#icon-placeholder)
+  - [Image Placeholder](#image-placeholder)
+  - [Sign In Button](#sign-in-button)
+  - [Simple Infinite List](#simple-infinite-list)
+  - [Stateful Text Form Field](#stateful-text-form-field)
+- [Custom Image Provider](#custom-image-provider)
+- [Cookie Storage](#cookie-storage)
+- [Date and Time Formats](#date-and-time-formats)
+
 ## Getting Started
 
 To install this package, run:
@@ -335,6 +362,183 @@ In this example, `TrueSightImageProvider` is used as the image provider for an `
 - [SimpleInfiniteList](docs/simple_infinite_list.md)
 - [StatefulTextFormField](docs/stateful_text_form_field.md)
 
+## Cookie Management
+
+In our app, cookies are managed to handle user sessions and authentication tokens efficiently. The cookies are stored using the `SharedPreferences` package, which allows for persistent storage of key-value pairs on the device.
+
+### Overview
+
+Cookies are essential for maintaining user sessions and handling authentication. The following extension methods and functions facilitate the storage, retrieval, and clearing of cookies in the app.
+
+### Storing Cookies
+
+Cookies are parsed from the `Set-Cookie` header and stored with a prefix in the `SharedPreferences`. The `parseSetCookie` function handles this parsing:
+
+```dart
+Map<String, String> parseSetCookie(String setCookieString) {
+  Map<String, String> cookies = {};
+  List<String> parts = setCookieString.split('; ');
+  if (parts.isNotEmpty && parts[0].contains('=')) {
+    List<String> keyValue = parts[0].split('=');
+    if (keyValue.length == 2) {
+      cookies[_getCookieKey(keyValue[0])] = keyValue[1];
+    }
+  }
+  return cookies;
+}
+```
+
+### Retrieving Cookies
+
+Cookies are retrieved from the `SharedPreferences` using the `getCookies` function. This function retrieves all keys with the specified prefix and constructs a map of cookies:
+
+```dart
+Future<Map<String, dynamic>> getCookies() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final Set<String> keys = prefs.getKeys();
+  final Map<String, dynamic> prefsMap = {};
+
+  for (String key in keys) {
+    if (_isCookieKey(key)) {
+      prefsMap[_getCookieKeyReversed(key)] = prefs.get(key);
+    }
+  }
+
+  return prefsMap;
+}
+```
+
+### Clearing Cookies
+
+Cookies can be cleared from the `SharedPreferences` using the `clearCookies` function. This function removes all keys with the specified prefix:
+
+```dart
+Future<void> clearCookies() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final Set<String> keys = prefs.getKeys();
+
+  for (String key in keys) {
+    if (_isCookieKey(key)) {
+      prefs.remove(key);
+    }
+  }
+}
+```
+
+### Cookie Extension Methods
+
+The extension methods on `Map<String, dynamic>` provide easy access to specific cookies, such as `token` and `refreshToken`:
+
+```dart
+extension TrueSightCookies on Map<String, dynamic> {
+  String? get token => this['Token'];
+  String? get refreshToken => this['RefreshToken'];
+  bool get hasToken => this['Token'] != null;
+  bool get hasRefreshToken => this['RefreshToken'] != null;
+}
+```
+
+These methods simplify the retrieval and usage of cookies in various parts of the app.
+
+### Example Usage
+
+Here is an example of how to use the cookie management functions in your app:
+
+```dart
+// Parsing and storing a Set-Cookie header
+String setCookieHeader = 'Token=abc123; Path=/; HttpOnly';
+Map<String, String> cookies = parseSetCookie(setCookieHeader);
+// Store the parsed cookies using SharedPreferences
+// ...
+
+// Retrieving stored cookies
+Future<void> printStoredCookies() async {
+  Map<String, dynamic> cookies = await getCookies();
+  print('Stored Token: ${cookies.token}');
+}
+
+// Clearing stored cookies
+Future<void> clearStoredCookies() async {
+  await clearCookies();
+  print('Cookies cleared');
+}
+```
+
+With these functions and extensions, managing cookies in your app becomes straightforward and efficient.
+
+## Date and Time Formats
+
+Our app uses various date and time formats to ensure consistency and readability, especially tailored for the Vietnamese locale. The formats are defined in the `DateTimeFormatsVN` class and can be easily used throughout the app.
+
+### Available Formats
+
+The `DateTimeFormatsVN` class defines several common date and time formats:
+
+- **Full Date and Time**: `dd/MM/yyyy HH:mm:ss`
+  - Example: `01/01/2024 14:30:45`
+- **Date and Time without Seconds**: `dd/MM/yyyy HH:mm`
+  - Example: `01/01/2024 14:30`
+- **Date Only**: `dd/MM/yyyy`
+  - Example: `01/01/2024`
+- **Time Only**: `HH:mm:ss`
+  - Example: `14:30:45`
+- **Day and Month Only**: `dd/MM`
+  - Example: `01/01`
+- **Year Only**: `yyyy`
+  - Example: `2024`
+- **Date with Day Name**: `EEEE, dd/MM/yyyy`
+  - Example: `Thứ Hai, 01/01/2024`
+- **Date with Month Name**: `dd MMMM yyyy`
+  - Example: `01 Tháng Giêng 2024`
+- **Short Date with Month Name**: `dd MMM`
+  - Example: `01 Thg 01`
+
+### Formatting Dates
+
+The `DateTimeFormatsVN` class includes a helper function to format `DateTime` objects using the specified formats:
+
+```dart
+static String format(DateTime dateTime, String format) {
+  return DateFormat(format, 'vi').format(dateTime);
+}
+```
+
+You can use this function to format dates according to the predefined formats. For example:
+
+```dart
+DateTime now = DateTime.now();
+String formattedDate = DateTimeFormatsVN.format(now, DateTimeFormatsVN.dateTime);
+print(formattedDate); // Output: 01/01/2024 14:30:45
+```
+
+### Extension Method for DateTime
+
+We have also provided an extension method on the `DateTime` class to simplify the formatting process. This method uses a default format but allows for customization:
+
+```dart
+extension DateTimeFormatter on DateTime {
+  String format({
+    String dateFormat = DateTimeFormatsVN.dateOnly,
+  }) {
+    return DateFormat(dateFormat).format(toLocal());
+  }
+}
+```
+
+Example usage of the extension method:
+
+```dart
+DateTime now = DateTime.now();
+String formattedDate = now.format();
+print(formattedDate); // Output: 01/01/2024
+
+String customFormattedDate = now.format(dateFormat: DateTimeFormatsVN.dateWithDayName);
+print(customFormattedDate); // Output: Thứ Hai, 01/01/2024
+```
+
+### Summary
+
+By using the `DateTimeFormatsVN` class and the `DateTimeFormatter` extension, you can easily format dates and times in your app, ensuring consistency and localization for Vietnamese users.
 
 ## Additional Information
 
