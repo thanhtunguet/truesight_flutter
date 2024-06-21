@@ -15,18 +15,6 @@ and the Flutter guide for
 
 _Core library for TrueSight team's Flutter applications._
 
-## Features
-
-- Convenient JSON serialization with an auto-mapper mechanism
-- Custom filter building for backend integration
-- HTTP request management with built-in HTTPRepository
-- Integration with `go_router` as the default routing mechanism
-- Various other utilities
-
-Here is the revised table of contents with a single section for widget documentation:
-
----
-
 ## Table of Contents
 
 - [Introduction](#introduction)
