@@ -87,9 +87,9 @@ void main() {
   });
 
   test('number formats', () async {
-    final num n = 1003565.45;
-    final double d = 1005634.4;
-    final int i = 1005634;
+    const num n = 1003565.45;
+    const double d = 1005634.4;
+    const int i = 1005634;
     debugPrint(n.asMoney());
     debugPrint(d.asMoney());
     debugPrint(i.asMoney());

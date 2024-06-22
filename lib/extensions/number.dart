@@ -6,7 +6,11 @@ extension NumberFormatter on num {
     String currency = 'VND',
   }) {
     var formatter = NumberFormat(hasDecimals ? '###,###.000' : '###,###');
-    return '${formatter.format(this)} $currency';
+    var formattedNum = this == 0 ? '0' : formatter.format(this);
+    if (formattedNum.endsWith('.000')) {
+      formattedNum = formattedNum.substring(0, formattedNum.length - 4);
+    }
+    return '$formattedNum $currency';
   }
 }
 
