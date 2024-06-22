@@ -56,7 +56,7 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
             scheduleMicrotask(() {
               PaintingBinding.instance.imageCache.evict(key);
             });
-            return Future<Uint8List>.value(Uint8List(0));
+            return _create1x1GreyImage();
           })
           .whenComplete(chunkEvents.close)
           .then<ui.ImmutableBuffer>(ui.ImmutableBuffer.fromUint8List)
@@ -74,4 +74,15 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
   @override
   String toString() =>
       '${objectRuntimeType(this, 'TrueSightImageProvider')}("$url")';
+
+  Future<Uint8List> _create1x1GreyImage() async {
+    final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
+    final Canvas canvas = Canvas(pictureRecorder);
+    final Paint paint = Paint()..color = const Color(0xFF808080); // Grey color
+    canvas.drawRect(const Rect.fromLTWH(0.0, 0.0, 1.0, 1.0), paint);
+    final ui.Image image = await pictureRecorder.endRecording().toImage(1, 1);
+    final ByteData? byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    return byteData!.buffer.asUint8List();
+  }
 }
