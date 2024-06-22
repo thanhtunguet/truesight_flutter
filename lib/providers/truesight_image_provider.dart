@@ -56,7 +56,7 @@ class TrueSightImageProvider extends ImageProvider<Uri> {
             scheduleMicrotask(() {
               PaintingBinding.instance.imageCache.evict(key);
             });
-            return Future<Uint8List>.error(e, stack);
+            return Future<Uint8List>.value(Uint8List(0));
           })
           .whenComplete(chunkEvents.close)
           .then<ui.ImmutableBuffer>(ui.ImmutableBuffer.fromUint8List)
