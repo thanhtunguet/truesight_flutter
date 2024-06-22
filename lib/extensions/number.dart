@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 extension NumberFormatter on num {
   String asMoney({
-    bool hasDecimals = false,
+    bool hasDecimals = true,
     String currency = 'VND',
   }) {
     var formatter = NumberFormat(hasDecimals ? '###,###.000' : '###,###');
@@ -10,7 +10,7 @@ extension NumberFormatter on num {
   }
 }
 
-extension IntegerFormatter on double {
+extension IntegerFormatter on int {
   String asMoney({
     String currency = 'VND',
   }) {

@@ -83,14 +83,15 @@ void main() {
     if (kDebugMode) {
       print(appUser.toString());
     }
-    expect(appUser.toString(), '{}');
+    expect(appUser.toString(), '{"members":[]}');
   });
 
-  test('number format', () {
-    const num x = 16660066600000;
-    if (kDebugMode) {
-      print(x.asMoney());
-      print(x.asMoney(hasDecimals: true));
-    }
+  test('number formats', () async {
+    final num n = 1003565.45;
+    final double d = 1005634.4;
+    final int i = 1005634;
+    debugPrint(n.asMoney());
+    debugPrint(d.asMoney());
+    debugPrint(i.asMoney());
   });
 }
