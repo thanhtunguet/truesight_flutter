@@ -1,3 +1,10 @@
+## 2406.22.1
+
+### Fixed
+
+- Update formatted number
+
+
 ## 2406.21.1
 
 ### Updated
