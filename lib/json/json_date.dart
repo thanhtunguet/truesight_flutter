@@ -1,8 +1,10 @@
 part of 'json.dart';
 
+final _defaultDateTime = DateTime(1970, 1, 1);
+
 base class JsonDate extends JsonField<DateTime> {
   @override
-  DateTime defaultValue = DateTime(1970, 1, 1);
+  DateTime defaultValue = _defaultDateTime;
 
   JsonDate(
     super.name, {
@@ -19,11 +21,11 @@ base class JsonDate extends JsonField<DateTime> {
   }
 
   @override
-  String toJSON() {
+  String? toJSON() {
     if (isRequired && _value == null) {
       throw Exception("Field is required but has not been set a value");
     }
-    return _value?.toIso8601String() ?? "";
+    return _value?.toIso8601String();
   }
 
   String format({String dateFormat = "YYYY-MM-DD"}) {

@@ -6,7 +6,7 @@ base class JsonList<T extends DataModel> extends JsonField<List<T>>
   Type genericType = T;
 
   @override
-  List<T> defaultValue = [];
+  List<T> defaultValue = <T>[];
 
   JsonList(
     super.name, {

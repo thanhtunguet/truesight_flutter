@@ -1,3 +1,9 @@
+## 2406.23.1
+
+### Added
+
+- Indexing operators
+
 ## 2406.22.1
 
 ### Fixed

@@ -4,42 +4,40 @@ import 'package:truesight_flutter/truesight_flutter.dart';
 
 import 'models/app_user.dart';
 import 'models/app_user_filter.dart';
-
-void configureModels() {
-  DataModel.setType(AppUser, AppUser.new);
-}
-
-final sampleMember = {
-  'username': 'member',
-  'password': 'memberPasswordxxx',
-  'email': 'member@example.com',
-  'dateOfBirth': '2024-01-01T00:00:00.123Z',
-  'age': 21,
-  'level': 1.1,
-};
-
-final sampleManager = {
-  'username': 'manager',
-  'password': 'managerPasswordxxx',
-  'email': 'manager@example.com',
-  'dateOfBirth': '2024-01-01T00:00:00.123Z',
-  'age': 24,
-  'level': 1.3,
-  'members': [
-    sampleMember,
-  ],
-};
-
-final sampleFilter = {
-  'username': {
-    'equal': 'test_username',
-  },
-  'age': {
-    'lessEqual': 12,
-  },
-};
+import 'models/models.dart';
+import 'repositories/ip_repository.dart';
 
 void main() {
+  final sampleMember = {
+    'username': 'member',
+    'password': 'memberPasswordxxx',
+    'email': 'member@example.com',
+    'dateOfBirth': '2024-01-01T00:00:00.123Z',
+    'age': 21,
+    'level': 1.1,
+  };
+
+  final sampleManager = {
+    'username': 'manager',
+    'password': 'managerPasswordxxx',
+    'email': 'manager@example.com',
+    'dateOfBirth': '2024-01-01T00:00:00.123Z',
+    'age': 24,
+    'level': 1.3,
+    'members': [
+      sampleMember,
+    ],
+  };
+
+  final sampleFilter = {
+    'username': {
+      'equal': 'test_username',
+    },
+    'age': {
+      'lessEqual': 12,
+    },
+  };
+
   configureModels();
 
   test('model serialization', () {
@@ -93,5 +91,13 @@ void main() {
     debugPrint(n.asMoney());
     debugPrint(d.asMoney());
     debugPrint(i.asMoney());
+  });
+
+  test('http repository', () async {
+    final ipRepository = IpRepository();
+    final ipAddr = await ipRepository.getIp();
+    if (kDebugMode) {
+      print(ipAddr);
+    }
   });
 }

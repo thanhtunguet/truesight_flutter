@@ -36,4 +36,23 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
   toJSON() {
     return _value?.toJSON();
   }
+
+
+  operator [](String fieldName) {
+    final field = value.fields.firstWhere(
+      (field) => field.name == fieldName,
+      orElse: () => throw ArgumentError('Unknown field $fieldName'),
+    );
+
+    return field.value;
+  }
+
+  operator []=(String fieldName, dynamic value) {
+    final field = value.fields.firstWhere(
+      (field) => field.name == fieldName,
+      orElse: () => throw ArgumentError('Unknown field $fieldName'),
+    );
+
+    field.value = value;
+  }
 }

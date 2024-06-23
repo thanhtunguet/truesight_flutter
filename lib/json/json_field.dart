@@ -68,11 +68,16 @@ abstract base class JsonField<T> implements JsonSerializableField {
   }
 
   @override
-  toJSON() {
+  /// Converts the internal value of the field to a JSON representation.
+  ///
+  /// Returns:
+  ///   A JSON representation of the internal value of the field.
+  dynamic toJSON() {
     return _value;
   }
 
   @override
+  // Parse the input JSON data and assign it to the internal value of the field.
   void fromJSON(json) {
     _value = json;
   }
@@ -83,6 +88,7 @@ abstract base class JsonField<T> implements JsonSerializableField {
     return jsonEncode(toJSON());
   }
 
+  // Validates the field based on error conditions and requirements.
   String? validate() {
     if (hasError) {
       return error;

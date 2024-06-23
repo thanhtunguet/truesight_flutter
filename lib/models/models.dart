@@ -4,8 +4,8 @@ import 'package:logging/logging.dart';
 import 'package:truesight_flutter/json/json.dart';
 import 'package:truesight_flutter/json_serializable.dart';
 
-part 'identified_model.dart';
 part 'enum_model.dart';
+part 'identified_model.dart';
 
 typedef InstanceConstructor<T extends DataModel> = T Function();
 
@@ -159,5 +159,14 @@ abstract class DataModel implements JsonSerializable {
   @override
   String toString() {
     return jsonEncode(toJSON());
+  }
+
+
+  operator [](String fieldName) {
+    return fields.firstWhere((field) => field.name == fieldName).value;
+  }
+
+  void operator []=(String fieldName, dynamic value) {
+    fields.firstWhere((field) => field.name == fieldName).value = value;
   }
 }

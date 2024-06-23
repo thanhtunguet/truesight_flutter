@@ -8,6 +8,6 @@ base class JsonBoolean extends JsonField<bool> {
     super.name, {
     super.helper,
     super.isRequired,
-    super.defaultValue,
+    super.defaultValue = false,
   });
 }

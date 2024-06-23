@@ -2,10 +2,15 @@ import 'package:intl/intl.dart';
 
 abstract class DateTimeFormatsVN {
   static const String dateTime = 'dd/MM/yyyy HH:mm:ss';
+  
   static const String dateTimeWithoutSeconds = 'dd/MM/yyyy HH:mm';
+  
   static const String dateOnly = 'dd/MM/yyyy';
+  
   static const String timeOnly = 'HH:mm:ss';
+  
   static const String dateWithDayAndMonthOnly = 'dd/MM';
+  
   static const String yearOnly = 'yyyy';
 
   // Additional formats can be added as needed
