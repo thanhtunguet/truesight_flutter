@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path/path.dart' hide url;
 import 'package:truesight_flutter/truesight_flutter.dart';
 

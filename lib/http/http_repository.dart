@@ -20,13 +20,6 @@ abstract class HttpRepository {
     return "$baseUrl/$path";
   }
 
-  /// Set the baseUrl for dio instance
-  set baseUrl(String? baseUrl) {
-    if (baseUrl != null) {
-      _dio.options.baseUrl = baseUrl;
-    }
-  }
-
   /// Whether this repository uses interceptors or not
   /// Derived classes should override this to change the behavior
   bool get useInterceptors => true;
@@ -37,7 +30,7 @@ abstract class HttpRepository {
 
   /// BaseOptions for Dio
   /// Will be used to initialize the dio instance
-  BaseOptions? get options => BaseOptions();
+  BaseOptions? get options => null;
 
   addInterceptors(InterceptorsWrapper interceptorsWrapper) {
     _dio.interceptors.add(interceptorsWrapper);
@@ -46,13 +39,10 @@ abstract class HttpRepository {
   /// Abstract constructor
   HttpRepository() {
     _dio = Dio(options);
-    _dio.interceptors.add(truesightService.cookieManager);
+    _dio.interceptors.add(CookieManager(truesightService.persistCookieJar));
     addInstance(this);
     if (useInterceptors) {
       addInterceptors(interceptorsWrapper);
-    }
-    if (baseUrl != null) {
-      baseUrl = baseUrl;
     }
   }
 
