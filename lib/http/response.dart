@@ -40,19 +40,4 @@ extension HttpResponse on Response {
   DateTime bodyAsDateTime() {
     return DateTime.parse(data);
   }
-
-  Future<void> saveCookies() async {
-    final List<String>? cookies = headers['set-cookie'];
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final Map<String, String> cookieMap = {};
-    if (cookies != null) {
-      for (var element in cookies) {
-        final map = parseSetCookie(element);
-        cookieMap.addAll(map);
-      }
-    }
-    for (var element in cookieMap.entries) {
-      await prefs.setString(element.key, element.value);
-    }
-  }
 }

@@ -9,9 +9,6 @@ class BinRepository extends HttpRepository {
   @override
   bool get useInterceptors => true;
 
-  @override
-  InterceptorsWrapper interceptorsWrapper = globalInterceptorsWrapper;
-
   Future<File> downloadFile(
     String url, {
     required String savePath,
@@ -30,7 +27,8 @@ class BinRepository extends HttpRepository {
     return get(
       url,
       options: Options(
-        responseType: ResponseType.bytes, // Ensures the response is treated as a byte stream
+        responseType: ResponseType
+            .bytes, // Ensures the response is treated as a byte stream
       ),
     ).then(
       (response) => response.data,

@@ -1,10 +1,17 @@
+import 'dart:io';
+
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 
 final box = Hive.box('truesight_app_service');
 
 class TruesightAppService {
   TruesightAppService._();
+
+  late CookieManager cookieManager;
 
   Future<void> initialize({
     bool enableDotenv = true,
@@ -17,6 +24,14 @@ class TruesightAppService {
       await Hive.initFlutter();
       await Hive.openBox('truesight_app_service');
     }
+
+    Directory documentsDir = await getApplicationDocumentsDirectory();
+    final documentsPath = documentsDir.path;
+    final cookieJar = PersistCookieJar(
+      ignoreExpires: true,
+      storage: FileStorage(documentsPath),
+    );
+    cookieManager = CookieManager(cookieJar);
   }
 
   bool get faceIdEnabled {

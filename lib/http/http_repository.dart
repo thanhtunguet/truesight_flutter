@@ -37,7 +37,7 @@ abstract class HttpRepository {
 
   /// BaseOptions for Dio
   /// Will be used to initialize the dio instance
-  BaseOptions? get options => null;
+  BaseOptions? get options => BaseOptions();
 
   addInterceptors(InterceptorsWrapper interceptorsWrapper) {
     _dio.interceptors.add(interceptorsWrapper);
@@ -46,6 +46,7 @@ abstract class HttpRepository {
   /// Abstract constructor
   HttpRepository() {
     _dio = Dio(options);
+    _dio.interceptors.add(truesightService.cookieManager);
     addInstance(this);
     if (useInterceptors) {
       addInterceptors(interceptorsWrapper);

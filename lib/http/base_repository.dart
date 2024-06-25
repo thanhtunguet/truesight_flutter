@@ -5,9 +5,6 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
   @override
   bool get useInterceptors => true;
 
-  @override
-  InterceptorsWrapper get interceptorsWrapper => globalInterceptorsWrapper;
-
   Future<List<T>> list(TFilter filter) async {
     return _dio
         .post(url("list"), data: filter.toJSON())
