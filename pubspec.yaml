@@ -1,6 +1,6 @@
 name: truesight_flutter
 description: "Dart library for TrueSight projects"
-version: 2406.23.1
+version: 2406.25.1
 homepage: https://github.com/thanhtunguet/truesight_flutter
 
 environment:

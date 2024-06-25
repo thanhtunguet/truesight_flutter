@@ -1,3 +1,9 @@
+## 2406.25.1
+
+### Changed
+
+- Using `cookie_jar` instead of `shared_preferences`
+
 ## 2406.23.1
 
 ### Added
