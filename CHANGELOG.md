@@ -1,3 +1,9 @@
+## 2406.26.1
+
+### Fixed
+
+- ImageProvider
+
 ## 2406.25.1
 
 ### Changed

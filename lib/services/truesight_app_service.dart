@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:truesight_flutter/providers/dio_image_provider.dart';
 
 final box = Hive.box('truesight_app_service');
 
@@ -31,6 +33,10 @@ class TruesightAppService {
       storage: FileStorage(documentsPath),
       persistSession: true,
     );
+
+    DioImage.defaultDio.interceptors.add(
+      CookieManager(truesightService.persistCookieJar),
+    );
   }
 
   bool get faceIdEnabled {
@@ -42,8 +48,7 @@ class TruesightAppService {
   }
 
   String get baseApiUrl {
-    return _getOrCreate('baseApiUrl', defaultValue: null) ??
-        dotenv.env['BASE_API_URL']!;
+    return _getOrCreate('baseApiUrl', defaultValue: null) ?? dotenv.env['BASE_API_URL']!;
   }
 
   set baseApiUrl(String value) {
