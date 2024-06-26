@@ -2,6 +2,12 @@ part of 'models.dart';
 
 class EnumModel extends IdentifiedModel {
   @override
+  List get props => [
+        id.rawValue,
+        code.rawValue,
+      ];
+
+  @override
   List<JsonField> get fields => [
         id,
         code,

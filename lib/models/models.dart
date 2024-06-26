@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:truesight_flutter/json/json.dart';
 import 'package:truesight_flutter/json_serializable.dart';
@@ -160,7 +161,6 @@ abstract class DataModel implements JsonSerializable {
   String toString() {
     return jsonEncode(toJSON());
   }
-
 
   operator [](String fieldName) {
     return fields.firstWhere((field) => field.name == fieldName).value;
