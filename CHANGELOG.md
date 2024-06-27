@@ -1,3 +1,9 @@
+## 2406.27.1
+
+### Fixed
+
+- Missing fields in Identified model
+
 ## 2406.26.1
 
 ### Fixed
