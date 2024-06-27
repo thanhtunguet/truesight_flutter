@@ -13,8 +13,7 @@ class DioImage extends ImageProvider<DioImage> {
 
   DioImage({
     required this.imageUrl,
-    this.fallbackAssetPath =
-        'package:truesight_flutter/lib/assets/image_placeholder.png',
+    this.fallbackAssetPath = '../assets/image_placeholder.png',
   });
 
   @override
