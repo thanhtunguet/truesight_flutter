@@ -78,7 +78,8 @@ class DioImage extends ImageProvider<DioImageConfiguration> {
   }
 
   @override
-  ImageStreamCompleter loadImage(DioImageConfiguration key, ImageDecoderCallback decode) {
+  ImageStreamCompleter loadImage(
+      DioImageConfiguration key, ImageDecoderCallback decode) {
     // Ownership of this controller is handed off to [_loadAsync]; it is that
     // method's responsibility to close the controller's stream when the image
     // has been loaded or an error is thrown.
@@ -103,9 +104,6 @@ class DioImage extends ImageProvider<DioImageConfiguration> {
   ) async {
     try {
       assert(key.dioImage == this);
-
-      print('width = ${key.width}');
-      print('height = ${key.height}');
 
       var response = await dio.getUri<dynamic>(
         url,
@@ -181,5 +179,6 @@ class DioImage extends ImageProvider<DioImageConfiguration> {
   int get hashCode => Object.hash(url, scale);
 
   @override
-  String toString() => '${objectRuntimeType(this, 'DioImage')}("$url", scale: $scale)';
+  String toString() =>
+      '${objectRuntimeType(this, 'DioImage')}("$url", scale: $scale)';
 }
