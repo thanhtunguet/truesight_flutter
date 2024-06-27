@@ -6,5 +6,10 @@ abstract class IdentifiedModel extends DataModel with EquatableMixin {
         id.rawValue,
       ];
 
+  @override
+  List<JsonField> get fields => [
+        id,
+      ];
+
   JsonInteger id = JsonInteger('id');
 }
