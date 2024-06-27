@@ -1,184 +1,72 @@
-import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
-class DioImageConfiguration {
-  final double width;
+class DioImage extends ImageProvider<DioImage> {
+  static final defaultDio = Dio();
 
-  final double height;
+  final Uri imageUrl;
+  final String fallbackAssetPath;
 
-  final DioImage? dioImage;
-
-  const DioImageConfiguration({
-    required this.width,
-    required this.height,
-    this.dioImage,
+  DioImage({
+    required this.imageUrl,
+    this.fallbackAssetPath =
+        'package:truesight_flutter/lib/assets/image_placeholder.png',
   });
-}
-
-/// Fetches the given URL from the network, associating it with the given scale.
-///
-/// The image will be cached regardless of cache headers from the server.
-///
-/// See also:
-///
-///  * [Image.network].
-///  * https://pub.dev/packages/http_image_provider
-@immutable
-class DioImage extends ImageProvider<DioImageConfiguration> {
-  static Dio defaultDio = Dio();
-
-  /// Creates an object that fetches the image at the given URL.
-  ///
-  /// The arguments [url] and [scale] must not be null.
-  /// [dio] will be the default [Dio] if not set.
-  DioImage.string(
-    String url, {
-    this.scale = 1.0,
-    this.headers,
-    Dio? dio,
-  })  : dio = dio ?? defaultDio,
-        url = Uri.parse(url);
-
-  /// Creates an object that fetches the image at the given URL.
-  ///
-  /// The arguments [url] and [scale] must not be null.
-  /// [dio] will be the default [Dio] if not set.
-  DioImage(
-    this.url, {
-    this.scale = 1.0,
-    this.headers,
-    Dio? dio,
-  }) : dio = dio ?? defaultDio;
-
-  /// The URL from which the image will be fetched.
-  final Uri url;
-
-  /// The scale to place in the [ImageInfo] object of the image.
-  final double scale;
-
-  /// The HTTP headers that will be used with [HttpClient.get] to fetch image from network.
-  ///
-  /// When running flutter on the web, headers are not used.
-  final Map<String, String>? headers;
-
-  /// [dio] will be the default [Dio] if not set.
-  final Dio dio;
 
   @override
-  Future<DioImageConfiguration> obtainKey(ImageConfiguration configuration) {
-    return SynchronousFuture<DioImageConfiguration>(DioImageConfiguration(
-      width: configuration.size?.width ?? 32,
-      height: configuration.size?.height ?? 32,
-      dioImage: this,
-    ));
+  Future<DioImage> obtainKey(ImageConfiguration configuration) {
+    return SynchronousFuture<DioImage>(this);
   }
 
   @override
-  ImageStreamCompleter loadImage(
-      DioImageConfiguration key, ImageDecoderCallback decode) {
-    // Ownership of this controller is handed off to [_loadAsync]; it is that
-    // method's responsibility to close the controller's stream when the image
-    // has been loaded or an error is thrown.
-    final chunkEvents = StreamController<ImageChunkEvent>();
-
-    return MultiFrameImageStreamCompleter(
-      codec: _loadAsync(key, chunkEvents, decode),
-      chunkEvents: chunkEvents.stream,
-      scale: key.dioImage?.scale ?? 1.0,
-      debugLabel: key.dioImage?.url.toString(),
-      informationCollector: () => <DiagnosticsNode>[
-        DiagnosticsProperty<ImageProvider>('IMAGE_PROVIDER', this),
-        DiagnosticsProperty<DioImageConfiguration>('IMAGE_KEY', key),
-      ],
-    );
+  ImageStreamCompleter loadImage(DioImage key, ImageDecoderCallback decode) {
+    return OneFrameImageStreamCompleter(_loadAsync(key, decode));
   }
 
-  Future<ui.Codec> _loadAsync(
-    DioImageConfiguration key,
-    StreamController<ImageChunkEvent> chunkEvents,
-    ImageDecoderCallback decode,
-  ) async {
+  Future<ImageInfo> _loadAsync(
+      DioImage key, ImageDecoderCallback decode) async {
     try {
-      assert(key.dioImage == this);
-
-      var response = await dio.getUri<dynamic>(
-        url,
-        options: Options(
-          headers: headers,
-          responseType: ResponseType.bytes,
-        ),
-        onReceiveProgress: (count, total) {
-          chunkEvents.add(
-            ImageChunkEvent(
-              cumulativeBytesLoaded: count,
-              expectedTotalBytes: total >= 0 ? total : null,
-            ),
-          );
-        },
-      ).catchError((error) {
-        return dio.get(
-          'https://placehold.co/${key.width.toInt()}x${key.height.toInt()}.png',
-          options: Options(
-            headers: headers,
-            responseType: ResponseType.bytes,
-          ),
-          onReceiveProgress: (count, total) {
-            chunkEvents.add(
-              ImageChunkEvent(
-                cumulativeBytesLoaded: count,
-                expectedTotalBytes: total >= 0 ? total : null,
-              ),
-            );
-          },
-        );
-      });
-
-      if (response.statusCode != 200) {
-        throw NetworkImageLoadException(
-          uri: url,
-          statusCode: response.statusCode!,
-        );
-      }
-
-      final bytes = Uint8List.fromList(response.data as List<int>);
-      if (bytes.lengthInBytes == 0) {
-        throw NetworkImageLoadException(
-          uri: url,
-          statusCode: response.statusCode!,
-        );
-      }
+      Response response = await defaultDio.get<List<int>>(
+        imageUrl.toString(),
+        options: Options(responseType: ResponseType.bytes),
+      );
+      final Uint8List bytes = Uint8List.fromList(response.data!);
 
       final buffer = await ui.ImmutableBuffer.fromUint8List(bytes);
-      return decode(buffer);
+
+      // Decode the image bytes
+      final ui.Codec codec = await decode(buffer);
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
+      return ImageInfo(image: frameInfo.image);
     } catch (e) {
-      // Depending on where the exception was thrown, the image cache may not
-      // have had a chance to track the key in the cache at all.
-      // Schedule a micro task to give the cache a chance to add the key.
-      scheduleMicrotask(() {
-        PaintingBinding.instance.imageCache.evict(key);
-      });
-      rethrow;
-    } finally {
-      unawaited(chunkEvents.close());
+      // If network image fails, load the fallback asset image
+      final ByteData assetData = await rootBundle.load(fallbackAssetPath);
+      final Uint8List bytes = assetData.buffer.asUint8List();
+      final buffer = await ui.ImmutableBuffer.fromUint8List(bytes);
+      // Decode the asset image bytes
+      final ui.Codec codec = await decode(buffer);
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
+      return ImageInfo(image: frameInfo.image);
     }
   }
 
   @override
   bool operator ==(Object other) {
-    if (other.runtimeType != runtimeType) {
-      return false;
-    }
-    return other is DioImage && other.url == url && other.scale == scale;
+    if (identical(this, other)) return true;
+    if (runtimeType != other.runtimeType) return false;
+    final DioImage typedOther = other as DioImage;
+    return imageUrl == typedOther.imageUrl &&
+        fallbackAssetPath == typedOther.fallbackAssetPath;
   }
 
   @override
-  int get hashCode => Object.hash(url, scale);
+  int get hashCode => Object.hash(imageUrl, fallbackAssetPath);
 
   @override
   String toString() =>
-      '${objectRuntimeType(this, 'DioImage')}("$url", scale: $scale)';
+      '${objectRuntimeType(this, 'CustomNetworkImageProvider')}(url: $imageUrl, fallback: $fallbackAssetPath)';
 }

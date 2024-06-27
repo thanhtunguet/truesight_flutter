@@ -2,5 +2,5 @@ part of 'providers.dart';
 
 @immutable
 class TrueSightImageProvider extends DioImage {
-  TrueSightImageProvider(Uri url) : super(url);
+  TrueSightImageProvider(Uri url) : super(imageUrl: url);
 }
