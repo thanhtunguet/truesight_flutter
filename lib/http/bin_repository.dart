@@ -9,18 +9,18 @@ class BinRepository extends HttpRepository {
   @override
   bool get useInterceptors => true;
 
-  Future<File> downloadFile(
+  Future<io.File> downloadFile(
     String url, {
     required String savePath,
     required String filename,
   }) async {
-    final directory = Directory(savePath);
+    final directory = io.Directory(savePath);
     final filePath = join(directory.path, filename);
 
     await download(url, filePath).then(
       (response) => response.data,
     );
-    return File(filePath);
+    return io.File(filePath);
   }
 
   Future<Uint8List> downloadBytes(String url) {

@@ -5,7 +5,9 @@ import 'package:logging/logging.dart';
 import 'package:truesight_flutter/json/json.dart';
 import 'package:truesight_flutter/json_serializable.dart';
 
+part 'document_attachment.dart';
 part 'enum_model.dart';
+part 'file.dart';
 part 'identified_model.dart';
 
 typedef InstanceConstructor<T extends DataModel> = T Function();
