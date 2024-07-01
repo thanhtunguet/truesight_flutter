@@ -17,6 +17,16 @@ class _FileService {
     return filename.endsWith('.doc') || filename.endsWith('.docx');
   }
 
+  bool isSpreadSheetFile(File file) {
+    final filename = file.name.value.toLowerCase();
+    return filename.endsWith('.xls') || filename.endsWith('.xlsx');
+  }
+
+  bool isPresentationFile(File file) {
+    final filename = file.name.value.toLowerCase();
+    return filename.endsWith('.ppt') || filename.endsWith('.pptx');
+  }
+
   bool isImageFile(File file) {
     final filename = file.name.value.toLowerCase();
     return filename.endsWith('.jpg') ||
