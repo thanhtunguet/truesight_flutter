@@ -51,42 +51,30 @@ Color _findTextColor(Color textColor, double minContrastRatio) {
   return backgroundColor;
 }
 
-class TextStatusBadge extends StatelessWidget {
+class TextStatusBadge extends StatefulWidget {
   final String status;
 
-  final Color _color;
+  final Color color;
 
-  final Color _textColor;
-
-  final String? hexColor;
-
-  static Color _hexToColor(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.parse(buffer.toString(), radix: 16));
-  }
-
-  TextStatusBadge({
+  const TextStatusBadge({
     super.key,
     required this.status,
-    Color? color,
-    this.hexColor,
-  }) {
-    if (color != null) {
-      this.color = color;
-      return;
-    }
-    if (hexColor != null && hexColor.isNotEmpty) {
-      this.color = _hexToColor(hexColor!);
-      return;
-    }
-    this.color =  const Color(0xFFFDDC69);
-  };
+    this.color = const Color(0xFFFDDC69),
+  });
 
-  set Color color(Color color) {
-    _color = color;
-    _textColor = _findTextColor(color, 2.4);
+  @override
+  State<StatefulWidget> createState() {
+    return _TextStatusBadgeState();
+  }
+}
+
+class _TextStatusBadgeState extends State<TextStatusBadge> {
+  late Color _textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    _textColor = _findTextColor(widget.color, 3);
   }
 
   @override
@@ -94,7 +82,7 @@ class TextStatusBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: ShapeDecoration(
-        color: _color,
+        color: widget.color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -104,7 +92,7 @@ class TextStatusBadge extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            status,
+            widget.status,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: _textColor,
