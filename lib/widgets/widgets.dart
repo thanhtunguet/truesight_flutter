@@ -5,6 +5,7 @@ export 'body_text.dart';
 export 'carbon_button.dart';
 export 'confirmation_dialog.dart';
 export 'ellipsis_text.dart';
+export 'enum_status_badge.dart';
 export 'go_back_button.dart';
 export 'icon_placeholder.dart';
 export 'image_placeholder.dart';
