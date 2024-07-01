@@ -72,8 +72,22 @@ class TextStatusBadge extends StatelessWidget {
     required this.status,
     Color? color,
     this.hexColor,
-  })  : _color = color ?? _hexToColor(hexColor!),
-        _textColor = _findTextColor(color ?? _hexToColor(hexColor!), 2.4);
+  }) {
+    if (color != null) {
+      this.color = color;
+      return;
+    }
+    if (hexColor != null && hexColor.isNotEmpty) {
+      this.color = _hexToColor(hexColor!);
+      return;
+    }
+    this.color =  const Color(0xFFFDDC69);
+  };
+
+  set Color color(Color color) {
+    _color = color;
+    _textColor = _findTextColor(color, 2.4);
+  }
 
   @override
   Widget build(BuildContext context) {
