@@ -15,7 +15,7 @@ abstract base class JsonField<T> implements JsonSerializableField {
   T? get rawValue => _value;
 
   /// Default value for the field
-  abstract T defaultValue;
+  T? defaultValue;
 
   /// If this field is required or not
   bool isRequired;
@@ -34,10 +34,11 @@ abstract base class JsonField<T> implements JsonSerializableField {
 
   /// value getter
   T get value {
+    assert(_value != null || defaultValue != null);
     if (_value != null) {
       return _value!;
     }
-    return defaultValue;
+    return defaultValue!;
   }
 
   /// value setter
@@ -59,15 +60,11 @@ abstract base class JsonField<T> implements JsonSerializableField {
     this.name, {
     this.helper,
     this.isRequired = false,
-    T? defaultValue,
-  }) {
-    type = T;
-    if (defaultValue != null) {
-      this.defaultValue = defaultValue;
-    }
-  }
+    this.defaultValue,
+  });
 
   @override
+
   /// Converts the internal value of the field to a JSON representation.
   ///
   /// Returns:

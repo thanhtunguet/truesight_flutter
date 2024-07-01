@@ -5,17 +5,13 @@ base class JsonList<T extends DataModel> extends JsonField<List<T>>
   @override
   Type genericType = T;
 
-  @override
-  List<T> defaultValue = <T>[];
-
   JsonList(
     super.name, {
-    super.defaultValue = const [],
     super.helper,
     super.isRequired,
-  }) {
-    _value = [];
-  }
+  }) : super(
+          defaultValue: [],
+        );
 
   @override
   void fromJSON(json) {
@@ -48,7 +44,11 @@ base class JsonList<T extends DataModel> extends JsonField<List<T>>
     return value.map(toElement).toList();
   }
 
-  forEach(Function(T e) toElement) {
+  void forEach(Function(T e) toElement) {
     value.forEach(toElement);
   }
+
+  bool get isEmpty => value.isEmpty;
+
+  bool get isNotEmpty => value.isNotEmpty;
 }

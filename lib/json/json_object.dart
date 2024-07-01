@@ -5,15 +5,13 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
   @override
   Type genericType = T;
 
-  @override
-  T? defaultValue;
-
   JsonObject(
     super.name, {
     super.helper,
     super.isRequired,
-    super.defaultValue,
-  });
+  }) : super() {
+    defaultValue = DataModel.createInstance<T>(type);
+  }
 
   @override
   T get value {
@@ -36,7 +34,6 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
   toJSON() {
     return _value?.toJSON();
   }
-
 
   operator [](String fieldName) {
     final field = value.fields.firstWhere(

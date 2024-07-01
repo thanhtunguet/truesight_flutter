@@ -46,6 +46,12 @@ abstract class DataModel implements JsonSerializable {
     return _modelTypes[type]!;
   }
 
+  static T createInstance<T extends DataModel>(Type type) {
+    final ModelType modelType = _modelTypes[type]!;
+    final T instance = modelType.constructor() as T;
+    return instance;
+  }
+
   static create<T extends DataModel>(Type type) {
     final ModelType modelType = _modelTypes[type]!;
     final T instance = modelType.constructor() as T;
