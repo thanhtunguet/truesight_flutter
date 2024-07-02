@@ -191,4 +191,35 @@ abstract class HttpRepository {
       options: options,
     );
   }
+
+  Future<File> uploadFile({
+    String? filePath,
+    io.File? file,
+  }) async {
+    assert((filePath != null && file == null) ||
+        (filePath == null && file != null));
+
+    final path = filePath ?? file!.path;
+
+    // Create a FormData object and add the file
+    FormData formData = FormData.fromMap(
+      {
+        'file': await MultipartFile.fromFile(
+          path,
+          filename: path.split('/').last,
+        ),
+      },
+    );
+
+    return post(
+      url('upload-file'),
+      data: formData,
+      options: Options(
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Content-Length': formData.length,
+        },
+      ),
+    ).then((response) => response.body<File>());
+  }
 }

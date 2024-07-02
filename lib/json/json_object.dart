@@ -3,15 +3,13 @@ part of 'json.dart';
 base class JsonObject<T extends DataModel> extends JsonField<T?>
     implements JsonEntity {
   @override
-  Type genericType = T;
+  Type get genericType => T;
 
   JsonObject(
     super.name, {
     super.helper,
     super.isRequired,
-  }) : super() {
-    defaultValue = DataModel.createInstance<T>(type);
-  }
+  });
 
   @override
   T get value {
