@@ -4,23 +4,26 @@ class TruesightAppUser extends IdentifiedModel {
   @override
   List<JsonField> get fields => [
         id,
-        email,
+        globalUserId,
+        code,
         username,
         displayName,
+        email,
         password,
-        globalUserId,
         avatar,
       ];
 
-  JsonString email = JsonString('email');
+  JsonInteger globalUserId = JsonInteger('globalUserId');
+
+  JsonString code = JsonString('code');
 
   JsonString username = JsonString('username');
 
   JsonString displayName = JsonString('displayName');
 
-  JsonString password = JsonString('password');
+  JsonString email = JsonString('email');
 
-  JsonInteger globalUserId = JsonInteger('globalUserId');
+  JsonString password = JsonString('password');
 
   JsonString avatar = JsonString('avatar');
 }

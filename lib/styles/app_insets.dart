@@ -11,6 +11,16 @@ class AppInsets extends EdgeInsets {
 
   static const horizontalMedium = AppInsets.horizontal(SpacingSize.medium);
 
+  static const bothFull = AppInsets.all(16);
+
+  static const horizontalFull = AppInsets.horizontal(16);
+
+  static const verticalHalf = AppInsets.vertical(8);
+
+  static const verticalQuater = AppInsets.vertical(4);
+
+  static const zero = AppInsets.all(0);
+
   const AppInsets.all(double value) : super.all(value);
 
   const AppInsets.vertical(double value) : super.symmetric(vertical: value);
