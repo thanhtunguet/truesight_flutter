@@ -40,6 +40,7 @@ abstract class HttpRepository {
   HttpRepository() {
     _dio = Dio(options);
     _dio.interceptors.add(CookieManager(truesightService.persistCookieJar));
+    _dio.interceptors.add(tokenInterceptor);
     addInstance(this);
     if (useInterceptors) {
       addInterceptors(interceptorsWrapper);

@@ -58,6 +58,16 @@ class _FileService {
       await launchUrlString(url);
     }
   }
+
+  String createOfficeViewerUrl(String fileUrl) {
+    fileUrl = Uri.encodeComponent(fileUrl);
+    return 'https://view.officeapps.live.com/op/view.aspx?src=$fileUrl';
+  }
+
+  String createGoogleDocsViewerUrl(String fileUrl) {
+    fileUrl = Uri.encodeComponent(fileUrl);
+    return 'https://docs.google.com/gview?embedded=true&url=$fileUrl';
+  }
 }
 
 final fileService = _FileService();

@@ -9,6 +9,8 @@ part 'document_attachment.dart';
 part 'enum_model.dart';
 part 'file.dart';
 part 'identified_model.dart';
+part 'tenant.dart';
+part 'truesight_app_user.dart';
 
 typedef InstanceConstructor<T extends DataModel> = T Function();
 
