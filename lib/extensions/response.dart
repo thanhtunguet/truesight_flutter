@@ -1,4 +1,4 @@
-part of 'http.dart';
+part of 'extensions.dart';
 
 extension HttpResponse on Response {
   T body<T extends DataModel>() {

@@ -29,7 +29,7 @@ class CarbonButton extends StatelessWidget {
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero, // Không bo góc
+          borderRadius: BorderRadius.zero,
         ),
         backgroundColor: color ?? Theme.of(context).colorScheme.primary,
         textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -69,6 +69,10 @@ class CarbonButton extends StatelessWidget {
               ),
       ),
     );
-    return isExpanded ? Expanded(child: child) : child;
+    return isExpanded
+        ? Expanded(
+            child: child,
+          )
+        : child;
   }
 }

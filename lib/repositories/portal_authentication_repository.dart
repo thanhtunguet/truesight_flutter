@@ -1,4 +1,4 @@
-part of 'http.dart';
+part of 'repositories.dart';
 
 class PortalAuthenticationRepository extends HttpRepository {
   @override

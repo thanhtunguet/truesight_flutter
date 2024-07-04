@@ -1,4 +1,4 @@
-part of 'http.dart';
+part of 'repositories.dart';
 
 abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
     extends HttpRepository {

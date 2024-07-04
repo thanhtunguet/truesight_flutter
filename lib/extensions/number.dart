@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+part of 'extensions.dart';
 
 extension NumberFormatter on num {
   String asMoney({

@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:truesight_flutter/json_serializable.dart';
+import 'package:truesight_flutter/truesight_flutter.dart';
 
 part 'abstract_id_filter.dart';
 part 'abstract_number_filter.dart';

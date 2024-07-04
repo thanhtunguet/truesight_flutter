@@ -89,6 +89,10 @@ class _SimpleInfiniteListState<T extends DataModel, TFilter extends DataFilter,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<T>(
           itemBuilder: widget.itemBuilder,
+          firstPageProgressIndicatorBuilder: (context) =>
+              const LoadingIndicator(),
+          newPageProgressIndicatorBuilder: (context) =>
+              const LoadingIndicator(),
         ),
       ),
     );

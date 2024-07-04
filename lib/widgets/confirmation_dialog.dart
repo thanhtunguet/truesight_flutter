@@ -16,6 +16,10 @@ class ConfirmationDialog extends StatelessWidget {
     this.onCancel,
   });
 
+  _goBack(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -50,7 +54,7 @@ class ConfirmationDialog extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               content,
-              style: const TextStyle(fontSize: 16),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
@@ -65,21 +69,22 @@ class ConfirmationDialog extends StatelessWidget {
                   if (onCancel != null) {
                     onCancel!();
                   }
-                  Navigator.of(context).pop();
+                  _goBack(context);
                 },
                 label: 'Không',
                 color: Theme.of(context).colorScheme.secondary,
+                icon: Icons.close,
               ),
             ),
             Expanded(
               child: CarbonButton(
                 onTap: () {
                   onConfirm();
-                  Navigator.of(context).pop();
+                  _goBack(context);
                 },
                 label: 'Xác nhận',
                 color: Theme.of(context).colorScheme.primary,
-                // textStyle: TextStyle(fontSize: 16),
+                icon: Icons.check,
               ),
             ),
           ],
