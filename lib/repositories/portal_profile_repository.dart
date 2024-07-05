@@ -1,6 +1,7 @@
 part of 'repositories.dart';
 
-class PortalProfileRepository extends HttpRepository {
+class PortalProfileRepository<T extends TruesightAppUser>
+    extends HttpRepository {
   @override
   String? get baseUrl => Uri.parse(truesightService.baseApiUrl)
       .replace(
@@ -8,12 +9,12 @@ class PortalProfileRepository extends HttpRepository {
       )
       .toString();
 
-  Future<TruesightAppUser> get() async {
+  Future<T> get() async {
     return dio.post(
       '/get',
       data: {},
     ).then(
-      (response) => response.body<TruesightAppUser>(),
+      (response) => response.body<T>(),
     );
   }
 }

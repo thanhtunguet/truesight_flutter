@@ -1,15 +1,16 @@
 part of 'user_bloc.dart';
 
 @immutable
-sealed class UserState extends Equatable {
-  bool get isLoading => this is UserAuthenticationPendingState;
+sealed class UserState<T extends TruesightAppUser> extends Equatable {
+  bool get isLoading => this is UserAuthenticationPendingState<T>;
 
-  bool get isAuthenticated => this is UserAuthenticatedState;
+  bool get isAuthenticated => this is UserAuthenticatedState<T>;
 
-  UserAuthenticatedState get authenticated => this as UserAuthenticatedState;
+  UserAuthenticatedState<T> get authenticated =>
+      this as UserAuthenticatedState<T>;
 }
 
-final class UserInitial extends UserState {
+final class UserInitial<T extends TruesightAppUser> extends UserState<T> {
   @override
   List<Object?> get props => [
         isLoading,
@@ -17,8 +18,9 @@ final class UserInitial extends UserState {
       ];
 }
 
-final class UserAuthenticatedState extends UserState {
-  final TruesightAppUser user;
+final class UserAuthenticatedState<T extends TruesightAppUser>
+    extends UserState<T> {
+  final T user;
 
   UserAuthenticatedState(this.user);
 
@@ -31,7 +33,8 @@ final class UserAuthenticatedState extends UserState {
       ];
 }
 
-final class UserAuthenticationErrorState extends UserState {
+final class UserAuthenticationErrorState<T extends TruesightAppUser>
+    extends UserState<T> {
   final Object error;
 
   UserAuthenticationErrorState(this.error);
@@ -44,7 +47,8 @@ final class UserAuthenticationErrorState extends UserState {
       ];
 }
 
-final class UserAuthenticationPendingState extends UserState {
+final class UserAuthenticationPendingState<T extends TruesightAppUser>
+    extends UserState<T> {
   @override
   List<Object?> get props => [
         isLoading,
@@ -52,7 +56,8 @@ final class UserAuthenticationPendingState extends UserState {
       ];
 }
 
-final class UserLocalAuthRejectedState extends UserState {
+final class UserLocalAuthRejectedState<T extends TruesightAppUser>
+    extends UserState<T> {
   @override
   List<Object?> get props => [
         isLoading,
@@ -60,7 +65,8 @@ final class UserLocalAuthRejectedState extends UserState {
       ];
 }
 
-final class UserLocalAuthEmptyErrorState extends UserState {
+final class UserLocalAuthEmptyErrorState<T extends TruesightAppUser>
+    extends UserState<T> {
   @override
   List<Object?> get props => [
         isLoading,
@@ -68,7 +74,8 @@ final class UserLocalAuthEmptyErrorState extends UserState {
       ];
 }
 
-final class UserTenantSelectionState extends UserState {
+final class UserTenantSelectionState<T extends TruesightAppUser>
+    extends UserState<T> {
   final List<Tenant> tenants;
 
   UserTenantSelectionState(this.tenants) : super();

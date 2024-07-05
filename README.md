@@ -530,7 +530,3 @@ By using the `DateTimeFormatsVN` class and the `DateTimeFormatter` extension, yo
 ## Additional Information
 
 This package is under development. Feel free to create an issue.
-
----
-
-This documentation provides an overview of the `truesight_flutter` library, explaining its features, how to get started, and how to use its JSON serialization, HTTP request management, and `TrueSightService` capabilities. The examples have been enhanced for better understanding and practical usage.

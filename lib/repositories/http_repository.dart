@@ -22,4 +22,25 @@ abstract class HttpRepository {
       addInterceptors(interceptorsWrapper);
     }
   }
+
+  Future<File> uploadFile({
+    required String filePath,
+    String uploadUrl = 'upload-file',
+  }) async {
+    String filename = path.basename(filePath);
+    FormData formData = FormData.fromMap(
+      {
+        'file': await MultipartFile.fromFile(filePath, filename: filename),
+      },
+    );
+
+    return dio
+        .post(
+          uploadUrl,
+          data: formData,
+        )
+        .then(
+          (response) => response.body<File>(),
+        );
+  }
 }

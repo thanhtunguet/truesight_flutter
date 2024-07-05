@@ -1,6 +1,7 @@
 part of 'repositories.dart';
 
-abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter> extends HttpRepository {
+abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
+    extends HttpRepository {
   Future<List<T>> list(TFilter filter) async {
     return dio
         .post(

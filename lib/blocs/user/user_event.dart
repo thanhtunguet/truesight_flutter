@@ -16,10 +16,8 @@ final class AppleLoggedInEvent extends UserEvent {}
 
 final class BiometricLoggedInEvent extends UserEvent {}
 
-///
 final class UserSimpleLoginEvent extends UserEvent {
   final String username;
-
   final String password;
 
   UserSimpleLoginEvent({
@@ -34,8 +32,9 @@ final class UserLoginErrorEvent extends UserEvent {
   UserLoginErrorEvent(this.error) : super();
 }
 
-final class UserLoginSuccessEvent extends UserEvent {
-  final TruesightAppUser user;
+final class UserLoginSuccessEvent<T extends TruesightAppUser>
+    extends UserEvent {
+  final T user;
 
   UserLoginSuccessEvent(this.user);
 }

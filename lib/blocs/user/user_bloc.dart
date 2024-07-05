@@ -11,21 +11,20 @@ import 'package:truesight_flutter/truesight_flutter.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
-class UserBloc extends Bloc<UserEvent, UserState> {
+class UserBloc<T extends TruesightAppUser>
+    extends Bloc<UserEvent, UserState<T>> {
   static const duration = Duration(seconds: 191);
 
   static final LocalAuthentication auth = LocalAuthentication();
 
   final authRepo = PortalAuthenticationRepository();
-
-  final profileRepo = PortalProfileRepository();
-
+  final profileRepo = PortalProfileRepository<T>();
   final notificationRepo = UtilsNotificationRepository();
 
-  UserBloc() : super(UserInitial()) {
+  UserBloc() : super(UserInitial<T>()) {
     on<UserSimpleLoginEvent>(_onSimpleLogin);
     on<UserLoadingEvent>(_onLoading);
-    on<UserLoginSuccessEvent>(_onLoginSuccess);
+    on<UserLoginSuccessEvent<T>>(_onLoginSuccess);
     on<UserLoginErrorEvent>(_onLoginError);
     on<UserLoggedOutEvent>(_onUserLoggedOut);
     on<GoogleLoggedInEvent>(_onGoogleLoggedIn);
@@ -36,71 +35,58 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserLoadedTenantsEvent>(_onUserLoadedTenants);
   }
 
-  _onUserTenantSelected(
-    UserTenantSelectedEvent event,
-    Emitter<UserState> emit,
-  ) {
-    add(UserLoadingEvent());
-    _handleLoginWithTenantId(event.selectedTenant.id.value);
-  }
-
-  _onUserLoadedTenants(
-    UserLoadedTenantsEvent event,
-    Emitter<UserState> emit,
-  ) {
-    final tenants = event.tenants;
-    if (tenants.length > 1) {
-      emit(UserTenantSelectionState(event.tenants));
-      return;
-    }
-    _handleLoginWithTenantId(tenants[0].id.value);
-    return;
-  }
-
-  _onBiometricLogin(
-    BiometricLoggedInEvent event,
-    Emitter<UserState> emit,
+  Future<void> _onSimpleLogin(
+    UserSimpleLoginEvent event,
+    Emitter<UserState<T>> emit,
   ) async {
     add(UserLoadingEvent());
-
     try {
-      final authenticated = await auth.authenticate(
-        localizedReason: 'Please authenticate to proceed',
-        options: const AuthenticationOptions(
-          useErrorDialogs: true,
-          stickyAuth: true,
-        ),
-      );
-      if (authenticated) {
-        TokenRepository().refreshToken().then((res) async {
-          final user = await profileRepo.get();
-          add(UserLoginSuccessEvent(user));
-          return;
-        }).catchError((error) {
-          errorHandlerService.captureException(error);
-          add(UserLoginErrorEvent(error));
-        });
+      List<Tenant> tenants =
+          await authRepo.login(event.username, event.password);
+      if (tenants.isNotEmpty) {
+        add(UserLoadedTenantsEvent(tenants));
       }
-    } catch (e) {
-      return;
+    } catch (error) {
+      errorHandlerService.captureException(error);
+      add(UserLoginErrorEvent(error));
     }
   }
 
-  _onUserOpenApp(
-    UserOpenedAppEvent event,
-    Emitter<UserState> emit,
+  void _onLoading(
+    UserLoadingEvent event,
+    Emitter<UserState<T>> emit,
   ) {
-    final tenantId = truesightService.tenantId;
-    if (tenantId != 0) {
-      add(UserLoadingEvent());
-      _handleLoginWithTenantId(tenantId);
-      return;
-    }
+    emit(UserAuthenticationPendingState<T>());
   }
 
-  _onGoogleLoggedIn(
+  void _onLoginSuccess(
+    UserLoginSuccessEvent<T> event,
+    Emitter<UserState<T>> emit,
+  ) {
+    emit(UserAuthenticatedState<T>(event.user));
+  }
+
+  void _onLoginError(
+    UserLoginErrorEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    emit(UserAuthenticationErrorState<T>(event.error));
+  }
+
+  void _onUserLoggedOut(
+    UserLoggedOutEvent event,
+    Emitter<UserState<T>> emit,
+  ) async {
+    await pushNotificationService.deleteToken().catchError((error) {
+      errorHandlerService.captureException(error);
+    });
+    truesightService.removeTenantId();
+    emit(UserInitial<T>());
+  }
+
+  Future<void> _onGoogleLoggedIn(
     GoogleLoggedInEvent event,
-    Emitter<UserState> emit,
+    Emitter<UserState<T>> emit,
   ) async {
     add(UserLoadingEvent());
     GoogleSignIn googleSignIn = GoogleSignIn(
@@ -121,9 +107,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  _onAppleLoggedIn(
+  Future<void> _onAppleLoggedIn(
     AppleLoggedInEvent event,
-    Emitter<UserState> emit,
+    Emitter<UserState<T>> emit,
   ) async {
     try {
       add(UserLoadingEvent());
@@ -150,7 +136,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     truesightService.tenantId = id;
     await authRepo.createToken(id);
     final user = await profileRepo.get();
-    add(UserLoginSuccessEvent(user));
+    add(UserLoginSuccessEvent<T>(user));
     try {
       await pushNotificationService
           .configureNotification(user.globalUserId.value);
@@ -159,52 +145,62 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  Future<void> _onSimpleLogin(
-    UserSimpleLoginEvent event,
-    Emitter<UserState> emit,
+  void _onUserTenantSelected(
+    UserTenantSelectedEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    add(UserLoadingEvent());
+    _handleLoginWithTenantId(event.selectedTenant.id.value);
+  }
+
+  void _onUserLoadedTenants(
+    UserLoadedTenantsEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    final tenants = event.tenants;
+    if (tenants.length > 1) {
+      emit(UserTenantSelectionState<T>(event.tenants));
+      return;
+    }
+    _handleLoginWithTenantId(tenants[0].id.value);
+  }
+
+  Future<void> _onBiometricLogin(
+    BiometricLoggedInEvent event,
+    Emitter<UserState<T>> emit,
   ) async {
     add(UserLoadingEvent());
+
     try {
-      List<Tenant> tenants =
-          await authRepo.login(event.username, event.password);
-      if (tenants.isNotEmpty) {
-        add(UserLoadedTenantsEvent(tenants));
+      final authenticated = await auth.authenticate(
+        localizedReason: 'Please authenticate to proceed',
+        options: const AuthenticationOptions(
+          useErrorDialogs: true,
+          stickyAuth: true,
+        ),
+      );
+      if (authenticated) {
+        TokenRepository().refreshToken().then((res) async {
+          final user = await profileRepo.get();
+          add(UserLoginSuccessEvent<T>(user));
+        }).catchError((error) {
+          errorHandlerService.captureException(error);
+          add(UserLoginErrorEvent(error));
+        });
       }
-    } catch (error) {
-      errorHandlerService.captureException(error);
-      add(UserLoginErrorEvent(error));
+    } catch (e) {
+      return;
     }
   }
 
-  void _onUserLoggedOut(
-    UserLoggedOutEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    await pushNotificationService.deleteToken().catchError((error) {
-      errorHandlerService.captureException(error);
-    });
-    truesightService.removeTenantId();
-    emit(UserInitial());
-  }
-
-  void _onLoading(
-    UserLoadingEvent event,
-    Emitter<UserState> emit,
+  void _onUserOpenApp(
+    UserOpenedAppEvent event,
+    Emitter<UserState<T>> emit,
   ) {
-    emit(UserAuthenticationPendingState());
-  }
-
-  void _onLoginSuccess(
-    UserLoginSuccessEvent event,
-    Emitter<UserState> emit,
-  ) {
-    emit(UserAuthenticatedState(event.user));
-  }
-
-  void _onLoginError(
-    UserLoginErrorEvent event,
-    Emitter<UserState> emit,
-  ) {
-    emit(UserAuthenticationErrorState(event.error));
+    final tenantId = truesightService.tenantId;
+    if (tenantId != 0) {
+      add(UserLoadingEvent());
+      _handleLoginWithTenantId(tenantId);
+    }
   }
 }
