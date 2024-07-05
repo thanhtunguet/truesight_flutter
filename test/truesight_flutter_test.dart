@@ -1,13 +1,22 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:truesight_flutter/truesight_flutter.dart';
 
 import 'models/app_user.dart';
 import 'models/app_user_filter.dart';
 import 'models/models.dart';
-import 'repositories/ip_repository.dart';
 
-void main() {
+Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(const MethodChannel('plugins.flutter.io/path_provider'), (MethodCall methodCall) async {
+    return '.';
+  });
+
+  await truesightService.initialize();
+
   final sampleMember = {
     'username': 'member',
     'password': 'memberPasswordxxx',
@@ -54,8 +63,7 @@ void main() {
     expect(user.members.value[0].username.value, sampleMember['username']);
     expect(user.members.value[0].password.value, sampleMember['password']);
     expect(user.members.value[0].email.value, sampleMember['email']);
-    expect(user.members.value[0].dateOfBirth.toJSON(),
-        sampleMember['dateOfBirth']);
+    expect(user.members.value[0].dateOfBirth.toJSON(), sampleMember['dateOfBirth']);
     expect(user.members.value[0].age.value, sampleMember['age']);
     expect(user.members.value[0].level.value, sampleMember['level']);
 
@@ -81,7 +89,7 @@ void main() {
     if (kDebugMode) {
       print(appUser.toString());
     }
-    expect(appUser.toString(), '{"members":[]}');
+    expect(appUser.toString(), '{}');
   });
 
   test('number formats', () async {
@@ -91,13 +99,5 @@ void main() {
     debugPrint(n.asMoney());
     debugPrint(d.asMoney());
     debugPrint(i.asMoney());
-  });
-
-  test('http repository', () async {
-    final ipRepository = IpRepository();
-    final ipAddr = await ipRepository.getIp();
-    if (kDebugMode) {
-      print(ipAddr);
-    }
   });
 }

@@ -1,6 +1,6 @@
 part of 'json.dart';
 
-abstract base class JsonField<T> implements JsonSerializableField {
+abstract base class JsonField<T> with EquatableMixin implements JsonSerializableField {
   /// Field name
   @override
   String name;
@@ -94,4 +94,9 @@ abstract base class JsonField<T> implements JsonSerializableField {
   }
 
   bool get hasError => error != null && error!.isNotEmpty;
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

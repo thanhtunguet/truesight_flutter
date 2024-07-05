@@ -8,4 +8,9 @@ base class JsonBoolean extends JsonField<bool> {
   }) : super(
           defaultValue: false,
         );
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

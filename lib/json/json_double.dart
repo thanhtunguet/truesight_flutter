@@ -8,4 +8,9 @@ base class JsonDouble extends JsonField<double> {
   }) : super(
           defaultValue: 0.0,
         );
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

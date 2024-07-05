@@ -9,4 +9,8 @@ import 'package:truesight_flutter/truesight_flutter.dart';
 part 'base_repository.dart';
 part 'bin_repository.dart';
 part 'http_repository.dart';
+part 'interceptors.dart';
 part 'portal_authentication_repository.dart';
+part 'portal_profile_repository.dart';
+part 'token_repository.dart';
+part 'utils_notification_repository.dart';

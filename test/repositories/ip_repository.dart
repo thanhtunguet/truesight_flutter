@@ -6,9 +6,12 @@ final class IpRepository extends HttpRepository {
   InterceptorsWrapper interceptorsWrapper = InterceptorsWrapper();
 
   @override
+  bool get useInterceptors => false;
+
+  @override
   String? get baseUrl => 'https://checkip.amazonaws.com';
 
   Future<String> getIp() async {
-    return get('/').then((response) => response.bodyAsString());
+    return dio.get('/').then((response) => response.bodyAsString());
   }
 }

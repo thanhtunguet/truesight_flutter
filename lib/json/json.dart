@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:truesight_flutter/truesight_flutter.dart';
 
 part 'json_boolean.dart';

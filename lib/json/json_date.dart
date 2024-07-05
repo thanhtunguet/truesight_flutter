@@ -34,4 +34,9 @@ base class JsonDate extends JsonField<DateTime> {
     }
     return value.format(dateFormat: dateFormat);
   }
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

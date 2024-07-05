@@ -1,29 +1,68 @@
 part of 'repositories.dart';
 
 class PortalAuthenticationRepository extends HttpRepository {
-  @override
-  String? get baseUrl =>
-      '${truesightService.baseApiUrl}/rpc/portal/authentication';
+  PortalAuthenticationRepository() : super();
 
-  Future<void> refreshToken() {
-    return post(url('refresh-token'), data: {})
-        .then((response) => response.data);
-  }
+  @override
+  String? get baseUrl => Uri.parse(truesightService.baseApiUrl)
+      .replace(
+        path: '/rpc/portal/authentication',
+      )
+      .toString();
 
   Future<Tenant> createToken(int id) async {
-    return post(url('create-token'), data: {
-      'id': id,
-    }).then(
+    return dio.post(
+      '/create-token',
+      data: {
+        'id': id,
+      },
+    ).then(
       (response) => response.body<Tenant>(),
     );
   }
 
-  Future<TruesightAppUser> login(String username, String password) {
-    return post(url('login'), data: {
-      'username': username,
-      'password': password,
-    }).then(
-      (response) => response.body<TruesightAppUser>(),
+  Future<List<Tenant>> login(String username, String password) {
+    return dio.post(
+      '/login',
+      data: {
+        'username': username,
+        'password': password,
+      },
+    ).then(
+      (response) => response.bodyAsList<Tenant>(),
+    );
+  }
+
+  Future<List<Tenant>> googleLogin(String idToken) async {
+    return dio.post(
+      '/google-login',
+      data: {
+        'idToken': idToken,
+      },
+    ).then(
+      (response) => response.bodyAsList<Tenant>(),
+    );
+  }
+
+  Future<List<Tenant>> appleLogin(String idToken) async {
+    return dio.post(
+      '/apple-login',
+      data: {
+        'idToken': idToken,
+      },
+    ).then(
+      (response) => response.bodyAsList<Tenant>(),
+    );
+  }
+
+  Future<List<Tenant>> microsoftLogin(String idToken) async {
+    return dio.post(
+      '/microsoft-login',
+      data: {
+        'idToken': idToken,
+      },
+    ).then(
+      (response) => response.bodyAsList<Tenant>(),
     );
   }
 }

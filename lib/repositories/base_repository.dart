@@ -1,37 +1,54 @@
 part of 'repositories.dart';
 
-abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
-    extends HttpRepository {
+abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter> extends HttpRepository {
   Future<List<T>> list(TFilter filter) async {
-    return _dio.post(url("list"), data: filter.toJSON()).then(
+    return dio
+        .post(
+          '/list',
+          data: filter.toJSON(),
+        )
+        .then(
           (response) => response.bodyAsList<T>(),
         );
   }
 
   Future<int> count(TFilter filter) async {
-    return _dio.post(url("count"), data: filter.toJSON()).then(
+    return dio
+        .post(
+          '/count',
+          data: filter.toJSON(),
+        )
+        .then(
           (response) => (response.data as num).toInt(),
         );
   }
 
   Future<T> getById(num id) async {
-    return _dio.post(url("get"), data: {
-      'id': id,
-    }).then(
+    return dio.post(
+      '/get',
+      data: {
+        'id': id,
+      },
+    ).then(
       (response) => response.body<T>(),
     );
   }
 
   Future<T> create(T entity) async {
-    return _dio.post(url("create"), data: entity.toJSON()).then(
+    return dio
+        .post(
+          '/create',
+          data: entity.toJSON(),
+        )
+        .then(
           (response) => response.body<T>(),
         );
   }
 
   Future<T> update(T entity) async {
-    return _dio
+    return dio
         .post(
-          url("update"),
+          '/update',
           data: entity.toJSON(),
         )
         .then(
@@ -40,9 +57,9 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
   }
 
   Future<T> deleteByEntity(T entity) async {
-    return _dio
+    return dio
         .post(
-          url("delete"),
+          '/delete',
           data: entity.toJSON(),
         )
         .then(
@@ -51,8 +68,8 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
   }
 
   Future<T> deleteById(num id) async {
-    return _dio.post(
-      url("delete"),
+    return dio.post(
+      '/delete',
       data: {
         'id': id,
       },
@@ -62,9 +79,9 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
   }
 
   Future<T> approve(T entity) async {
-    return _dio
+    return dio
         .post(
-          url("approve"),
+          '/approve',
           data: entity.toJSON(),
         )
         .then(
@@ -73,9 +90,9 @@ abstract class BaseRepository<T extends DataModel, TFilter extends DataFilter>
   }
 
   Future<T> reject(T entity) async {
-    return _dio
+    return dio
         .post(
-          url("reject"),
+          '/reject',
           data: entity.toJSON(),
         )
         .then(

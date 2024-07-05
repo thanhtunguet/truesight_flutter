@@ -8,4 +8,9 @@ base class JsonInteger extends JsonField<int> {
   }) : super(
           defaultValue: 0,
         );
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

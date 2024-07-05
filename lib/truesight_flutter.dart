@@ -1,5 +1,6 @@
 library truesight_flutter;
 
+export 'blocs/blocs.dart';
 export 'constants/constants.dart';
 export 'extensions/extensions.dart';
 export 'filters/filters.dart';

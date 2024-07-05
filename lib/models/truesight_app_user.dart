@@ -11,6 +11,8 @@ class TruesightAppUser extends IdentifiedModel {
         email,
         password,
         avatar,
+        address,
+        phone,
       ];
 
   JsonInteger globalUserId = JsonInteger('globalUserId');
@@ -26,4 +28,8 @@ class TruesightAppUser extends IdentifiedModel {
   JsonString password = JsonString('password');
 
   JsonString avatar = JsonString('avatar');
+
+  JsonString address = JsonString('address');
+
+  JsonString phone = JsonString('phone');
 }

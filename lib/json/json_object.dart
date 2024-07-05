@@ -1,7 +1,6 @@
 part of 'json.dart';
 
-base class JsonObject<T extends DataModel> extends JsonField<T?>
-    implements JsonEntity {
+base class JsonObject<T extends DataModel> extends JsonField<T?> implements JsonEntity {
   @override
   Type get genericType => T;
 
@@ -50,4 +49,10 @@ base class JsonObject<T extends DataModel> extends JsonField<T?>
 
     field.value = value;
   }
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+        ...value.fields,
+      ];
 }

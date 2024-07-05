@@ -8,4 +8,9 @@ base class JsonNumber extends JsonField<num> {
   }) : super(
           defaultValue: 0,
         );
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

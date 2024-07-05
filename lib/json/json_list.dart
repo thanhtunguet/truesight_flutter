@@ -1,7 +1,6 @@
 part of 'json.dart';
 
-base class JsonList<T extends DataModel> extends JsonField<List<T>>
-    implements JsonEntity {
+base class JsonList<T extends DataModel> extends JsonField<List<T>> implements JsonEntity {
   @override
   Type genericType = T;
 
@@ -51,4 +50,10 @@ base class JsonList<T extends DataModel> extends JsonField<List<T>>
   bool get isEmpty => value.isEmpty;
 
   bool get isNotEmpty => value.isNotEmpty;
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+        ...value,
+      ];
 }

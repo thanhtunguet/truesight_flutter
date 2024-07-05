@@ -8,4 +8,9 @@ base class JsonString extends JsonField<String> {
   }) : super(
           defaultValue: '',
         );
+
+  @override
+  List<Object?> get props => [
+        rawValue,
+      ];
 }

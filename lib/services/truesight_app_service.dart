@@ -1,15 +1,17 @@
-import 'dart:io';
-
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:truesight_flutter/extensions/cookie_jar.dart';
 import 'package:truesight_flutter/providers/dio_image_provider.dart';
 
-final box = Hive.box('truesight_app_service');
-
 class TruesightAppService {
+  static TruesightAppService instance = truesightService;
+
+  static const _boxName = 'truesight_app_service';
+
+  Box get _box => Hive.box(_boxName);
+
   TruesightAppService._();
 
   late PersistCookieJar persistCookieJar;
@@ -23,16 +25,10 @@ class TruesightAppService {
     }
     if (enableHive) {
       await Hive.initFlutter();
-      await Hive.openBox('truesight_app_service');
+      await Hive.openBox(_boxName);
     }
 
-    Directory documentsDir = await getApplicationDocumentsDirectory();
-    final documentsPath = documentsDir.path;
-    persistCookieJar = PersistCookieJar(
-      ignoreExpires: true,
-      storage: FileStorage(documentsPath),
-      persistSession: true,
-    );
+    persistCookieJar = await TrueSightCookieJar.init();
 
     DioImage.defaultDio.interceptors.add(
       CookieManager(truesightService.persistCookieJar),
@@ -44,24 +40,39 @@ class TruesightAppService {
   }
 
   set faceIdEnabled(bool value) {
-    box.put('faceId', value);
+    _box.put('faceId', value);
   }
 
   String get baseApiUrl {
-    return _getOrCreate('baseApiUrl', defaultValue: null) ?? dotenv.env['BASE_API_URL']!;
+    return _getOrCreate(
+      'baseApiUrl',
+      defaultValue: dotenv.env['BASE_API_URL']!,
+    );
   }
 
   set baseApiUrl(String value) {
-    box.put('baseApiUrl', value);
+    _box.put('baseApiUrl', value);
+  }
+
+  int get tenantId {
+    return _getOrCreate('tenantId', defaultValue: 0);
+  }
+
+  set tenantId(int tenantId) {
+    _box.put('tenantId', tenantId);
+  }
+
+  removeTenantId() {
+    _box.delete('tenantId');
   }
 
   dynamic _getOrCreate(
     String key, {
     dynamic defaultValue,
   }) {
-    var result = box.get(key);
+    var result = _box.get(key);
     if (result == null) {
-      box.put(key, defaultValue);
+      _box.put(key, defaultValue);
       result = defaultValue;
     }
     return result;
