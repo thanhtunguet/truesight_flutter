@@ -11,11 +11,16 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(const MethodChannel('plugins.flutter.io/path_provider'), (MethodCall methodCall) async {
+      .setMockMethodCallHandler(
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (MethodCall methodCall) async {
     return '.';
   });
 
-  await truesightService.initialize();
+  await truesightService.initialize(
+    enableDotenv: false,
+    enableHive: false,
+  );
 
   final sampleMember = {
     'username': 'member',
@@ -63,7 +68,8 @@ Future<void> main() async {
     expect(user.members.value[0].username.value, sampleMember['username']);
     expect(user.members.value[0].password.value, sampleMember['password']);
     expect(user.members.value[0].email.value, sampleMember['email']);
-    expect(user.members.value[0].dateOfBirth.toJSON(), sampleMember['dateOfBirth']);
+    expect(user.members.value[0].dateOfBirth.toJSON(),
+        sampleMember['dateOfBirth']);
     expect(user.members.value[0].age.value, sampleMember['age']);
     expect(user.members.value[0].level.value, sampleMember['level']);
 
