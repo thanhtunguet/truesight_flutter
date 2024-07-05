@@ -62,7 +62,7 @@ class TruesightAppService {
     _box.put('tenantId', tenantId);
   }
 
-  removeTenantId() {
+  void removeTenantId() {
     _box.delete('tenantId');
   }
 

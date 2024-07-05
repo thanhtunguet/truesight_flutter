@@ -18,7 +18,7 @@ class TokenRepository extends HttpRepository {
 
   Future<void> refreshToken() {
     return dio.post(
-      '/refreshToken',
+      '/refresh-token',
       data: {},
     ).then(
       (response) => response.data,

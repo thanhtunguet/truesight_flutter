@@ -51,3 +51,32 @@ final class UserAuthenticationPendingState extends UserState {
         isAuthenticated,
       ];
 }
+
+final class UserLocalAuthRejectedState extends UserState {
+  @override
+  List<Object?> get props => [
+        isLoading,
+        isAuthenticated,
+      ];
+}
+
+final class UserLocalAuthEmptyErrorState extends UserState {
+  @override
+  List<Object?> get props => [
+        isLoading,
+        isAuthenticated,
+      ];
+}
+
+final class UserTenantSelectionState extends UserState {
+  final List<Tenant> tenants;
+
+  UserTenantSelectionState(this.tenants) : super();
+
+  @override
+  List<Object?> get props => [
+        isLoading,
+        isAuthenticated,
+        ...tenants,
+      ];
+}

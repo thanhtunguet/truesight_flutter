@@ -14,6 +14,8 @@ final class GoogleLoggedInEvent extends UserEvent {}
 
 final class AppleLoggedInEvent extends UserEvent {}
 
+final class BiometricLoggedInEvent extends UserEvent {}
+
 ///
 final class UserSimpleLoginEvent extends UserEvent {
   final String username;
@@ -36,4 +38,16 @@ final class UserLoginSuccessEvent extends UserEvent {
   final TruesightAppUser user;
 
   UserLoginSuccessEvent(this.user);
+}
+
+final class UserTenantSelectedEvent extends UserEvent {
+  final Tenant selectedTenant;
+
+  UserTenantSelectedEvent(this.selectedTenant);
+}
+
+final class UserLoadedTenantsEvent extends UserEvent {
+  final List<Tenant> tenants;
+
+  UserLoadedTenantsEvent(this.tenants);
 }

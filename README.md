@@ -34,6 +34,17 @@ To install this package, run:
 flutter pub add truesight_flutter go_router intl
 ```
 
+### Dependencies
+
+This package depends on some libraries that must be installed manually:
+
+```yaml
+dependencies:
+  # ...others
+  carbon_icons:
+    git: https://github.com/thanhtunguet/carbon-icons.git
+```
+
 ## Usage
 
 ### JSON Serialization
