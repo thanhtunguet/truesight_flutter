@@ -36,13 +36,12 @@ dependencies:
   sentry_flutter: ^8.3.0
   sign_in_with_apple: ^6.1.1
   url_launcher: ^6.3.0
+  supa_carbon_icons: ^0.0.1+5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  supa_carbon_icons:
-    git: https://github.com/thanhtunguet/carbon-icons.git
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
