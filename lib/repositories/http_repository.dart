@@ -25,7 +25,7 @@ abstract class HttpRepository {
 
   Future<File> uploadFile({
     required String filePath,
-    String uploadUrl = 'upload-file',
+    String uploadUrl = '/upload-file',
   }) async {
     String filename = path.basename(filePath);
     FormData formData = FormData.fromMap(
