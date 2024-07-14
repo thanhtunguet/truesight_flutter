@@ -35,75 +35,25 @@ class UserBloc<T extends TruesightAppUser>
     on<UserLoadedTenantsEvent>(_onUserLoadedTenants);
   }
 
-  Future<void> _onSimpleLogin(
-    UserSimpleLoginEvent event,
-    Emitter<UserState<T>> emit,
-  ) async {
-    add(UserLoadingEvent());
-    try {
-      List<Tenant> tenants =
-          await authRepo.login(event.username, event.password);
-      if (tenants.isNotEmpty) {
-        add(UserLoadedTenantsEvent(tenants));
-      }
-    } catch (error) {
-      errorHandlerService.captureException(error);
-      add(UserLoginErrorEvent(error));
-    }
-  }
-
-  void _onLoading(
-    UserLoadingEvent event,
-    Emitter<UserState<T>> emit,
-  ) {
-    emit(UserAuthenticationPendingState<T>());
-  }
-
-  void _onLoginSuccess(
-    UserLoginSuccessEvent<T> event,
-    Emitter<UserState<T>> emit,
-  ) {
-    emit(UserAuthenticatedState<T>(event.user));
-  }
-
-  void _onLoginError(
-    UserLoginErrorEvent event,
-    Emitter<UserState<T>> emit,
-  ) {
-    emit(UserAuthenticationErrorState<T>(event.error));
-  }
-
-  void _onUserLoggedOut(
-    UserLoggedOutEvent event,
-    Emitter<UserState<T>> emit,
-  ) async {
-    await pushNotificationService.deleteToken().catchError((error) {
+  Future<void> logout() async {
+    await pushNotificationService.deleteToken().catchError((error) async {
       errorHandlerService.captureException(error);
     });
     truesightService.removeTenantId();
-    emit(UserInitial<T>());
+    await truesightService.persistCookieJar.deleteAll();
+    add(UserLoggedOutEvent());
   }
 
-  Future<void> _onGoogleLoggedIn(
-    GoogleLoggedInEvent event,
-    Emitter<UserState<T>> emit,
-  ) async {
-    add(UserLoadingEvent());
-    GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: <String>[
-        'email',
-      ],
-    );
+  Future<void> _handleLoginWithTenantId(int id) async {
+    truesightService.tenantId = id;
+    await authRepo.createToken(id);
+    final user = await profileRepo.get();
+    add(UserLoginSuccessEvent<T>(user));
     try {
-      final credentials = await googleSignIn.signIn();
-      final googleKey = await credentials?.authentication;
-      final tenants = await authRepo.googleLogin(googleKey!.idToken!);
-      if (tenants.isNotEmpty) {
-        add(UserLoadedTenantsEvent(tenants));
-      }
+      await pushNotificationService
+          .configureNotification(user.globalUserId.value);
     } catch (error) {
       errorHandlerService.captureException(error);
-      add(UserLoginErrorEvent(error));
     }
   }
 
@@ -130,39 +80,6 @@ class UserBloc<T extends TruesightAppUser>
       errorHandlerService.captureException(error);
       add(UserLoginErrorEvent(error));
     }
-  }
-
-  Future<void> _handleLoginWithTenantId(int id) async {
-    truesightService.tenantId = id;
-    await authRepo.createToken(id);
-    final user = await profileRepo.get();
-    add(UserLoginSuccessEvent<T>(user));
-    try {
-      await pushNotificationService
-          .configureNotification(user.globalUserId.value);
-    } catch (error) {
-      errorHandlerService.captureException(error);
-    }
-  }
-
-  void _onUserTenantSelected(
-    UserTenantSelectedEvent event,
-    Emitter<UserState<T>> emit,
-  ) {
-    add(UserLoadingEvent());
-    _handleLoginWithTenantId(event.selectedTenant.id.value);
-  }
-
-  void _onUserLoadedTenants(
-    UserLoadedTenantsEvent event,
-    Emitter<UserState<T>> emit,
-  ) {
-    final tenants = event.tenants;
-    if (tenants.length > 1) {
-      emit(UserTenantSelectionState<T>(event.tenants));
-      return;
-    }
-    _handleLoginWithTenantId(tenants[0].id.value);
   }
 
   Future<void> _onBiometricLogin(
@@ -193,6 +110,86 @@ class UserBloc<T extends TruesightAppUser>
     }
   }
 
+  Future<void> _onGoogleLoggedIn(
+    GoogleLoggedInEvent event,
+    Emitter<UserState<T>> emit,
+  ) async {
+    add(UserLoadingEvent());
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: <String>[
+        'email',
+      ],
+    );
+    try {
+      final credentials = await googleSignIn.signIn();
+      final googleKey = await credentials?.authentication;
+      final tenants = await authRepo.googleLogin(googleKey!.idToken!);
+      if (tenants.isNotEmpty) {
+        add(UserLoadedTenantsEvent(tenants));
+      }
+    } catch (error) {
+      errorHandlerService.captureException(error);
+      add(UserLoginErrorEvent(error));
+    }
+  }
+
+  void _onLoading(
+    UserLoadingEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    emit(UserAuthenticationPendingState<T>());
+  }
+
+  void _onLoginError(
+    UserLoginErrorEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    emit(UserAuthenticationErrorState<T>(event.error));
+  }
+
+  void _onLoginSuccess(
+    UserLoginSuccessEvent<T> event,
+    Emitter<UserState<T>> emit,
+  ) {
+    emit(UserAuthenticatedState<T>(event.user));
+  }
+
+  Future<void> _onSimpleLogin(
+    UserSimpleLoginEvent event,
+    Emitter<UserState<T>> emit,
+  ) async {
+    add(UserLoadingEvent());
+    try {
+      List<Tenant> tenants =
+          await authRepo.login(event.username, event.password);
+      if (tenants.isNotEmpty) {
+        add(UserLoadedTenantsEvent(tenants));
+      }
+    } catch (error) {
+      errorHandlerService.captureException(error);
+      add(UserLoginErrorEvent(error));
+    }
+  }
+
+  void _onUserLoadedTenants(
+    UserLoadedTenantsEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    final tenants = event.tenants;
+    if (tenants.length > 1) {
+      emit(UserTenantSelectionState<T>(event.tenants));
+      return;
+    }
+    _handleLoginWithTenantId(tenants[0].id.value);
+  }
+
+  void _onUserLoggedOut(
+    UserLoggedOutEvent event,
+    Emitter<UserState<T>> emit,
+  ) async {
+    emit(UserInitial<T>());
+  }
+
   void _onUserOpenApp(
     UserOpenedAppEvent event,
     Emitter<UserState<T>> emit,
@@ -202,5 +199,13 @@ class UserBloc<T extends TruesightAppUser>
       add(UserLoadingEvent());
       _handleLoginWithTenantId(tenantId);
     }
+  }
+
+  void _onUserTenantSelected(
+    UserTenantSelectedEvent event,
+    Emitter<UserState<T>> emit,
+  ) {
+    add(UserLoadingEvent());
+    _handleLoginWithTenantId(event.selectedTenant.id.value);
   }
 }

@@ -1,6 +1,48 @@
 part of 'repositories.dart';
 
 abstract class HttpRepository {
+  static Completer<void>? _refreshCompleter;
+
+  static Future<void> refreshToken() async {
+    return await PortalAuthenticationRepository()
+        .refreshToken()
+        .catchError((error) {
+      throw error;
+    });
+  }
+
+  static final refreshInterceptor = InterceptorsWrapper(
+    onError: (DioException error, ErrorInterceptorHandler handler) async {
+      if (error.response?.statusCode == 401) {
+        if (_refreshCompleter == null) {
+          _refreshCompleter = Completer<void>();
+          try {
+            await refreshToken();
+            _refreshCompleter?.complete();
+          } catch (refreshError) {
+            _refreshCompleter?.completeError(refreshError);
+          } finally {
+            _refreshCompleter = null;
+          }
+        }
+
+        try {
+          await _refreshCompleter?.future;
+          final dio = Dio();
+          dio.interceptors
+              .add(CookieManager(truesightService.persistCookieJar));
+          final response = await dio.fetch(error.requestOptions);
+          return handler.resolve(response);
+        } catch (refreshError) {
+          await GetIt.instance.get<UserBloc>().logout();
+          handler.next(error);
+        }
+      } else {
+        return handler.next(error);
+      }
+    },
+  );
+
   late Dio dio;
 
   String? get baseUrl;

@@ -65,4 +65,13 @@ class PortalAuthenticationRepository extends HttpRepository {
       (response) => response.bodyAsList<Tenant>(),
     );
   }
+
+  Future<void> refreshToken() async {
+    return dio.post(
+      '/refresh-token',
+      data: {},
+    ).then(
+      (response) => response.data,
+    );
+  }
 }

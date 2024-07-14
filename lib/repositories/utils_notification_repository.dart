@@ -2,7 +2,8 @@ part of 'repositories.dart';
 
 class UtilsNotificationRepository extends HttpRepository {
   @override
-  String get baseUrl => '${truesightService.baseApiUrl}/rpc/utils-notification/notification';
+  String get baseUrl =>
+      '${truesightService.baseApiUrl}/rpc/utils-notification/notification';
 
   Future<bool> createToken(
     String token, {
